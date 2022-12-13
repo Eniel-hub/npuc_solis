@@ -1,0 +1,10 @@
+
+<div [class] = 'navClass.value'>
+  <ul>
+    <li *ngFor="let item of menuItems" class="_navbar-item button">
+      <a routerLink="{{item.link}}">{{item.name}}</a>
+    </li>
+  </ul>
+</div>
+
+

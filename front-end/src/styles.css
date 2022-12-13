@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+:root{
+  --size-ratio : calc(0.43vh + 1vw);
+  --header-height : calc(var(--size-ratio) * 5);
+  --footer-height : calc(var(--size-ratio) *0);
+  --content-height : calc(100vh - var(--header-height) - var(--footer-height));
+  --content-width : 100vw;
+  --max-height : 100vh;
+  --wrapper-height : calc(var(--content-height) - 3vh);
+  --wrapper-width : calc(var(--content-width) - 3vw);
+  --img-sqr-size : calc(12vh + 12vw);
+  /* --img-sqr-size : calc(15vh + 15vw); */
+  /* --background-linear : linear-gradient(45deg,
+                                      rgb(34, 12, 58) 0%,
+                                      rgb(12, 24, 58) 35%,
+                                      rgb(12, 36, 58) 70%,
+                                      rgb(12, 48, 58) 100% ); */
+  --background-linear : linear-gradient(45deg,
+                                      rgb(107, 40, 179) 0%,
+                                      rgb(38, 80, 198) 35%,
+                                      rgb(45, 137, 223) 70%,
+                                      rgb(25, 191, 236) 100% );
+  --background-linear-2 : linear-gradient(45deg,
+                                      rgb(8, 59, 13) 0%,
+                                      rgb(8, 59, 28) 35%,
+                                      rgb(8, 59, 38) 70%,
+                                      rgb(8, 59, 48) 100% );
+  --background-linear-3 : linear-gradient(45deg,
+                                      rgba(8, 59, 28, .8),
+                                      rgba(8, 59, 38, .8),
+                                      rgba(8, 59, 48, .8),
+                                      rgba(8, 59, 58, .8) );
+
+  --header-font-family : 'Josefin Sans', sans-serif;
+  --header-font-weight : 800;
+  --header-font-size : 1.25em;
+
+  --title-font-size : 2em;
+  --title-font-family : 'Inter Tight', sans-serif;
+  --title-font-weight : 600;
+
+  --body-font-family : 'Montserrat Alternates', sans-serif;
+  --body-font-size : 1em;
+  --body-font-weight : bold;
+
+  --marroon-darkest : #1a100b;
+  --marroon-darker : #352217;
+  --marroon-dark : #462A1B;
+  --marroon-base : #9C7B63;
+  --marroon-light : #DCB774;
+
+  --box-shadow : 5px 5px 5px 5px rgba(0,0,0,0.16),5px 5px 50px 5px rgba(0,0,0,0.12);
+  --medium-box-shadow : 5px 5px 5px 5px rgba(0,0,0,0.16),5px 5px 50px 5px rgba(0,0,0,0.12);
+  --small-box-shadow : 1px 1px 1px 1px rgba(0,0,0,0.16),5px 5px 50px 5px rgba(0,0,0,0.12);
+}
+
+*,
+*::before,
+*::after{
+  margin: 0;
+  padding: 0;
+}
+
+

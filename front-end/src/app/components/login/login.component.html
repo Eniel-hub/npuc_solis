@@ -1,0 +1,76 @@
+<div class="body">
+  <div class="header">
+    <app-header [menuItems]="menuItems" ></app-header>
+  </div>
+  <div class="content">
+    <div class="wrapper container">
+      <div class="row">
+        <div class="title">
+          <h2>LOGIN</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="img">
+            <img src="https://i.pinimg.com/originals/8b/44/51/8b4451665d6b2139e29f29b51ffb1829.png" alt="">
+          </div>
+        </div>
+        <div class="col form">
+          <div class="label">
+            <label>Username : </label>
+          </div>
+          <div class="input">
+            <fa-icon [icon] = 'userIcon'></fa-icon>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Username"
+              (input) = 'getInput(0, $event)'
+            >
+          </div>
+          <div class="label">
+            <label>Password : </label>
+          </div>
+          <div class="input">
+            <fa-icon [icon] = 'lockIcon'></fa-icon>
+            <input
+            [type]='passwordType'
+            id="password"
+            placeholder="Password"
+            (input) = 'getInput(1, $event)'
+            >
+            <fa-icon
+              [icon] = 'eye()'
+              class = 'eye'
+              (click) = 'eyeClick()'>
+            </fa-icon>
+          </div>
+          <div class = 'info'>
+            <span [class]="successClass">
+              {{successMessage}}
+            </span>
+            <span [class]="errorClass">
+              {{errorMessage}}
+            </span>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-outline-success btn-sm"
+            (click) = 'login()'
+          >Login Now</button>
+          <a routerLink="/user/register">
+            <div class="link">
+              <div class="arrow">
+                <app-arrow></app-arrow>
+              </div>
+              <div class="text">
+                <span>Are you a new student? Register here!!</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

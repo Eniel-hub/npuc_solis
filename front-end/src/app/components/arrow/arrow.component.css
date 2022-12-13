@@ -1,0 +1,19 @@
+
+.arrow {
+  align-self: flex-end;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  transform-origin: bottom;
+}
+
+.slide:hover {
+  cursor: pointer;
+  animation-name: slide;
+  animation-timing-function: ease;
+}
+
+@keyframes slide {
+0%   { transform: translateX(0); }
+50%  { transform: translateX(10vw); }
+100% { transform: translateX(0); }
+}

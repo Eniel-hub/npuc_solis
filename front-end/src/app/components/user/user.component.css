@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+
+.userdiv{
+  cursor: pointer;
+  height: fit-content;
+  /* width: fit-content; */
+  width: calc(9vh + 9vw);
+  display: flex;
+  /* background-color: red; */
+}
+
+.userdiv .icon {
+  margin-left: auto;
+  padding: 0%;
+  border: 1.5px solid white;
+  /* width: calc(3vh + 1.5vw); */
+  /* height: calc(3vh + 1.5vw); */
+  width: calc(1.204vh + 2.8vw);
+  height: calc(1.204vh + 2.8vw);
+  border-radius: 50%;
+  display: flex;
+}
+
+.userdiv:has(.user) .icon{
+  margin-right: auto;
+  float: left;
+}
+
+.userdiv .icon:hover {
+  background-color: #112233;
+  color: white;
+}
+
+.userdiv .icon.hide{
+  display: none;
+}
+
+.userdiv .icon fa-icon {
+  /* font-size: calc(1.6vh + .8vh); */
+  font-size: calc(0.645vh + 1.5vw); /*vh = 0.43vw*/
+  margin: auto;
+}
+
+.userdiv .user, .userdiv .sign-in-up {
+  float: right;
+  margin: auto;
+  font-family: 'Inconsolata', monospace;
+  font-size: calc(.9vh + .9vw);
+}
+
+.userdiv .sign-in-up a{
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.userdiv .sign-in-up a:hover{
+  color: rgb(250, 121, 248);
+  font-weight: bold;
+}
+
+.userdiv .sign-in-up a:nth-child(1){
+  padding-right: 0.5em;
+  /* padding-left: -0.5em; */
+  border-right: 1px solid #fff;
+}
+
+.userdiv .sign-in-up a:nth-child(2){
+  padding-left: 0.5em;
+}
+
+.userdiv .sign-in-up{
+  display: none;
+}
+
+.userdiv:has(.icon.hide) .sign-in-up{
+  display: inline;
+}
+
+.userdiv:has(.user) .sign-in-up{
+  display: none;
+}
+
+.userdiv:has(.user) .icon.hide{
+  display: flex;
+}

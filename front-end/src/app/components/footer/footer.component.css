@@ -1,0 +1,28 @@
+/* center  black  padding-16 */
+*,
+*::before,
+*::after{
+  font-family: var(--body-font-family);
+  /* font-size: var(--body-font-size); */
+  color: #fff;
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
+}
+
+.footer{
+  text-align:center;
+  background-color: var(--marroon-darker);
+  padding-top:16px;
+  padding-bottom:16px;
+  position: relative;
+}
+
+.title{
+  font-family: var(--header-font-family);
+  font-size: var(--header-font-size);
+  font-weight: var(--header-font-weight);
+}
+
+.link:hover{
+  color: rgb(55, 160, 230);
+}
