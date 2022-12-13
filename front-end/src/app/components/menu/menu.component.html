@@ -1,9 +1,14 @@
 
 <div [class] = 'navClass.value'>
   <ul>
-    <li *ngFor="let item of menuItems" class="_navbar-item button">
-      <a routerLink="{{item.link}}">{{item.name}}</a>
-    </li>
+    <div *ngFor="let item of menuItems">
+      <a routerLink="{{item.link}}">
+        <li class="_navbar-item button">
+          <span>{{item.name}}</span>
+        </li>
+      </a>
+    </div>
+
   </ul>
 </div>
 

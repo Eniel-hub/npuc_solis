@@ -49,10 +49,16 @@ ul {
   background-color: var(--marroon-light)
 }
 
-.button a {
+a{
   text-decoration: none;
   color: #000;
-  font-size: var(--body-font-size);
+}
+
+span{
+  text-transform: capitalize;
+  font-size: calc(var(--body-font-size) *1.2);
+  /* font-weight: var(--body-font-weight); */
+  letter-spacing: normal;
 }
 
 .hide {
@@ -63,6 +69,7 @@ ul {
   display: block;
   animation:animateright 0.5s
 }
+
 @keyframes animateright{
   from{right:-300px;opacity:0} to{right:0;opacity:1}
 }
@@ -71,6 +78,7 @@ ul {
   position:relative;
   animation:animateleft 0.5s;
 }
+
 @keyframes animateleft{
   from{right: 0;opacity:1} to{right:-300px;opacity:0}
 }

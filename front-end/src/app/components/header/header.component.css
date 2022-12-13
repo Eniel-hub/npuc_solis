@@ -46,6 +46,9 @@
 .menu-items{
   float: right;
   margin-right: calc(var(--size-ratio) * 1);
+  text-transform: capitalize;
+  font-size: calc(var(--body-font-size) *1.2);
+  letter-spacing: normal;
 }
 
 .display-small{
@@ -64,6 +67,7 @@
   display:block;
   outline:0
 }
+
 .button{
   border:none;
   display:inline-block;

@@ -12,23 +12,24 @@ export class HeaderComponent implements OnInit {
   barIcon = faBars;
   homeLink : string = '';
   currentRouter : string = '';
+  hasDropdown : boolean = false;
   menuIsActive : boolean = false;
   menuClass = new BehaviorSubject('hide');
-  classActive : boolean = false;
   @Input() menuItems : {name : string, link : string}[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
+    let strings = window.location.href.split(window.location.host);
+    let url = strings[strings.length-1];
+
+    if(url.match('student'))
+      this.hasDropdown = true
+    else
+      this.hasDropdown = false
   }
 
   MenuToggle = () =>{
-    if(!this.classActive){
-      this.menuIsActive = this.classActive;
-      this.classActive = !this.classActive;
-      this.MenuToggle();
-    }
-
     this.menuIsActive = !this.menuIsActive;
     if(this.menuIsActive){
       this.menuClass.next('_nav animate-right');

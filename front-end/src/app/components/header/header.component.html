@@ -15,16 +15,16 @@
   <div class="_navbar">
     <a [routerLink]="homeLink" class="_navbar-item title button"><b>SOLIS</b> NPUC</a>
     <!-- Float links to the right. Hide them on small screens -->
-    <div *ngIf="menuItems.length == 3"class="menu-items">
+    <div *ngIf="!hasDropdown"class="menu-items">
       <a *ngFor="let item of menuItems" routerLink="{{item.link}}" class="_navbar-item button hide-small">{{item.name}}</a>
       <fa-icon [icon] = 'barIcon' class="_navbar-item button display-small icon" (click)="MenuToggle()"></fa-icon>
     </div>
-    <div *ngIf="menuItems.length != 3" class="menu-items">
-      <!-- <app-user></app-user> -->
+    <div *ngIf="hasDropdown" class="menu-items">
+      <app-user></app-user>
       <fa-icon [icon] = 'barIcon' class="_navbar-item button icon" (click)="MenuToggle()"></fa-icon>
     </div>
   </div>
-  <div class="menu-dropdown display-small">
+  <div class="menu-dropdown">
     <app-menu [navClass] = "menuClass" [menuItems]="menuItems"></app-menu>
   </div>
 </div>

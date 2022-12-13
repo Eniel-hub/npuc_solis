@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
       this.successMessage = 'Login successful';
     }, 1000);
     setTimeout( ()=>{
-      this.router.navigate(['student']);
+      this.router.navigate(['/student/dashboard']);
     }, 2000);
   }
 
