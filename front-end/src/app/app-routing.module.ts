@@ -10,6 +10,8 @@ import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
+
 const routes: Routes = [
   {path: '', component : HomeComponent},
   {path: 'home', component : HomeComponent},
@@ -18,7 +20,7 @@ const routes: Routes = [
   {path: 'user/login', component : LoginComponent},
   {path: 'user/logout', component : LogoutComponent},
   {path: 'user/register', component : RegisterComponent},
-  {path: 'student/dashboard', component : DashboardComponent},
+  {path: 'student/dashboard', component : DashboardComponent, canActivate : [AuthGuard] },
   {path: '**', component : Page404Component}
 ];
 

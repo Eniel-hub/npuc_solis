@@ -17,7 +17,7 @@ module.exports = (passport) => {
                     return done(null, false, {error : "username not found"});
             const isValid = auth.CheckPassword(password, user.hash, user.salt);
             if(isValid)
-                return done(null, user);
+                return done(null, username);
             else 
                 return done(null, false, {error : "wrong password"});
             

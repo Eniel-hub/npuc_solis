@@ -121,6 +121,7 @@ export class LoginComponent implements OnInit {
           this.getErrorMessage();
         }
         else {
+          this.userService.setUserInfo({username : response});
           this.successfulLogin();
         }
       });

@@ -20,6 +20,7 @@ export class UserService {
 
   isAuthenticated() : Boolean {
     let userData = localStorage.getItem('userInfo')
+    console.log(userData)
     if(userData && JSON.parse(userData)){
       return true;
     }
@@ -27,13 +28,15 @@ export class UserService {
   }
 
   setUserInfo(user : any){
+    console.log(user)
     localStorage.setItem('userInfo', JSON.stringify(user));
   }
 
   validate = (user : User) => {
     return this.httpClient.post(this.loginUrl,
                                 {'username' : user.username,
-                                'password' : user.password});
+                                'password' : user.password},
+                                {withCredentials : true});
   }
 
   saveUser = (user : User) =>{

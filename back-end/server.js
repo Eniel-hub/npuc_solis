@@ -23,13 +23,18 @@ app.set('view engine', 'ejs');
 pportController(passport);
 app.use(express.json());
 app.use(flash());
-app.use(cors());
+app.use(cors({
+    origin: [
+        "http://localhost:4200"
+    ], 
+    credentials: true
+}));
 
 //routes
 app.use('/home', homeRouter);
-app.use('/user', userRouter);
+app.use('/user',  userRouter);
 app.use('/student', studentRouter);
-app.use('/dashboard', dashboardRouter);
+// app.use('/dashboard', dashboardRouter);
 app.get('/', (req, res) =>{ res.redirect('/home') });
 // app.get('*', function(req, res){
 //     res.sendFile(path.resolve('../frontend/enrollement-process/src/index.html'))

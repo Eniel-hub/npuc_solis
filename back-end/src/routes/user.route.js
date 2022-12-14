@@ -13,7 +13,8 @@ router.post('/login', (req, res, next) =>{
         if(!user) return res.json({error : info.error});
         req.logIn(user, (err) =>{
             if(err) return next(err);
-            return res.json({success: 'success'});
+            req.session.user = user;
+            return res.json(user)
         });
     })(req, res, next)
 })
