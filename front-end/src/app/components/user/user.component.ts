@@ -1,7 +1,9 @@
 import { User } from '../../interfaces/User';
+import { Observable } from 'rxjs';
+import { Student } from '../../interfaces/Student';
 import { Component, OnInit, Input } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { UserService } from 'src/app/services/user.service';
+import { UserPublishedService } from '../../services/user-published.service';
 
 
 @Component({
@@ -10,44 +12,29 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  @Input() toggleSignButton : string = '';
-  res : any;
   user : User = {};
+  pp : Blob = new Blob();
   userIcon = faUser;
+  name : string = '';
+  student : Student = {};
   hasUser : boolean = false;
-  homeLink : string = '';
+  @Input() toggleSignButton : string = '';
 
-  constructor(private service:UserService) { }
+  constructor(private service : UserPublishedService) { }
 
   ngOnInit(): void {
-    this.service.getUser()
-    .subscribe(response => {
-      this.res = response;
-      if(this.res.message){
-        this.hasUser = false
-      }else{
-        this.user = response
-      }
+    console.log('user')
+    this.service.userSet.subscribe((userP : User) => {
+      this.user = userP
+      this.name = this.user.username || ''
       console.log(this.user)
-    });
+      this.service.studentSet.subscribe((studentP : Student) => {
+        this.student = studentP
+        this.name = this.student.lastname || ''
+      })
+    })
 
-    let strings = window.location.href.split(window.location.host);
-    let url = strings[strings.length-1];
-
-    switch (url) {
-      case '/':
-      case '/home':
-        this.homeLink = '#home';
-        break;
-      case '/user/login':
-        this.homeLink = '/user/login';
-        break;
-      case '/user/register':
-        this.homeLink = '/user/register';
-        break;
-      default:
-        this.homeLink = '/student/dashboard';
-    }
+    //todo : get profile picture from database
   }
 
 }

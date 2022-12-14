@@ -42,9 +42,11 @@
   clear:both
 }
 
-/* right  hide-small */
+
 .menu-items{
   float: right;
+  display: flex;
+  align-items: center;
   margin-right: calc(var(--size-ratio) * 1);
   text-transform: capitalize;
   font-size: calc(var(--body-font-size) *1.2);
@@ -103,6 +105,12 @@
   color: #000;
   background-color: var(--marroon-light)!important;
   opacity: .75;
+}
+
+.user-div{
+  height: auto;
+  width: fit-content;
+  display: flex;
 }
 
 @media (max-width:600px){

@@ -1,3 +1,6 @@
+const db = require('../_db/db.service');
+const helper = require('../utils/helper');
+
 const SaveNationality = async (nationality) => {
     await db.Query('INSERT INTO student_nationality (nationality) VALUES (?)', [nationality]);
     return await GetNationalityId(nationality);
@@ -6,6 +9,11 @@ const SaveNationality = async (nationality) => {
 const GetNationalityId = async (nationality) => {
     const result = await db.Query('SELECT (ID) FROM student_nationality WHERE nationality = ?', [nationality])
     return result[0].ID;
+}
+
+const GetStudent = async(ID) =>{
+    const result = await db.Query('SELECT * FROM student WHERE id = ?', [ID])
+    return result[0];
 }
 
 const SaveStudent = async (student) =>{
@@ -43,4 +51,8 @@ const CreateMyParent = async(parents, Id) =>{
         await db.Query('INSERT INTO myparent VALUES (?, ?, ?)',
         [parent.ID, Id, parent.ID])
     }
+}
+
+module.exports = {
+    GetStudent
 }

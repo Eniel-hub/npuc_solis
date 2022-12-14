@@ -1,23 +1,13 @@
-<!-- <div class="userdiv">
-  <div [class]="toggleSignButton">
+<div class="userdiv">
+  <div *ngIf="pp" class="pp pp-ic">
     <fa-icon [icon]="userIcon"></fa-icon>
   </div>
-  <div class="user" *ngIf="hasUser">
-    {{user.username}}
+  <div *ngIf="!pp" class="pp pp-img">
+    <!-- todo : add profile picture link as img -->
   </div>
-  <div class="sign-in-up" *ngIf="!hasUser">
-    <a routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page" >
-      sing in
-    </a>
-    <a routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page" >
-      sign up
-    </a>
+  <div class="name hide-small">
+    {{name}}
   </div>
-</div> -->
 
-<div class="userdiv  hide-small">
-  <a href="#about" class="bar-item  button">About</a>
-  <a href="/user/register" class="bar-item  button">Register</a>
-  <a href="/user/login" class="bar-item  button">Login</a>
 </div>
 

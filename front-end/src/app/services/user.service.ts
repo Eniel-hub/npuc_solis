@@ -15,7 +15,7 @@ export class UserService {
   private profilePictureUrl = 'http://localhost:5000/user/profile-picture';
 
   getUser(){
-    return this.httpClient.get(this.getUserUrl);
+    return this.httpClient.get(this.getUserUrl, {withCredentials : true});
   }
 
   isAuthenticated() : Boolean {

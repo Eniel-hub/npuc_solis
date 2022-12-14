@@ -6,6 +6,14 @@ const { indexOf } = require('../_db/db.config');
 let errorMsg;
 
 //post request
+router.get('/', auth.IsAuth, async (req, res, next) =>{
+    let user = await pportMiddleware.GetUser(req.user);
+    return res.json({
+        username : user.username, 
+        profile_picture : user.profile_picture,
+        student_id : user.student_id
+    });
+})
 
 router.post('/login', (req, res, next) =>{
     passport.authenticate('local', (err, user, info)=>{
