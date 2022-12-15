@@ -3,7 +3,9 @@ import { StudentService } from '../../services/student.service';
 import { UserService } from '../../services/user.service';
 import { Student } from '../../interfaces/Student';
 import { Component, OnInit } from '@angular/core';
+import { cards } from '../../interfaces/cards';
 import { User } from '../../interfaces/User';
+import { Card } from '../../interfaces/Card';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,8 +15,11 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   user : User = {};
+  index : number = 0;
+  cards : Card[] = cards;
   student : Student = {};
-  count : number = 0;
+  card : Card = this.cards[0];
+  len : number = this.cards.length;
 
   menuItems = [
     { name : 'logout', link : '/user/logout'}
@@ -28,40 +33,48 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getFirstCard();
+
     this.userService.getUser()
       .subscribe((response : any) =>{
         if(response.error){
           this.router.navigate(['/user/login']);
           return;
         }
-        this.publish.emitUserChange(response)
+        this.user = response;
+        this.publish.emitUserChange(this.user);
       })
-
-    this.publish.userSet.subscribe(userP => {
-      this.user = userP
-    })
 
     this.studentService.getStudentProfile()
-        .subscribe((response : any) => {
-          if(response.error){
-            this.router.navigate(['/student/application']);
-            return;
-          }
-          this.publish.emitStudentChange(response)
-        });
-
-      this.publish.studentSet.subscribe(studentP =>{
-        this.student = studentP;
-      })
+      .subscribe((response : any) => {
+        if(response.error){
+          this.router.navigate(['/student/application']);
+          return;
+        }
+        this.student = response;
+        this.publish.emitStudentChange(this.student);
+      });
   }
 
-  print = () =>{
-    console.log(this.user)
-    console.log('.......................')
-    console.log(this.student)
-    console.log('.......................')
+  getFirstCard = () =>{
+    this.index = Math.floor(Math.random() * (this.len));
+    this.card = this.cards[this.index];
+  }
 
-    this.count++;
+  next = () =>{
+    if(this.index >= this.len)
+      this.index = -1;
+    this.index++;
+    this.card = this.cards[this.index];
+    window.scrollTo(0, 0);
+  }
+
+  previous = () =>{
+    if(this.index <= 0)
+      this.index = this.len;
+    this.index--;
+    this.card = this.cards[this.index];
+    window.scrollTo(0, 0);
   }
 
 }

@@ -13,7 +13,7 @@ const Initialize = (app, passport, session) =>{
         resave: false,
         saveUninitialized: false,
         cookie:{
-            maxAge: 1000*60*60*1 //ms*min*hours*nbOfHours 1hour
+            maxAge: 1000*60*60*10 //ms*min*hours*nbOfHours 1hour
         }
     }));
     app.use(passport.initialize());

@@ -2,16 +2,36 @@
     <div class="header">
         <app-header [menuItems]="menuItems"></app-header>
     </div>
-    <p>dashboard works!</p>
-    <p>dashboard works!</p>
-    <p>dashboard works!</p>
-    <p>dashboard works!</p>
-    <p>dashboard works!</p>
-    <p>dashboard works!</p>
-    <p>dashboard works!</p>
-    <button (click)="print()">click</button>
-    <div *ngIf="user">
-        <span>{{user}}</span>
+    <div class="card">
+        <div class="card-img">
+            <img
+                class="image"
+                [src]="card.img"
+                alt="bible story"
+            >
+            <div class="overlay hide-small">
+                <div class="text hide-small">{{card.title}}</div>
+            </div>
+            <div class="navigation top">
+                <div class="btn btn-success" (click)="previous()">Previous</div>
+                <div class="btn btn-success" (click)="next()">Next</div>
+            </div>
+        </div>
+        <div class="empty">
+            <img
+                class="image"
+                [src]="card.img"
+                width="1500" height="800"
+            >
+        </div>
+        <div class="content">
+            <h1>{{card.title}}</h1>
+            <span>{{card.content}}</span>
+        </div>
+        <div class="navigation bottom">
+            <div class="btn btn-success" (click)="previous()">Previous</div>
+            <div class="btn btn-success" (click)="next()">Next</div>
+        </div>
     </div>
-    <p>clicked: {{count}}</p>
+
 </div>

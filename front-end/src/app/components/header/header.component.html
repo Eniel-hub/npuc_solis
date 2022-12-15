@@ -13,8 +13,7 @@
 
 <div class="header" (Click) = 'MenuToggle()'>
   <div class="_navbar">
-    <a [routerLink]="homeLink" class="_navbar-item title button"><b>SOLIS</b> NPUC</a>
-    <!-- Float links to the right. Hide them on small screens -->
+    <a [routerLink]="homeLink" class="_navbar-item title button"><b>SOLIS</b> <span class="hide">NPUC</span></a>
     <div *ngIf="!hasDropdown"class="menu-items">
       <a *ngFor="let item of menuItems" routerLink="{{item.link}}" class="_navbar-item button hide-small">{{item.name}}</a>
       <fa-icon [icon] = 'barIcon' class="_navbar-item button display-small icon" (click)="MenuToggle()"></fa-icon>
