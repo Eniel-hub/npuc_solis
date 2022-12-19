@@ -15,5 +15,6 @@ export interface Student {
     student_cat_id?        : string,
     guardian?              : string,
     remarks?               : string,
+    nationality?           : string,
     is_enrollment?         : number
   }

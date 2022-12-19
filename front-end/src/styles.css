@@ -43,13 +43,14 @@
   --title-font-weight : 600;
 
   --body-font-family : 'Montserrat Alternates', sans-serif;
-  --body-font-size : 1em;
+  --body-font-size : 1.1m;
   --body-font-weight : bold;
 
   --marroon-darkest : #1a100b;
   --marroon-darker : #352217;
   --marroon-dark : #462A1B;
   --marroon-base : #9C7B63;
+  --marroon-base-5 : #9c7b6380;
   --marroon-light : #DCB774;
   --marroon-light-5 : #dcb87480;
 

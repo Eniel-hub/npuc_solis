@@ -23,18 +23,22 @@ export class UserComponent implements OnInit {
   constructor(private service : UserPublishedService) { }
 
   ngOnInit(): void {
-    console.log('user')
     this.service.userSet.subscribe((userP : User) => {
       this.user = userP
       this.name = this.user.username || ''
-      console.log(this.user)
+      console.log(this.name)
       this.service.studentSet.subscribe((studentP : Student) => {
         this.student = studentP
-        this.name = this.student.lastname || ''
+        if(this.student.ID)
+          this.name = this.student.lastname || ''
       })
     })
 
     //todo : get profile picture from database
+  }
+
+  click(){
+    console.log(this.name)
   }
 
 }

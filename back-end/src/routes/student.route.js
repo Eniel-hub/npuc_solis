@@ -1,32 +1,28 @@
 const Auth = require('../auth/AuthAndAut');
 const router = require ('express').Router();
-const nsService = require('../student/new-student.service');
-const pport = require('../auth/passport.middleware');
-const studentMiddleware = require('../student/student.middleware')
+const middleware = require('../student/student.middleware');
 
-router.get('/application', (req, res, next)=>{
-    user = req.user;
-    console.log(user)
-    res.send('<h1>Student Saved</h1>')
-})
+router.get('/profile', Auth.IsAuth, middleware.getProfile);
 
-router.get('/profile', Auth.IsAuth, async (req, res, next)=>{
-    let username = req.user;
+router.get('/nation', middleware.GetAllReligions);
 
-    let user = await pport.GetUser(username);
-    console.log(await pport.GetUser(username))
-    let student;
+// router.get('/nation/:id', Auth.IsAuth, middleware.getNation);
 
-    if(!user.student_id)
-        return res.json({error: 'not a student'})
-    
-    student = await studentMiddleware.GetStudent(user.student_id);
-    return res.json(student);
-})
+router.get('/religion', middleware.GetAllReligions);
 
-router.post('/application', (req, res, next) =>{
-})
+// router.get('/religion/:id', Auth.IsAuth, religion.getReligion);
 
+router.get('/category', middleware.GetAllCategories);
+
+print=()=>{
+    console.log('inside the server')
+}
+//POST
+router.post('/application', middleware.NewApplication);
+
+//todo router.post('/enrollment, Auth.IsAuth, middleware.NewEnrollment)
+
+//todo: update record
 
 
 module.exports = router;

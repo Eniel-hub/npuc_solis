@@ -9,7 +9,7 @@ import { User } from '../interfaces/User';
 export class UserPublishedService {
 
   //user Published
-  private userP = new Subject<User>();
+  userP = new Subject<User>();
   userSet = this.userP.asObservable();
   emitUserChange(user : User){
     this.userP.next(user);

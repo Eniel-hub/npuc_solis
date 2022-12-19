@@ -2,8 +2,6 @@ const passport = require('passport');
 const router = require ('express').Router();
 const pportMiddleware = require('../auth/passport.middleware');
 const auth = require('../auth/AuthAndAut');
-const { indexOf } = require('../_db/db.config');
-let errorMsg;
 
 //post request
 router.get('/', auth.IsAuth, async (req, res, next) =>{
@@ -37,6 +35,7 @@ router.post('/logout', (req, res, next) => {
 });
 
 router.post('/register', pportMiddleware.UserExits, (req, res) =>{
+    console.log(req.body)
     const username = req.body.username;
     const password = req.body.password;
     pportMiddleware.CreateUser(username, password);

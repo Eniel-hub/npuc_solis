@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit {
         }
         this.student = response;
         this.publish.emitStudentChange(this.student);
+        this.studentService.setStudentInfo(this.student.ID || 0);
       });
   }
 

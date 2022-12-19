@@ -5,7 +5,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   opacity: .45;
-  position: absolute;
+  position: fixed;
   top: 0;
   background-image: url('../../../assets/imgs/1.jpg');
   // background-repeat: no-repeat;
@@ -17,6 +17,7 @@
   // background: var(--background-linear);
   // background-color: #032E61;
   background-color: var(--marroon-darkest);
+  position: fixed;
   display: flex;
   margin: 0;
 }

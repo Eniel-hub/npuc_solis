@@ -4,13 +4,11 @@ const mysql = require('promise-mysql2');
 //create a new connection to the databse
 const ConnectToDatabase = async () =>{
   let connection = mysql.createConnection(dbconfig);
-  console.log(`connected to database ${dbconfig.database}...`)
   return connection;
 }
 
 //end the connection with the database
 const EndConnection = (connection) =>{
-  console.log(`connection with database ${dbconfig.database} ended.`)
   connection.end();
 }
 

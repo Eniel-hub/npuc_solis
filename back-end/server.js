@@ -8,7 +8,6 @@ const session = require('express-session');
 const homeRouter = require('./src/routes/home.route');
 const userRouter = require('./src/routes/user.route');
 const studentRouter = require('./src/routes/student.route');
-const dashboardRouter = require('./src/routes/dashboard.route');
 const pportMiddleware = require('./src/auth/passport.middleware');
 const pportController = require('./src/auth/passport.controller');
 
@@ -34,8 +33,8 @@ app.use(cors({
 app.use('/home', homeRouter);
 app.use('/user',  userRouter);
 app.use('/student', studentRouter);
-// app.use('/dashboard', dashboardRouter);
 app.get('/', (req, res) =>{ res.redirect('/home') });
+// app.use('/dashboard', dashboardRouter);
 // app.get('*', function(req, res){
 //     res.sendFile(path.resolve('../frontend/enrollement-process/src/index.html'))
 // })

@@ -40,7 +40,7 @@ export class SchoolComponent implements OnInit {
   }
 
   getImage(name : string){
-    //get iamges from database
+    //todo: get iamges from database
 
     return '../../../assets/imgs/2.jpg'
   }

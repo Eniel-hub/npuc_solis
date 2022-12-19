@@ -1,3 +1,4 @@
+import { RegistrationComponent } from './components/registration/registration.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
@@ -11,6 +12,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
+import { AuthGuardStudentService as Student } from './services/auth-guard.service';
+import { AuthGuardNotStudentService as NotStudent } from './services/auth-guard.service';
 
 const routes: Routes = [
   {path: '', component : HomeComponent},
@@ -20,12 +23,16 @@ const routes: Routes = [
   {path: 'user/login', component : LoginComponent},
   {path: 'user/logout', component : LogoutComponent},
   {path: 'user/register', component : RegisterComponent},
-  {path: 'student/dashboard', component : DashboardComponent, canActivate : [AuthGuard] },
+  {path: 'student/dashboard', component : DashboardComponent,
+    canActivate : [AuthGuard] },
+  {path: 'student/application', component : RegistrationComponent,
+    canActivate : [AuthGuard, NotStudent]},
   {path: '**', component : Page404Component}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+  providers : [AuthGuard, Student, NotStudent],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
