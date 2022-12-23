@@ -1,0 +1,86 @@
+<div class="body">
+  <div class="header">
+    <app-header [menuItems]="menuItems"></app-header>
+  </div>
+
+  <div class="content">
+    <div class="wrapper container">
+      <div class="row">
+        <div class="title">
+          <h2>Profile</h2>
+        </div>
+      </div>
+      <div *ngIf="!isEditing" class="row">
+        <div class="col">
+          <div class="img">
+            <img src="https://i.pinimg.com/originals/8b/44/51/8b4451665d6b2139e29f29b51ffb1829.png" alt="">
+          </div>
+        </div>
+        <div class="col form">
+          <div class="input-container ic1" id="username">
+            <input id="username" class="input" type="text"
+                  placeholder=" " [value]="username" disabled>
+            <div class="cut cut-l"></div>
+            <label for="username" class="placeholder">Username</label>
+          </div>
+          <div class="input-container ic1" id="student_id">
+            <input id="student_id" class="input" type="text"
+                  placeholder=" " [value]="ID" disabled>
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">student_id</label>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-outline-warning btn-sm ic2"
+            (click)="change()"
+          >Edit Profile</button>
+        </div>
+        <div class="ic1"></div>
+      </div>
+
+      <div *ngIf="isEditing" class="row">
+        <div class="col">
+          <div class="img">
+            <img [src]="profile || 'https://i.pinimg.com/originals/8b/44/51/8b4451665d6b2139e29f29b51ffb1829.png'" alt="">
+          </div>
+        </div>
+        <div class="col form">
+          <div class="input-container ic1" id="ppicture">
+            <input id="picture" class="input" type="file"
+                  placeholder=" " [(ngModel)]="profile">
+            <div class="cut cut-xl"></div>
+            <label for="ppicture" class="placeholder">Profile Picture</label>
+          </div>
+          <div class="input-container ic1" id="password">
+            <input id="password" class="input" [type]="passwordType"
+                  placeholder=" ">
+              <fa-icon
+                [icon] = 'eye()'
+                class = 'eye'
+                (click) = 'eyeClick()'>
+            </fa-icon>
+            <div class="cut cut-l"></div>
+            <label for="password" class="placeholder">Password</label>
+          </div>
+          <div class="input-container ic1" id="confirm">
+            <input id="confirm" class="input" [type]="passwordType"
+                  placeholder=" ">
+              <fa-icon
+                [icon] = 'eye()'
+                class = 'eye'
+                (click) = 'eyeClick()'>
+            </fa-icon>
+            <div class="cut cut-xxl"></div>
+            <label for="confirm" class="placeholder">Confirm Password</label>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-outline-success btn-sm ic2"
+            (click)="change()"
+          >Submit</button>
+        </div>
+        <div class="ic1"></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,7 +9,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LogoutComponent implements OnInit {
   menuItems = [
-    { name : 'Dashboard',      link : '/student/dashboard'  }
+    { name : 'Dashboard',   link : '/student/dashboard'  },
+    { name : 'Profile',     link : 'user/profile'}
   ]
 
   constructor(
@@ -21,8 +22,17 @@ export class LogoutComponent implements OnInit {
   }
 
   logOut = () =>{
+
     this.userService.logOut()
-    this.router.navigate(['/home']);
+    .subscribe((response : any) => {
+      if(response.error){
+        console.log('error while loging out')
+        return
+      }
+      this.router.navigate(['/home']);
+    });
+
+      //todo: delete cookies from front-end side
 
     // setTimeout( ()=>{
     //   this.router.navigate(['/home']);

@@ -73,21 +73,6 @@
     margin-top: 40px !important;
   }
 
-  /* #school .input:placeholder-shown ~ .placeholder{
-    color: var(--marroon-darkest);
-    line-height: 0;
-  }
-
-  #school .input:focus ~ .placeholder{
-    line-height: 14px;
-  }
-
-  #school .input:not(:placeholder-shown) ~ .placeholder,
-  #school .input:focus ~ .placeholder{
-    color: var(--marroon-darker);
-    opacity: 1;
-  } */
-
   #school .input:not(:placeholder-shown){
     background-color: var(--marroon-base-5);
     color: var(--marroon-darkest);

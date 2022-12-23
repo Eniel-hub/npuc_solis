@@ -25,12 +25,13 @@ router.post('/login', (req, res, next) =>{
     })(req, res, next)
 })
 
-router.post('/logout', (req, res, next) => {
+router.get('/logout', auth.IsAuth, (req, res, next) => {
     req.logOut((err) => {
         if (err) { 
+            res.json({error:'error on logout'})
             return next(err);
         }
-        res.redirect('/');
+        res.json({success:true})
     });
 });
 

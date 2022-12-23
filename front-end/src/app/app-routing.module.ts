@@ -1,4 +1,5 @@
 import { RegistrationComponent } from './components/registration/registration.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
@@ -21,8 +22,11 @@ const routes: Routes = [
   {path: 'policy', component : PolicyComponent},
   {path: 'about-us', component : AboutUsComponent},
   {path: 'user/login', component : LoginComponent},
-  {path: 'user/logout', component : LogoutComponent},
+  {path: 'user/logout', component : LogoutComponent,
+    canActivate : [AuthGuard] },
   {path: 'user/register', component : RegisterComponent},
+  {path: 'user/profile', component : UserProfileComponent,
+    canActivate : [AuthGuard]},
   {path: 'student/dashboard', component : DashboardComponent,
     canActivate : [AuthGuard] },
   {path: 'student/application', component : RegistrationComponent,

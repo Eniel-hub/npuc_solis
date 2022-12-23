@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Prompt:wght@300&display=swap');
+
+.body{
+  margin-top: 70px;
+}
+
+.content{
+  height: var(--content-height);
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  background: transparent;
+}
+
+.wrapper{
+  margin: auto;
+  background-color: #f0f8ffd2;
+  height: fit-content;
+  width: 60vw;
+  box-shadow: var(--box-shadow);
+}
+
+@media (max-width:600px){
+  .wrapper{
+      width: 80vw;
+  }
+
+  .row{
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .col.form{
+    width: 70% !important;
+    margin: auto;
+  }
+}

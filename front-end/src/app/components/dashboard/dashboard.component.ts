@@ -22,7 +22,10 @@ export class DashboardComponent implements OnInit {
   len : number = this.cards.length;
 
   menuItems = [
-    { name : 'logout', link : '/user/logout'}
+    { name : 'enrollment', link : '/student/enrollment'},
+    { name : 'profile', link : '/user/profile'},
+    { name : 'logout', link : '/user/logout'},
+    { name : 'about', link : '/about'},
   ]
 
   constructor(

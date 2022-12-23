@@ -30,6 +30,8 @@ export class UserService {
     localStorage.setItem('userInfo', JSON.stringify(user));
   }
 
+  //todo: set timer for the session and logout at end of timer
+
   validate = (user : User) => {
     return this.httpClient.post(this.loginUrl,
                                 {'username' : user.username,
@@ -44,7 +46,8 @@ export class UserService {
   }
 
   logOut = () =>{
-    return this.httpClient.post(this.logoutUrl, {});
+    return this.httpClient.get(this.logoutUrl,
+                                {withCredentials : true});
   }
 
   constructor(private httpClient: HttpClient) { }

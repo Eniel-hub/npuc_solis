@@ -23,6 +23,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { PolicyComponent } from './components/policy/policy.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { RegistrationComponent } from './components/registration/registration.co
     LogoutComponent,
     PolicyComponent,
     RegistrationComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

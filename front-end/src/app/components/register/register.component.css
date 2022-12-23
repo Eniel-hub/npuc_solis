@@ -202,3 +202,21 @@ h2{
   display: block;
   color: green;
 }
+
+
+@media (max-width:600px){
+  .wrapper{
+      width: 80vw;
+  }
+
+  .form .input{
+    width: 250px!important;
+  }
+
+  .form .input input{
+    width: 130px!important;
+  }
+  .form .input #username{
+    width: 150px!important;
+  }
+}

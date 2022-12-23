@@ -1,9 +1,16 @@
+.body{
+  background-image: url('../../../assets/imgs/1.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  background-color: black;
+}
+
+
 .image{
   width: 100%;
   height: 100%;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
   opacity: .45;
   position: fixed;
   top: 0;
@@ -14,9 +21,16 @@
 }
 
 .content {
+
+  background-image: url('../../../assets/imgs/1.jpg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+
   // background: var(--background-linear);
-  // background-color: #032E61;
-  background-color: var(--marroon-darkest);
+  background-color: transparent;
+  // background-color: var(--marroon-darkest);
   position: fixed;
   display: flex;
   margin: 0;
@@ -36,7 +50,7 @@ $sway-type: "sway-left-to-right", "sway-right-to-left";
 }
 
 .bubbles {
-  background-color: var(--marroon-light);
+  background-color: var(--marroon-light-5);
 
   position: relative;
   width: var(--content-width);
