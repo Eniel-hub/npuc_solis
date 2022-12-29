@@ -24,8 +24,8 @@ export class DashboardComponent implements OnInit {
   menuItems = [
     { name : 'enrollment', link : '/student/enrollment'},
     { name : 'profile', link : '/user/profile'},
-    { name : 'logout', link : '/user/logout'},
     { name : 'about', link : '/about'},
+    { name : 'logout'},
   ]
 
   constructor(

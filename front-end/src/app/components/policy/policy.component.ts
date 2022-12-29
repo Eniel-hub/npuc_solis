@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class PolicyComponent implements OnInit {
   homelink : string = '';
   menuItems = [
-    { name : 'home',             link : this.homelink  },
+    { name : 'home',       link : this.homelink  },
     { name : 'About',      link : '/about-us'  }
   ]
 

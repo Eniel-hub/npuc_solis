@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   hasDropdown : boolean = false;
   menuIsActive : boolean = false;
   menuClass = new BehaviorSubject('hide');
-  @Input() menuItems : {name : string, link : string}[] = [];
+  @Input() menuItems : {name : string, link? : string}[] = [];
 
   constructor() { }
 
@@ -23,10 +23,14 @@ export class HeaderComponent implements OnInit {
     let strings = window.location.href.split(window.location.host);
     let url = strings[strings.length-1];
 
-    if(url.match('student'))
+    if(url.match('student') || url.match('profile')){
       this.hasDropdown = true
-    else
+      this.homeLink = '/student/dashboard'
+    }
+    else{
       this.hasDropdown = false
+      this.homeLink = '/home'
+    }
   }
 
   MenuToggle = () =>{

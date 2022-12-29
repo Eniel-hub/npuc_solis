@@ -3,45 +3,11 @@ const nsService = require('./new-student.service');
 const pport = require('../auth/passport.middleware');
 
 const NewApplication = async (req, res, next) =>{
-    // const application = req.body;
-    
+    // const application = req.body; 
     let application = {};
-    application.username = 'enielleba'
-    application.lastname = 'leba'
-    application.firstname = 'eniel'
-    application.middlename = 'middl'
-    application.fullname = ''
-    application.gender = 'Male'
-    application.bday = new Date("2022-12-20")
-    application.home_address = 'aup'
-    application.lrn = 'asdf'
-    application.religion_id = 100
-    application.nationality_id = 000
-    application.nationality = 'French'
-    application.school_id = 1114
-    application.student_cat_id = 'E'
-    application.father_lastname = 'leba'
-    application.father_firstname = 'ariel'
-    application.father_middlename = 'ambomo'
-    application.father_email = 'his@email.com'
-    application.father_home_address = 'his address'
-    application.father_mobile = '00112233'
-    application.mother_lastname = 'la'
-    application.mother_firstname = 'mere'
-    application.mother_middlename = ''
-    application.mother_email = 'lamere@gmail.com'
-    application.mother_home_address = 'her address'
-    application.mother_mobile = '123789'
-    application.guardian = 'Father & Mother'
-    application.guardian_lastname = ''
-    application.guardian_firstname = ''
-    application.guardian_middlename = ''
-    application.guardian_email = ''
-    application.guardian_home_address = ''
-    application.guardian_mobile = ''
+    application = {... req.body}
+    application.username = req.user;
 
-
-    console.log(application)
     try{
         await nsService.RegisterNewStudent(application.username, application);
         res.json({response : true})

@@ -4,7 +4,7 @@ const middleware = require('../student/student.middleware');
 
 router.get('/profile', Auth.IsAuth, middleware.getProfile);
 
-router.get('/nation', middleware.GetAllReligions);
+router.get('/nation', middleware.GetAllNations);
 
 // router.get('/nation/:id', Auth.IsAuth, middleware.getNation);
 
@@ -14,11 +14,8 @@ router.get('/religion', middleware.GetAllReligions);
 
 router.get('/category', middleware.GetAllCategories);
 
-print=()=>{
-    console.log('inside the server')
-}
 //POST
-router.post('/application', middleware.NewApplication);
+router.post('/application', Auth.IsAuth, middleware.NewApplication);
 
 //todo router.post('/enrollment, Auth.IsAuth, middleware.NewEnrollment)
 

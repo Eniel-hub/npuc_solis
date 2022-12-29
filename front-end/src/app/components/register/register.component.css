@@ -41,7 +41,7 @@ h2{
   font-weight: lighter;
   font-size: calc(var(--size-ratio) *2.5);
   text-transform: uppercase;
-  color: var(--marroon-darker);
+  color: var(--marroon-darkest);
   margin-top: calc(.25vh + .25vw);
 }
 
@@ -51,34 +51,29 @@ h2{
 
 .img{
   background: var(--background-linear);
-  width: calc(12vh + 12vw) ;
-  height: calc(12vh + 12vw);
-  border-radius: 50%;
+  width: var(--img-sqr-size);
+  height: var(--img-sqr-size);
+  display: grid;
   align-items: center;
-  text-align: center;
-  justify-content: center;
+  border-radius: 50%;
   margin: auto;
-  /* margin-bottom: .5vw; */
-  display: flex;
 }
 
 .img::before {
   padding-top: calc(5.5vh + 5.5vw);
   content: 'REGISTER';
-  width: calc(12vh + 12vw) ;
-  height: calc(12vh + 12vw);
+  width: var(--img-sqr-size);
+  height: var(--img-sqr-size);
   border-radius: 50%;
   border: 2px solid var(--marroon-light);
   position: absolute;
   background-color: var(--marroon-darkest);
-  color: white;
   opacity: 0;
-  text-align: center;
-  justify-content: center;
   transition: opacity .2s ease;
 }
 
 .img:hover::before{
+  color: white;
   opacity: .8;
   transition: opacity .2s ease;
 }
@@ -100,7 +95,6 @@ h2{
 
 .form .label:hover{
   color: var(--marroon-light);
-  ;
 }
 
 .form .input, .form .label, .form button{
@@ -112,11 +106,12 @@ h2{
   position: relative;
   border-radius: 5px;
   border: 2px solid #b3b3b3;
-  width: calc(var(--size-ratio) *22);
+  width: calc(var(--size-ratio) *12);
   max-width: 200px;
   display: inline-block;
   padding-left: 0.5%;
   padding-right: 0.5%;
+  cursor: text;
 }
 
 .form .input:hover{
@@ -130,7 +125,6 @@ h2{
 .form .input input{
   margin: 0;
   width: calc(4vw + 17vh);
-
   background: transparent;
   outline: none;
   border-radius: 5px;
@@ -157,7 +151,6 @@ h2{
   cursor: pointer;
 }
 
-
 .form .info {
   font-family: 'Nunito', sans-serif;
   font-style: italic;
@@ -180,7 +173,6 @@ h2{
 
 .form a{
   text-decoration: none;
-  color: #112233;
 }
 
 .link {
@@ -188,6 +180,7 @@ h2{
   margin-bottom: calc(.25vh + .25vw);
   margin-top: calc(.25vh + .25vw);
   height: fit-content;
+  color: #112233;
 }
 
 .link .arrow{
@@ -202,7 +195,6 @@ h2{
   display: block;
   color: green;
 }
-
 
 @media (max-width:600px){
   .wrapper{

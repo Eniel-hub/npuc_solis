@@ -1,3 +1,5 @@
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { LogoutComponent } from '../logout/logout.component';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -12,18 +14,22 @@ export class MenuComponent implements OnInit {
   barIcon = faBars;
   toggle : boolean = false;
   @Input() navClass = new BehaviorSubject('_nav');
-  @Input() menuItems : {name:string, link:string}[] = [];
+  modalRef : MdbModalRef<LogoutComponent> | null = null;
+  @Input() menuItems : {name:string, link?:string}[] = [];
 
-  constructor() { }
+  constructor(private modalService: MdbModalService) { }
 
   ngOnInit(): void {
-    this.navClass.next('_nav hide')
+    this.navClass.next('_nav hide');
   }
 
   activateNav = () =>{
     this.navClass.next('_nav animate-left');
   }
 
+  openModal() {
+    this.modalRef = this.modalService.open(LogoutComponent)
+  }
 
 
 }

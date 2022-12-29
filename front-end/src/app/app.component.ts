@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  menuItems : {name : string, link : string}[] = [];
+  menuItems : {name : string, link? : string}[] = [];
   classActive : boolean = false;
 
   constructor( ) { }

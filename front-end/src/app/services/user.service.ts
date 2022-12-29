@@ -35,8 +35,8 @@ export class UserService {
   validate = (user : User) => {
     return this.httpClient.post(this.loginUrl,
                                 {'username' : user.username,
-                                'password' : user.password},
-                                {withCredentials : true});
+                                 'password' : user.password},
+                                 {withCredentials : true});
   }
 
   saveUser = (user : User) =>{
@@ -46,6 +46,8 @@ export class UserService {
   }
 
   logOut = () =>{
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('studentInfo');
     return this.httpClient.get(this.logoutUrl,
                                 {withCredentials : true});
   }

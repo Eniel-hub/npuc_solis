@@ -11,6 +11,10 @@ import { faUser, faLock, faEye, faEyeSlash} from  '@fortawesome/free-solid-svg-i
   styleUrls: ['./login.component.css']
 })
 
+//todo add error component
+//todo add success component
+//todo add loader component
+
 export class LoginComponent implements OnInit {
   eyeIcon = faEye;
   user : User = {};

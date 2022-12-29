@@ -20,7 +20,7 @@ export class StudentService {
   private natUrl = 'http://localhost:5000/student/nation';
   private catUrl = 'http://localhost:5000/student/category';
   private reliUrl = 'http://localhost:5000/student/religion';
-  private applicationUrl = 'http://localhost:5000/application';
+  private applicationUrl = 'http://localhost:5000/student/application';
 
   getStudentProfile(){
     return this.httpClient.get(this.url, {withCredentials:true});
@@ -52,10 +52,9 @@ export class StudentService {
 
   registerStudent(appli : StudentApplication){
     let application = JSON.stringify(appli)
-    console.log(application)
-    return this.httpClient.post('http://localhost:5000/application',
-      {"name" : "eniel"},
-      {withCredentials : true});
+    return this.httpClient.post(this.applicationUrl,
+                                  appli,
+                                  {withCredentials : true});
   }
 
 }

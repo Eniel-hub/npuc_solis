@@ -11,6 +11,10 @@ import { faUser, faLock, faEye, faEyeSlash } from  '@fortawesome/free-solid-svg-
   styleUrls: ['./register.component.css']
 })
 
+//todo add error component
+//todo add success component
+//todo add loader component
+
 export class RegisterComponent implements OnInit {
   menuItems = [
     { name : 'home',    link : '/home'        },

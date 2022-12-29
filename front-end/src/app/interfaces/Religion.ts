@@ -1,4 +1,4 @@
 export interface Religion {
-  id : number,
+  ID : number,
   religion : string
 }

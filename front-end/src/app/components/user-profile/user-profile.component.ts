@@ -10,7 +10,8 @@ export class UserProfileComponent implements OnInit {
   //todo: make the profile change works
   profile : any;
   image : any = '';
-  username : string = 'Enielleba';
+  user : any = localStorage.getItem("userInfo");
+  username : any = JSON.parse(this.user).username;
   ID : number = 10000;
   isEditing : boolean = false;
   eyeIcon = faEye;
@@ -21,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   menuItems = [
     { name : 'dashboard', link : '/student/dashboard'},
     { name : 'about', link : '/about'},
-    { name : 'logout', link : '/user/logout'},
+    { name : 'logout'},
   ]
 
   eye() {

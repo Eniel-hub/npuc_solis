@@ -15,23 +15,19 @@ export class UserComponent implements OnInit {
   user : User = {};
   pp : Blob = new Blob();
   userIcon = faUser;
-  name : string = '';
   student : Student = {};
   hasUser : boolean = false;
   @Input() toggleSignButton : string = '';
+  userInfo : any = localStorage.getItem("userInfo");
+  name : any = JSON.parse(this.userInfo).username;
 
   constructor(private service : UserPublishedService) { }
 
   ngOnInit(): void {
-    this.service.userSet.subscribe((userP : User) => {
-      this.user = userP
-      this.name = this.user.username || ''
-      console.log(this.name)
-      this.service.studentSet.subscribe((studentP : Student) => {
-        this.student = studentP
-        if(this.student.ID)
-          this.name = this.student.lastname || ''
-      })
+    this.service.studentSet.subscribe((studentP : Student) => {
+      this.student = studentP
+      if(this.student.ID)
+        this.name = this.student.lastname || ''
     })
 
     //todo : get profile picture from database

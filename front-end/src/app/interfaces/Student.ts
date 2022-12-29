@@ -13,7 +13,7 @@ export interface Student {
     nationality_id?        : number,
     school_id?             : number,
     student_cat_id?        : string,
-    guardian?              : string,
+    Guardian?              : string,
     remarks?               : string,
     nationality?           : string,
     is_enrollment?         : number

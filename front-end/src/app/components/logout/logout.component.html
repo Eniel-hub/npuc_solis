@@ -1,12 +1,18 @@
-<div class="body">
-  <div class="header">
-    <app-header [menuItems]="menuItems"></app-header>
-  </div>
-
-  <div class="content">
-    <div class="wrapper">
-      <div class="btn btn-danger" (click)="logOut()">logout</div>
-
-    </div>
-  </div>
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Log Out</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modalRef.close()"
+  ></button>
+</div>
+<div class="modal-body">
+  Do you want to log out of your account?
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
+    Close
+  </button>
+  <button type="button"  class="btn btn-danger" (click)="logOut()">logout</button>
 </div>

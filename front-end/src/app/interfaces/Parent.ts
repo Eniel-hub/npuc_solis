@@ -4,7 +4,7 @@ export interface Parent {
     middlename? : string,
     firstname? : string,
     lastname? : string,
-    parent? : string,
+    relationship? : string,
     email? : string,
     home_address? : string,
     mobile? : string

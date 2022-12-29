@@ -90,8 +90,7 @@
               <div class="input-container ic2" id="religion">
                 <select class="input" name="religion" id="religion"
                   [(ngModel)]="student.religion_id">
-                  <option value="none" selected disabled>Select a Religion</option>
-                  <option *ngFor="let reli of religions" [value]="reli.id">
+                  <option *ngFor="let reli of religions" [value]="reli.ID">
                     {{reli.religion}}
                   </option>
                 </select>
@@ -102,15 +101,15 @@
                 <select class="input" name="nationality" id="nationality"
                   [(ngModel)]="student.nationality_id">
                   <option value="none" disabled selected>Select a nationality</option>
-                  <option *ngFor="let nation of nationalities" [value]="nation.id">
+                  <option *ngFor="let nation of nationalities" [value]="nation.ID">
                     {{nation.nationality}}
                   </option>
-                  <option value="0000">Other</option>
+                  <option value='0'>Other</option>
                 </select>
                 <div class="cut cut-l"></div>
                 <label for="nationality" class="placeholder">Nationality*</label>
               </div>
-              <div *ngIf="student.nationality_id == 0000">
+              <div *ngIf="student.nationality_id == 0">
                 <div class="input-container ic2" id="nationality">
                   <input id="nationality" class="input" type="text"
                         placeholder=" " [(ngModel)]="student.nationality"/>

@@ -1,4 +1,4 @@
 export interface Nationality {
-  id : number,
+  ID : number,
   nationality : string
 }
