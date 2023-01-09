@@ -12,7 +12,9 @@
                 nec aliquet dui varius et. Nullam interdum felis sed arcu
                 sagittis, sed ornare metus auctor. </p>
 
-            <div class="section" id="school" *ngIf="section == 'School'">
+            <!-- REGISTER -->
+            <div *ngIf="!review">
+              <div class="section" id="school" *ngIf="section == 'School'">
                 <h1>SCHOOL</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Praesent ornare facilisis posuere. Phasellus arcu augue,
@@ -37,255 +39,459 @@
                     <div class="cut"></div>
                     <label for="schChosen" class="placeholder">School Chosen</label>
                 </div>
-            </div>
-
-            <div class="section" id="personal" *ngIf="section == 'Personal'">
-              <h1>PERSONAL INFORMATION</h1>
-              <div class="input-container ic1" id="lastname">
-                <input id="lastname" class="input" type="text"
-                      placeholder=" " [(ngModel)]="student.lastname"/>
-                <div class="cut cut-l"></div>
-                <label for="lastname" class="placeholder">Last Name*</label>
               </div>
-              <div class="input-container ic2" id="firstname">
-                <input id="firstname" class="input" type="text"
-                      placeholder=" " [(ngModel)]="student.firstname"/>
-                <div class="cut cut-l"></div>
-                <label for="firstname" class="placeholder">First Name*</label>
-              </div>
-              <div class="input-container ic2" id="middlename">
-                <input id="middlename" class="input" type="text"
-                      placeholder=" " [(ngModel)]="student.middlename"/>
-                <div class="cut cut-xl"></div>
-                <label for="middlename" class="placeholder">Middle Name</label>
-              </div>
-              <div class="input-container ic2" id="gender">
-                <select class="input" name="gender" id="gender"
-                  [(ngModel)]="student.gender">
-                    <option value="none" disabled>Select an Option</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-                <div class="cut cut-m"></div>
-                <label for="gender" class="placeholder">Gender*</label>
-              </div>
-              <div class="input-container ic2" id="bday">
-                <input id="bday" class="input" type="date"
-                      placeholder=" " [(ngModel)]="student.bday"/>
-                <div class="cut cut-m"></div>
-                <label for="bday" class="placeholder">Birthday*</label>
-              </div>
-              <div class="input-container ic2" id="home_address">
-                <input id="home_address" class="input" type="text"
-                      placeholder=" " [(ngModel)]="student.home_address"/>
-                <div class="cut cut-m"></div>
-                <label for="home_address" class="placeholder">Address*</label>
-              </div>
-              <div class="input-container ic2" id="lrn">
-                <input id="lrn" class="input" type="text"
-                      placeholder=" " [(ngModel)]="student.lrn"/>
-                <div class="cut cut-s"></div>
-                <label for="lrn" class="placeholder">LRN</label>
-              </div>
-              <div class="input-container ic2" id="religion">
-                <select class="input" name="religion" id="religion"
-                  [(ngModel)]="student.religion_id">
-                  <option *ngFor="let reli of religions" [value]="reli.ID">
-                    {{reli.religion}}
-                  </option>
-                </select>
-                <div class="cut cut-m"></div>
-                <label for="religion" class="placeholder">Religion*</label>
-              </div>
-              <div class="input-container ic2" id="nationality">
-                <select class="input" name="nationality" id="nationality"
-                  [(ngModel)]="student.nationality_id">
-                  <option value="none" disabled selected>Select a nationality</option>
-                  <option *ngFor="let nation of nationalities" [value]="nation.ID">
-                    {{nation.nationality}}
-                  </option>
-                  <option value='0'>Other</option>
-                </select>
-                <div class="cut cut-l"></div>
-                <label for="nationality" class="placeholder">Nationality*</label>
-              </div>
-              <div *ngIf="student.nationality_id == 0">
-                <div class="input-container ic2" id="nationality">
-                  <input id="nationality" class="input" type="text"
-                        placeholder=" " [(ngModel)]="student.nationality"/>
+              <div class="section" id="personal" *ngIf="section == 'Personal'">
+                <h1>PERSONAL INFORMATION</h1>
+                <div class="input-container ic1" id="lastname">
+                  <input id="lastname" class="input" type="text"
+                        placeholder=" " [(ngModel)]="student.lastname"/>
                   <div class="cut cut-l"></div>
-                  <label for="nationality" class="placeholder">Nationality</label>
+                  <label for="lastname" class="placeholder">Last Name*</label>
                 </div>
-              </div>
-            </div>
-
-            <div class="section" id="parents" *ngIf="section == 'Parents'">
-              <h1>PARENTS AND GUARDIAN INFORMATION</h1>
-
-              <div class="input-container ic1" id="guardian">
-                <select class="input" name="gender" id="gender"
-                  [(ngModel)]="isGuardian">
-                    <option value="Father & Mother">Father & Mother</option>
-                    <option value="Father">Father</option>
-                    <option value="Mother">Mother</option>
-                    <option value="Guardian">Guardian</option>
+                <div class="input-container ic2" id="firstname">
+                  <input id="firstname" class="input" type="text"
+                        placeholder=" " [(ngModel)]="student.firstname"/>
+                  <div class="cut cut-l"></div>
+                  <label for="firstname" class="placeholder">First Name*</label>
+                </div>
+                <div class="input-container ic2" id="middlename">
+                  <input id="middlename" class="input" type="text"
+                        placeholder=" " [(ngModel)]="student.middlename"/>
+                  <div class="cut cut-xl"></div>
+                  <label for="middlename" class="placeholder">Middle Name</label>
+                </div>
+                <div class="input-container ic2" id="gender">
+                  <select class="input" name="gender" id="gender"
+                    [(ngModel)]="student.gender">
+                      <option value="none" disabled>Select an Option</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
                   </select>
-                <div class="cut cut-m"></div>
-                <label for="guardian" class="placeholder">Guardian*</label>
-              </div>
-
-              <!-- Father -->
-              <div  *ngIf="isGuardian.match('Father')">
-                <div class="input-container ic1" id="father">
-                  <input id="father" class="input" type="text"
-                        placeholder=" " value="Father" disabled>
                   <div class="cut cut-m"></div>
-                  <label for="father" class="placeholder">Parent</label>
+                  <label for="gender" class="placeholder">Gender*</label>
                 </div>
-                <div class="input-container ic1" id="father-firstname">
-                  <input id="father-firstname" class="input" type="text"
-                        placeholder=" " [(ngModel)]="father.firstname"/>
-                  <div class="cut cut-l"></div>
-                  <label for="father-firstname" class="placeholder">First Name*</label>
+                <div class="input-container ic2" id="bday">
+                  <input id="bday" class="input" type="date"
+                        placeholder=" " [(ngModel)]="student.bday"/>
+                  <div class="cut cut-m"></div>
+                  <label for="bday" class="placeholder">Birthday*</label>
                 </div>
-                <div class="input-container ic1" id="father-lastname">
-                  <input id="father-lastname" class="input" type="text"
-                        placeholder=" " [(ngModel)]="father.lastname"/>
-                  <div class="cut cut-l"></div>
-                  <label for="father-lastname" class="placeholder">Last Name*</label>
+                <div class="input-container ic2" id="home_address">
+                  <input id="home_address" class="input" type="text"
+                        placeholder=" " [(ngModel)]="student.home_address"/>
+                  <div class="cut cut-m"></div>
+                  <label for="home_address" class="placeholder">Address*</label>
                 </div>
-                <div class="input-container ic1" id="father-middlename">
-                  <input id="father-middlename" class="input" type="text"
-                        placeholder=" " [(ngModel)]="father.middlename"/>
-                  <div class="cut cut-xl"></div>
-                  <label for="father-middlename" class="placeholder">Middle Name</label>
-                </div>
-                <div class="input-container ic1" id="father-email">
-                  <input id="father-email" class="input" type="email"
-                        placeholder=" " [(ngModel)]="father.email"/>
+                <div class="input-container ic2" id="lrn">
+                  <input id="lrn" class="input" type="text"
+                        placeholder=" " [(ngModel)]="student.lrn"/>
                   <div class="cut cut-s"></div>
-                  <label for="father-email" class="placeholder">Email*</label>
+                  <label for="lrn" class="placeholder">LRN</label>
                 </div>
-                <div class="input-container ic1" id="father-mobile">
-                  <input id="father-mobile" class="input" type="text"
-                        placeholder=" " [(ngModel)]="father.mobile"/>
-                  <div class="cut cut-xl"></div>
-                  <label for="father-mobile" class="placeholder">Phone Number*</label>
-                </div>
-                <div class="input-container ic1" id="father-home_address">
-                  <input id="father-home_address" class="input" type="text"
-                        placeholder=" " [(ngModel)]="father.home_address"/>
+                <div class="input-container ic2" id="religion">
+                  <select class="input" name="religion" id="religion"
+                    [(ngModel)]="student.religion_id">
+                    <option *ngFor="let reli of religions" [value]="reli.ID">
+                      {{reli.religion}}
+                    </option>
+                  </select>
                   <div class="cut cut-m"></div>
-                  <label for="father-home_address" class="placeholder">Address*</label>
+                  <label for="religion" class="placeholder">Religion*</label>
+                </div>
+                <div class="input-container ic2" id="nationality">
+                  <select class="input" name="nationality" id="nationality"
+                    [(ngModel)]="student.nationality_id">
+                    <option value="none" disabled selected>Select a nationality</option>
+                    <option *ngFor="let nation of nationalities" [value]="nation.ID">
+                      {{nation.nationality}}
+                    </option>
+                    <option value='0'>Other</option>
+                  </select>
+                  <div class="cut cut-l"></div>
+                  <label for="nationality" class="placeholder">Nationality*</label>
+                </div>
+                <div *ngIf="student.nationality_id == 0">
+                  <div class="input-container ic2" id="nationality">
+                    <input id="nationality" class="input" type="text"
+                          placeholder=" " [(ngModel)]="student.nationality"/>
+                    <div class="cut cut-l"></div>
+                    <label for="nationality" class="placeholder">Nationality</label>
+                  </div>
                 </div>
               </div>
+              <div class="section" id="parents" *ngIf="section == 'Parents'">
+                <h1>PARENTS AND GUARDIAN INFORMATION</h1>
 
-              <!-- Mother -->
-              <div *ngIf="isGuardian.match('Mother')">
-                <div class="input-container ic1" id="mother">
-                  <input id="mother" class="input" type="text"
-                        placeholder=" " value="Mother" disabled>
-                  <div class="cut cut-m"></div>
-                  <label for="mother" class="placeholder">Parent</label>
-                </div>
-                <div class="input-container ic1" id="mother-firstname">
-                  <input id="mother-firstname" class="input" type="text"
-                        placeholder=" " [(ngModel)]="mother.firstname"/>
-                  <div class="cut cut-l"></div>
-                  <label for="mother-firstname" class="placeholder">First Name*</label>
-                </div>
-                <div class="input-container ic1" id="mother-lastname">
-                  <input id="mother-lastname" class="input" type="text"
-                        placeholder=" " [(ngModel)]="mother.lastname"/>
-                  <div class="cut cut-l"></div>
-                  <label for="mother-lastname" class="placeholder">Last Name*</label>
-                </div>
-                <div class="input-container ic1" id="mother-middlename">
-                  <input id="mother-middlename" class="input" type="text"
-                        placeholder=" " [(ngModel)]="mother.middlename"/>
-                  <div class="cut cut-xl"></div>
-                  <label for="mother-middlename" class="placeholder">Middle Name</label>
-                </div>
-                <div class="input-container ic1" id="mother-email">
-                  <input id="mother-email" class="input" type="email"
-                        placeholder=" " [(ngModel)]="mother.email"/>
-                  <div class="cut cut-s"></div>
-                  <label for="mother-email" class="placeholder">Email*</label>
-                </div>
-                <div class="input-container ic1" id="mother-mobile">
-                  <input id="mother-mobile" class="input" type="text"
-                        placeholder=" " [(ngModel)]="mother.mobile"/>
-                  <div class="cut cut-xl"></div>
-                  <label for="mother-mobile" class="placeholder">Phone Number*</label>
-                </div>
-                <div class="input-container ic1" id="mother-home_address">
-                  <input id="mother-home_address" class="input" type="text"
-                        placeholder=" " [(ngModel)]="mother.home_address"/>
-                  <div class="cut cut-m"></div>
-                  <label for="mother-home_address" class="placeholder">Address*</label>
-                </div>
-              </div>
-
-              <!-- Guardian -->
-              <div *ngIf="isGuardian == 'Guardian'">
                 <div class="input-container ic1" id="guardian">
-                  <input id="guardian" class="input" type="text"
-                        placeholder=" " value="Guardian" disabled>
+                  <select class="input" name="gender" id="gender"
+                    [(ngModel)]="isGuardian">
+                      <option value="Father & Mother">Father & Mother</option>
+                      <option value="Father">Father</option>
+                      <option value="Mother">Mother</option>
+                      <option value="Guardian">Guardian</option>
+                    </select>
                   <div class="cut cut-m"></div>
-                  <label for="guardian" class="placeholder">Parent</label>
+                  <label for="guardian" class="placeholder">Guardian*</label>
                 </div>
-                <div class="input-container ic1" id="guardian-firstname">
-                  <input id="guardian-firstname" class="input" type="text"
-                        placeholder=" " [(ngModel)]="guardian.firstname"/>
-                  <div class="cut cut-l"></div>
-                  <label for="guardian-firstname" class="placeholder">First Name*</label>
+
+                <!-- Father -->
+                <div  *ngIf="isGuardian.match('Father')">
+                  <div class="input-container ic1" id="father">
+                    <input id="father" class="input" type="text"
+                          placeholder=" " value="Father" disabled>
+                    <div class="cut cut-m"></div>
+                    <label for="father" class="placeholder">Parent</label>
+                  </div>
+                  <div class="input-container ic1" id="father-firstname">
+                    <input id="father-firstname" class="input" type="text"
+                          placeholder=" " [(ngModel)]="father.firstname"/>
+                    <div class="cut cut-l"></div>
+                    <label for="father-firstname" class="placeholder">First Name*</label>
+                  </div>
+                  <div class="input-container ic1" id="father-lastname">
+                    <input id="father-lastname" class="input" type="text"
+                          placeholder=" " [(ngModel)]="father.lastname"/>
+                    <div class="cut cut-l"></div>
+                    <label for="father-lastname" class="placeholder">Last Name*</label>
+                  </div>
+                  <div class="input-container ic1" id="father-middlename">
+                    <input id="father-middlename" class="input" type="text"
+                          placeholder=" " [(ngModel)]="father.middlename"/>
+                    <div class="cut cut-xl"></div>
+                    <label for="father-middlename" class="placeholder">Middle Name</label>
+                  </div>
+                  <div class="input-container ic1" id="father-email">
+                    <input id="father-email" class="input" type="email"
+                          placeholder=" " [(ngModel)]="father.email"/>
+                    <div class="cut cut-s"></div>
+                    <label for="father-email" class="placeholder">Email*</label>
+                  </div>
+                  <div class="input-container ic1" id="father-mobile">
+                    <input id="father-mobile" class="input" type="text"
+                          placeholder=" " [(ngModel)]="father.mobile"/>
+                    <div class="cut cut-xl"></div>
+                    <label for="father-mobile" class="placeholder">Phone Number*</label>
+                  </div>
+                  <div class="input-container ic1" id="father-home_address">
+                    <input id="father-home_address" class="input" type="text"
+                          placeholder=" " [(ngModel)]="father.home_address"/>
+                    <div class="cut cut-m"></div>
+                    <label for="father-home_address" class="placeholder">Address*</label>
+                  </div>
                 </div>
-                <div class="input-container ic1" id="guardian-lastname">
-                  <input id="guardian-lastname" class="input" type="text"
-                        placeholder=" " [(ngModel)]="guardian.lastname"/>
-                  <div class="cut cut-l"></div>
-                  <label for="guardian-lastname" class="placeholder">Last Name*</label>
+
+                <!-- Mother -->
+                <div *ngIf="isGuardian.match('Mother')">
+                  <div class="input-container ic1" id="mother">
+                    <input id="mother" class="input" type="text"
+                          placeholder=" " value="Mother" disabled>
+                    <div class="cut cut-m"></div>
+                    <label for="mother" class="placeholder">Parent</label>
+                  </div>
+                  <div class="input-container ic1" id="mother-firstname">
+                    <input id="mother-firstname" class="input" type="text"
+                          placeholder=" " [(ngModel)]="mother.firstname"/>
+                    <div class="cut cut-l"></div>
+                    <label for="mother-firstname" class="placeholder">First Name*</label>
+                  </div>
+                  <div class="input-container ic1" id="mother-lastname">
+                    <input id="mother-lastname" class="input" type="text"
+                          placeholder=" " [(ngModel)]="mother.lastname"/>
+                    <div class="cut cut-l"></div>
+                    <label for="mother-lastname" class="placeholder">Last Name*</label>
+                  </div>
+                  <div class="input-container ic1" id="mother-middlename">
+                    <input id="mother-middlename" class="input" type="text"
+                          placeholder=" " [(ngModel)]="mother.middlename"/>
+                    <div class="cut cut-xl"></div>
+                    <label for="mother-middlename" class="placeholder">Middle Name</label>
+                  </div>
+                  <div class="input-container ic1" id="mother-email">
+                    <input id="mother-email" class="input" type="email"
+                          placeholder=" " [(ngModel)]="mother.email"/>
+                    <div class="cut cut-s"></div>
+                    <label for="mother-email" class="placeholder">Email*</label>
+                  </div>
+                  <div class="input-container ic1" id="mother-mobile">
+                    <input id="mother-mobile" class="input" type="text"
+                          placeholder=" " [(ngModel)]="mother.mobile"/>
+                    <div class="cut cut-xl"></div>
+                    <label for="mother-mobile" class="placeholder">Phone Number*</label>
+                  </div>
+                  <div class="input-container ic1" id="mother-home_address">
+                    <input id="mother-home_address" class="input" type="text"
+                          placeholder=" " [(ngModel)]="mother.home_address"/>
+                    <div class="cut cut-m"></div>
+                    <label for="mother-home_address" class="placeholder">Address*</label>
+                  </div>
                 </div>
-                <div class="input-container ic1" id="guardian-middlename">
-                  <input id="guardian-middlename" class="input" type="text"
-                        placeholder=" " [(ngModel)]="guardian.middlename"/>
+
+                <!-- Guardian -->
+                <div *ngIf="isGuardian == 'Guardian'">
+                  <div class="input-container ic1" id="guardian">
+                    <input id="guardian" class="input" type="text"
+                          placeholder=" " value="Guardian" disabled>
+                    <div class="cut cut-m"></div>
+                    <label for="guardian" class="placeholder">Parent</label>
+                  </div>
+                  <div class="input-container ic1" id="guardian-firstname">
+                    <input id="guardian-firstname" class="input" type="text"
+                          placeholder=" " [(ngModel)]="guardian.firstname"/>
+                    <div class="cut cut-l"></div>
+                    <label for="guardian-firstname" class="placeholder">First Name*</label>
+                  </div>
+                  <div class="input-container ic1" id="guardian-lastname">
+                    <input id="guardian-lastname" class="input" type="text"
+                          placeholder=" " [(ngModel)]="guardian.lastname"/>
+                    <div class="cut cut-l"></div>
+                    <label for="guardian-lastname" class="placeholder">Last Name*</label>
+                  </div>
+                  <div class="input-container ic1" id="guardian-middlename">
+                    <input id="guardian-middlename" class="input" type="text"
+                          placeholder=" " [(ngModel)]="guardian.middlename"/>
+                    <div class="cut cut-xl"></div>
+                    <label for="guardian-middlename" class="placeholder">Middle Name</label>
+                  </div>
+                  <div class="input-container ic1" id="guardian-email">
+                    <input id="guardian-email" class="input" type="email"
+                          placeholder=" " [(ngModel)]="guardian.email"/>
+                    <div class="cut cut-s"></div>
+                    <label for="guardian-email" class="placeholder">Email*</label>
+                  </div>
+                  <div class="input-container ic1" id="guardian-mobile">
+                    <input id="guardian-mobile" class="input" type="text"
+                          placeholder=" " [(ngModel)]="guardian.mobile"/>
+                    <div class="cut cut-xl"></div>
+                    <label for="guardian-mobile" class="placeholder">Phone Number*</label>
+                  </div>
+                  <div class="input-container ic1" id="guardian-home_address">
+                    <input id="guardian-home_address" class="input" type="text"
+                          placeholder=" " [(ngModel)]="guardian.home_address"/>
+                    <div class="cut cut-m"></div>
+                    <label for="guardian-home_address" class="placeholder">Address*</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--  REVIEW  -->
+            <div *ngIf="review">
+              <div class="section">
+                <h1>SCHOOL</h1>
+                <div class="input-container ic1" id="choice">
+                  <input [value]="getSchool(student.school_id)[0].school_name"
+                  id="schChosen" class="input" type="text" placeholder=" " disabled />
                   <div class="cut cut-xl"></div>
-                  <label for="guardian-middlename" class="placeholder">Middle Name</label>
+                  <label for="schChosen" class="placeholder">School Chosen</label>
+              </div>
+              </div>
+              <div class="section">
+                <h1>PERSONAL INFORMATION</h1>
+                <div class="input-container ic1" id="lastname">
+                  <input id="lastname" class="input" type="text"
+                        placeholder=" " [value]="student.lastname"/>
+                  <div class="cut cut-l"></div>
+                  <label for="lastname" class="placeholder">Last Name*</label>
                 </div>
-                <div class="input-container ic1" id="guardian-email">
-                  <input id="guardian-email" class="input" type="email"
-                        placeholder=" " [(ngModel)]="guardian.email"/>
+                <div class="input-container ic2" id="firstname">
+                  <input id="firstname" class="input" type="text"
+                        placeholder=" " disabled [value]="student.firstname"/>
+                  <div class="cut cut-l"></div>
+                  <label for="firstname" class="placeholder">First Name*</label>
+                </div>
+                <div class="input-container ic2" id="middlename">
+                  <input id="middlename" class="input" type="text"
+                        placeholder=" " disabled [value]="student.middlename || ''"/>
+                  <div class="cut cut-xl"></div>
+                  <label for="middlename" class="placeholder">Middle Name</label>
+                </div>
+                <div class="input-container ic2" id="gender">
+                  <input type = "text" class="input" name="gender" disabled [value]="student.gender">
+                  <div class="cut cut-m"></div>
+                  <label for="gender" class="placeholder">Gender*</label>
+                </div>
+                <div class="input-container ic2" id="bday">
+                  <input id="bday" class="input" type="date"
+                        placeholder=" " disabled [value]="student.bday"/>
+                  <div class="cut cut-m"></div>
+                  <label for="bday" class="placeholder">Birthday*</label>
+                </div>
+                <div class="input-container ic2" id="home_address">
+                  <input id="home_address" class="input" type="text"
+                        placeholder=" " disabled [value]="student.home_address"/>
+                  <div class="cut cut-m"></div>
+                  <label for="home_address" class="placeholder">Address*</label>
+                </div>
+                <div class="input-container ic2" id="lrn">
+                  <input id="lrn" class="input" type="text"
+                        placeholder=" " disabled [value]="student.lrn || ''"/>
                   <div class="cut cut-s"></div>
-                  <label for="guardian-email" class="placeholder">Email*</label>
+                  <label for="lrn" class="placeholder">LRN</label>
                 </div>
-                <div class="input-container ic1" id="guardian-mobile">
-                  <input id="guardian-mobile" class="input" type="text"
-                        placeholder=" " [(ngModel)]="guardian.mobile"/>
-                  <div class="cut cut-xl"></div>
-                  <label for="guardian-mobile" class="placeholder">Phone Number*</label>
-                </div>
-                <div class="input-container ic1" id="guardian-home_address">
-                  <input id="guardian-home_address" class="input" type="text"
-                        placeholder=" " [(ngModel)]="guardian.home_address"/>
+                <div class="input-container ic2" id="religion">
+                  <input type="text" class="input" disabled [value] = "studentReligion()">
                   <div class="cut cut-m"></div>
-                  <label for="guardian-home_address" class="placeholder">Address*</label>
+                  <label for="religion" class="placeholder">Religion*</label>
+                </div>
+                <div class="input-container ic2" id="nationality">
+                  <input type="text" class="input" disabled [value] = "studentNationality()">
+                  <div class="cut cut-l"></div>
+                  <label for="nationality" class="placeholder">Nationality*</label>
+                </div>
+              </div>
+              <div class="section">
+                <h1>PARENTS AND GUARDIAN INFORMATION</h1>
+                <!-- Father -->
+                <div  *ngIf="isGuardian.match('Father')">
+                  <div class="input-container ic1" id="father">
+                    <input id="father" class="input" type="text"
+                          placeholder=" " value="Father" disabled>
+                    <div class="cut cut-m"></div>
+                    <label for="father" class="placeholder">Parent</label>
+                  </div>
+                  <div class="input-container ic1" id="father-firstname">
+                    <input id="father-firstname" class="input" type="text"
+                          placeholder=" " disabled [value]="father.firstname"/>
+                    <div class="cut cut-l"></div>
+                    <label for="father-firstname" class="placeholder">First Name*</label>
+                  </div>
+                  <div class="input-container ic1" id="father-lastname">
+                    <input id="father-lastname" class="input" type="text"
+                          placeholder=" " disabled [value]="father.lastname"/>
+                    <div class="cut cut-l"></div>
+                    <label for="father-lastname" class="placeholder">Last Name*</label>
+                  </div>
+                  <div class="input-container ic1" id="father-middlename">
+                    <input id="father-middlename" class="input" type="text"
+                          placeholder=" " disabled [value]="father.middlename || ''"/>
+                    <div class="cut cut-xl"></div>
+                    <label for="father-middlename" class="placeholder">Middle Name</label>
+                  </div>
+                  <div class="input-container ic1" id="father-email">
+                    <input id="father-email" class="input" type="email"
+                          placeholder=" " disabled [value]="father.email"/>
+                    <div class="cut cut-s"></div>
+                    <label for="father-email" class="placeholder">Email*</label>
+                  </div>
+                  <div class="input-container ic1" id="father-mobile">
+                    <input id="father-mobile" class="input" type="text"
+                          placeholder=" " disabled [value]="father.mobile"/>
+                    <div class="cut cut-xl"></div>
+                    <label for="father-mobile" class="placeholder">Phone Number*</label>
+                  </div>
+                  <div class="input-container ic1" id="father-home_address">
+                    <input id="father-home_address" class="input" type="text"
+                          placeholder=" " disabled [value]="father.home_address"/>
+                    <div class="cut cut-m"></div>
+                    <label for="father-home_address" class="placeholder">Address*</label>
+                  </div>
+                </div>
+                <!-- Mother -->
+                <div *ngIf="isGuardian.match('Mother')">
+                  <div class="input-container ic1" id="mother">
+                    <input id="mother" class="input" type="text"
+                          placeholder=" " value="Mother" disabled>
+                    <div class="cut cut-m"></div>
+                    <label for="mother" class="placeholder">Parent</label>
+                  </div>
+                  <div class="input-container ic1" id="mother-firstname">
+                    <input id="mother-firstname" class="input" type="text"
+                          placeholder=" " disabled [value]="mother.firstname"/>
+                    <div class="cut cut-l"></div>
+                    <label for="mother-firstname" class="placeholder">First Name*</label>
+                  </div>
+                  <div class="input-container ic1" id="mother-lastname">
+                    <input id="mother-lastname" class="input" type="text"
+                          placeholder=" " disabled [value]="mother.lastname"/>
+                    <div class="cut cut-l"></div>
+                    <label for="mother-lastname" class="placeholder">Last Name*</label>
+                  </div>
+                  <div class="input-container ic1" id="mother-middlename">
+                    <input id="mother-middlename" class="input" type="text"
+                          placeholder=" " disabled [value]="mother.middlename || ''"/>
+                    <div class="cut cut-xl"></div>
+                    <label for="mother-middlename" class="placeholder">Middle Name</label>
+                  </div>
+                  <div class="input-container ic1" id="mother-email">
+                    <input id="mother-email" class="input" type="email"
+                          placeholder=" " disabled [value]="mother.email"/>
+                    <div class="cut cut-s"></div>
+                    <label for="mother-email" class="placeholder">Email*</label>
+                  </div>
+                  <div class="input-container ic1" id="mother-mobile">
+                    <input id="mother-mobile" class="input" type="text"
+                          placeholder=" " disabled [value]="mother.mobile"/>
+                    <div class="cut cut-xl"></div>
+                    <label for="mother-mobile" class="placeholder">Phone Number*</label>
+                  </div>
+                  <div class="input-container ic1" id="mother-home_address">
+                    <input id="mother-home_address" class="input" type="text"
+                          placeholder=" " disabled [value]="mother.home_address"/>
+                    <div class="cut cut-m"></div>
+                    <label for="mother-home_address" class="placeholder">Address*</label>
+                  </div>
+                </div>
+                <!-- Guardian -->
+                <div *ngIf="isGuardian == 'Guardian'">
+                  <div class="input-container ic1" id="guardian">
+                    <input id="guardian" class="input" type="text"
+                          placeholder=" " value="Guardian" disabled>
+                    <div class="cut cut-m"></div>
+                    <label for="guardian" class="placeholder">Parent</label>
+                  </div>
+                  <div class="input-container ic1" id="guardian-firstname">
+                    <input id="guardian-firstname" class="input" type="text"
+                          placeholder=" " disabled [value]="guardian.firstname"/>
+                    <div class="cut cut-l"></div>
+                    <label for="guardian-firstname" class="placeholder">First Name*</label>
+                  </div>
+                  <div class="input-container ic1" id="guardian-lastname">
+                    <input id="guardian-lastname" class="input" type="text"
+                          placeholder=" " disabled [value]="guardian.lastname"/>
+                    <div class="cut cut-l"></div>
+                    <label for="guardian-lastname" class="placeholder">Last Name*</label>
+                  </div>
+                  <div class="input-container ic1" id="guardian-middlename">
+                    <input id="guardian-middlename" class="input" type="text"
+                          placeholder=" " disabled [value]="guardian.middlename || ''"/>
+                    <div class="cut cut-xl"></div>
+                    <label for="guardian-middlename" class="placeholder">Middle Name</label>
+                  </div>
+                  <div class="input-container ic1" id="guardian-email">
+                    <input id="guardian-email" class="input" type="email"
+                          placeholder=" " disabled [value]="guardian.email"/>
+                    <div class="cut cut-s"></div>
+                    <label for="guardian-email" class="placeholder">Email*</label>
+                  </div>
+                  <div class="input-container ic1" id="guardian-mobile">
+                    <input id="guardian-mobile" class="input" type="text"
+                          placeholder=" " disabled [value]="guardian.mobile"/>
+                    <div class="cut cut-xl"></div>
+                    <label for="guardian-mobile" class="placeholder">Phone Number*</label>
+                  </div>
+                  <div class="input-container ic1" id="guardian-home_address">
+                    <input id="guardian-home_address" class="input" type="text"
+                          placeholder=" " disabled [value]="guardian.home_address"/>
+                    <div class="cut cut-m"></div>
+                    <label for="guardian-home_address" class="placeholder">Address*</label>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div class="navigation">
-                <div class="btn previous" (click)="previous()"><fa-icon [icon]="arrLeft"></fa-icon></div>
-                <div class="choose" *ngIf="allValid">
-                  <div class="btn submit" (click)="submit()">Submit</div>
+                <div class="btn previous" (click)="previous()" *ngIf = "!review"><fa-icon [icon]="arrLeft"></fa-icon></div>
+                <div class="btn previous" (click)="Review()" *ngIf = "review"><fa-icon [icon]="arrLeft"></fa-icon></div>
+
+                <div class="choose" >
+                    <div [class]="btn[0]" class = "hide-small" (click)="page(0)" *ngIf = "!review">1</div>
+                    <div [class]="btn[1]" class = "hide-small" (click)="page(1)" *ngIf = "!review">2</div>
+                    <div [class]="btn[2]" class = "hide-small" (click)="page(2)" *ngIf = "!review">3</div>
+                    <div *ngIf="allValid && !review" class= "btn review" (click)="Review()" >Review</div>
+                    <div class= "btn submit" (click)="submit()" *ngIf = "review">Submit</div>
                 </div>
-                <div class="choose" *ngIf="!allValid">
-                    <div [class]="btn[0]" (click)="page(0)" >1</div>
-                    <div [class]="btn[1]" (click)="page(1)" >2</div>
-                    <div [class]="btn[2]" (click)="page(2)" >3</div>
-                </div>
-                <div class="btn next" (click)="next()"><fa-icon [icon]="arrRight"></fa-icon></div>
+                <div class="btn next" (click)="next()" *ngIf = "!review"><fa-icon [icon]="arrRight"></fa-icon></div>
             </div>
         </div>
     </div>
-    <!-- <div class="counter"></div> -->
 </div>

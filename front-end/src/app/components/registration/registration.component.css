@@ -1,4 +1,4 @@
-.content, .counter{
+.content{
     /* position: fixed; */
     width: 100%;
     min-height: 100vh;
@@ -6,10 +6,7 @@
     display: flex;
     top : 0;
     padding-top: 90px;
-    padding-bottom: 30px;
-}
-.counter{
-    position: relative !important;
+    /* padding-bottom: 30px; */
 }
 
 .form{
@@ -34,6 +31,10 @@
 
 .form p{
     font-size: var(--body-font-size);
+}
+
+.section{
+  margin-top: 40px;
 }
 
 .section > h1 {
@@ -240,16 +241,30 @@
     transform: translateY(-30px) translateX(10px) scale(0.75);
   }
 
-  .submit {
+  .submit, .review {
     background-color: #08d;
     color: #eee;
     cursor: pointer;
   }
 
-  .submit:hover {
+  .submit:hover, .review:hover {
     background-color: #06b;
   }
 
-  .submit:active {
+  .submit:active, .review:active {
     background-color: #06b;
+  }
+
+  .review {
+    margin-left: 10px;
+  }
+
+  @media (max-width:600px){
+    .hide-small{
+        display:none!important;
+    }
+    .pp{
+      float: right;
+      margin-left: auto;
+    }
   }

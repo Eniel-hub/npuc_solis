@@ -51,6 +51,7 @@ export class RegistrationComponent implements OnInit {
   allValid : boolean = false;
   idEducation : string = '';
   isGuardian : string = '';
+  review : boolean = false;
   newNation : string = '';
   schools : School[] = [];
   student : Student = {};
@@ -200,6 +201,23 @@ export class RegistrationComponent implements OnInit {
         }
     }
     return trueSoFar;
+  }
+
+  Review(){
+    this.review = ! this.review;
+    window.scrollTo(0, 0);
+  }
+
+  studentNationality(){
+    return this.nationalities.filter(nat => {
+      return nat.ID == this.student.nationality_id;
+    })[0].nationality
+  }
+
+  studentReligion(){
+    return this.religions.filter(reli => {
+      return reli.ID == this.student.religion_id;
+    })[0].religion
   }
 
   submit(){
