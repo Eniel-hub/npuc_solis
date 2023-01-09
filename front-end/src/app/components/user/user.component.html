@@ -1,7 +1,9 @@
 <div (click)="click()" class="userdiv">
-  <div *ngIf="pp" class="pp pp-ic">
-    <fa-icon [icon]="userIcon"></fa-icon>
-  </div>
+  <a routerLink="/user/profile">
+    <div *ngIf="pp" class="pp pp-ic">
+      <fa-icon [icon]="userIcon"></fa-icon>
+    </div>
+  </a>
   <div *ngIf="!pp" class="pp pp-img">
     <!-- todo : add profile picture link as img -->
   </div>

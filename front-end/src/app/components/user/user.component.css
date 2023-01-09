@@ -54,6 +54,10 @@ fa-icon {
   background-color: var(--marroon-light);
 }
 
+.userdiv > a {
+  color: black;
+}
+
 @media (max-width:600px){
   .hide-small{
       display:none!important;

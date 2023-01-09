@@ -70,9 +70,35 @@ const UserExits = async (req, res, next) =>{
     }
 }
 
+const updatePassword = async (username, password, newPassword) =>{
+    let user = await GetUser(username)
+    if(CheckPassword(password, user.hash, user.salt)){
+        try {
+            if(CheckPassword(newPassword, user.hash, user.salt))
+                return {error : "old password"}
+
+            let pass = GenPassword(newPassword);
+            const User = {
+                username : username,
+                hash: pass.hash,
+                salt: pass.salt
+            }
+            await userService.ChangePassword(User);
+            return {success : true}
+        } catch (err) {
+            console.log(`error while updating password ${err.message}`);
+            return {error : "an error occured"}
+        }
+    }
+    else {
+        return {error : "wrong password"}
+    }
+}
+
 
 
 module.exports = {
+    updatePassword,
     CheckPassword,
     Initialize,
     CreateUser,

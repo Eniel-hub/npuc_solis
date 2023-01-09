@@ -1,7 +1,9 @@
 import { StudentApplication } from '../../interfaces/StudentApplication';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { StudentService } from './../../services/student.service';
 import { SchoolService } from '../../services/school.service';
 import { Nationality } from '../../interfaces/Nationality';
+import { AlertComponent } from '../alert/alert.component';
 import { StudentCat } from '../../interfaces/StudentCat';
 import { Religion } from '../../interfaces/Religion';
 import { Student } from '../../interfaces/Student';
@@ -28,6 +30,7 @@ import { EmailValidator } from '@angular/forms';
 export class RegistrationComponent implements OnInit {
 
   categories : string[] = ['School', 'Personal', 'Parents'];
+  modalRef : MdbModalRef<AlertComponent> | null = null;
   newStudentApplication : StudentApplication = {};
   guardian : Parent = {relationship : 'Guardian'};
   father : Parent = {relationship : 'Father'};
@@ -65,6 +68,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private studentService : StudentService,
+    private modalService: MdbModalService,
     private schoolService : SchoolService,
     private route : Router
   ) { }
@@ -86,6 +90,15 @@ export class RegistrationComponent implements OnInit {
 
     this.studentService.getStudentCat().subscribe((arr:any) =>{
       this.studentCategories = arr;
+    })
+  }
+
+  openModal() {
+    this.modalRef = this.modalService.open(AlertComponent, {
+      data : {
+        title : 'Registeation',
+        body : 'Registration Successfull'
+      }
     })
   }
 
@@ -202,6 +215,7 @@ export class RegistrationComponent implements OnInit {
         console.log(response.error)
         return
       }
+      this.openModal();
       this.route.navigate(['/student/dashboard'])
     });
   }

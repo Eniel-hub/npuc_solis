@@ -222,3 +222,23 @@ h2:hover{
   color: var(--marroon-darkest);
   transform: translateY(-30px) translateX(10px) scale(0.75);
 }
+
+.info {
+  font-family: 'Nunito', sans-serif;
+  font-style: italic;
+  font-size: calc(.75vh + .5vw);
+  text-transform: capitalize;
+  margin-top: calc(.5vh + .5vw);
+}
+
+.info .nothing {
+  display: none;
+}
+
+.info .error{
+  color: red;
+}
+
+.btn-outline-success{
+  margin-right: 2px;
+}

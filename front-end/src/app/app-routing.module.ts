@@ -1,5 +1,6 @@
 import { RegistrationComponent } from './components/registration/registration.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { EnrollmentComponent } from './components/enrollment/enrollment.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
@@ -28,6 +29,8 @@ const routes: Routes = [
   {path: 'user/profile', component : UserProfileComponent,
     canActivate : [AuthGuard]},
   {path: 'student/dashboard', component : DashboardComponent,
+    canActivate : [AuthGuard] },
+  {path: 'student/enrollment', component : EnrollmentComponent,
     canActivate : [AuthGuard] },
   {path: 'student/application', component : RegistrationComponent,
     canActivate : [AuthGuard, NotStudent]},

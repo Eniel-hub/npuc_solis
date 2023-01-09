@@ -40,6 +40,9 @@ import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EnrollmentComponent } from './components/enrollment/enrollment.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +65,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PolicyComponent,
     RegistrationComponent,
     UserProfileComponent,
+    EnrollmentComponent,
+    AlertComponent,
+    StudentProfileComponent,
   ],
   imports: [
     BrowserModule,

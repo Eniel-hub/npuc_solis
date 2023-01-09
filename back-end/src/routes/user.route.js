@@ -40,7 +40,15 @@ router.post('/register', pportMiddleware.UserExits, (req, res) =>{
     const username = req.body.username;
     const password = req.body.password;
     pportMiddleware.CreateUser(username, password);
-    res.json({"success" : "success"});
+    res.json({success : true});
 });
+
+router.post('/password', auth.IsAuth, async (req, res, next) =>{
+    let username = req.user;
+    let password = req.body.password;
+    let newPassword = req.body.newPassword;
+    response  = await pportMiddleware.updatePassword(username, password, newPassword);
+    res.json(response)
+})
 
 module.exports = router;

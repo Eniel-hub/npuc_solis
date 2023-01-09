@@ -1,5 +1,5 @@
+import { Route, Router } from '@angular/router';
 import { User } from '../../interfaces/User';
-import { Observable } from 'rxjs';
 import { Student } from '../../interfaces/Student';
 import { Component, OnInit, Input } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +21,10 @@ export class UserComponent implements OnInit {
   userInfo : any = localStorage.getItem("userInfo");
   name : any = JSON.parse(this.userInfo).username;
 
-  constructor(private service : UserPublishedService) { }
+  constructor(
+    private service : UserPublishedService,
+    private Route : Router
+    ) { }
 
   ngOnInit(): void {
     this.service.studentSet.subscribe((studentP : Student) => {
@@ -36,5 +39,4 @@ export class UserComponent implements OnInit {
   click(){
     console.log(this.name)
   }
-
 }

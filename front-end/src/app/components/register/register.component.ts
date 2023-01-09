@@ -2,7 +2,9 @@ import { Router} from '@angular/router';
 import { User } from '../../interfaces/User';
 import { Error } from '../../interfaces/Error';
 import { Component, OnInit } from '@angular/core';
+import { AlertComponent } from '../alert/alert.component';
 import { UserService } from 'src/app/services/user.service';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { faUser, faLock, faEye, faEyeSlash } from  '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -16,6 +18,7 @@ import { faUser, faLock, faEye, faEyeSlash } from  '@fortawesome/free-solid-svg-
 //todo add loader component
 
 export class RegisterComponent implements OnInit {
+  modalRef : MdbModalRef<AlertComponent> | null = null;
   menuItems = [
     { name : 'home',    link : '/home'        },
     { name : 'About',   link : '/about-us'    },
@@ -35,12 +38,22 @@ export class RegisterComponent implements OnInit {
   eyeIcon = faEye;
 
   constructor(
+    private modalService: MdbModalService,
     private userService : UserService,
     private router : Router
   ) { }
 
   ngOnInit() : void {
    }
+
+   openModal() {
+    this.modalRef = this.modalService.open(AlertComponent, {
+      data : {
+        title : 'Register',
+        body : 'Suceessfully registered please login'
+      }
+    })
+  }
 
   eye() {
     if (this.isVisible) return this.eyeIcon;
@@ -128,6 +141,8 @@ export class RegisterComponent implements OnInit {
     setTimeout( ()=>{
       this.router.navigate(['user/login']);
     }, 2000);
+
+    this.openModal()
   }
 
   Registration(){

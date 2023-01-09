@@ -36,7 +36,7 @@ export class UserService {
     return this.httpClient.post(this.loginUrl,
                                 {'username' : user.username,
                                  'password' : user.password},
-                                 {withCredentials : true});
+                                {withCredentials : true});
   }
 
   saveUser = (user : User) =>{
@@ -50,6 +50,13 @@ export class UserService {
     localStorage.removeItem('studentInfo');
     return this.httpClient.get(this.logoutUrl,
                                 {withCredentials : true});
+  }
+
+  updatePassword = (password : string, newPassword : string) =>{
+    return this.httpClient.post(this.updatePasswordUrl,
+                                {"password" : password,
+                                 "newPassword" : newPassword},
+                                {withCredentials : true})
   }
 
   constructor(private httpClient: HttpClient) { }
