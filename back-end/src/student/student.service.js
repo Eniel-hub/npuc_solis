@@ -51,14 +51,31 @@ const GetAllNations = async() =>{
         'SELECT * FROM student_nationality',
         []
     );
-    const Nntions = helper.EmptyOrRows(result);
-    return Nntions;
+    const Nations = helper.EmptyOrRows(result);
+    return Nations;
+}
+
+const GetMyParents = async(ID) =>{
+    const result = await db.Query(
+        `SELECT * FROM myparent WHERE student_id = ?`,
+        [ID]
+    );
+    return result;
+}
+
+const GetParent = async(ID) =>{
+    const result = await db.Query(
+        `SELECT * FROM parents WHERE ID = ?`,
+        [ID])
+    return result[0];
 }
 
 module.exports = {
     GetNation,
+    GetParent,
     GetStudent,
     GetReligion,
+    GetMyParents,
     GetAllNations,
     GetAllReligions,
     getAllCategories,

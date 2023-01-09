@@ -1,3 +1,4 @@
+import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { EnrollmentComponent } from './components/enrollment/enrollment.component';
@@ -32,6 +33,8 @@ const routes: Routes = [
     canActivate : [AuthGuard] },
   {path: 'student/enrollment', component : EnrollmentComponent,
     canActivate : [AuthGuard] },
+  {path: 'student/profile', component : StudentProfileComponent,
+    canActivate : [AuthGuard]},
   {path: 'student/application', component : RegistrationComponent,
     canActivate : [AuthGuard, NotStudent]},
   {path: '**', component : Page404Component}

@@ -33,6 +33,7 @@ export class UserProfileComponent implements OnInit {
 
   menuItems = [
     { name : 'dashboard', link : '/student/dashboard'},
+    { name : 'student', link : '/student/profile'},
     { name : 'about', link : '/about'},
     { name : 'logout'},
   ]

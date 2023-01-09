@@ -16,5 +16,32 @@ export interface Student {
     Guardian?              : string,
     remarks?               : string,
     nationality?           : string,
-    is_enrollment?         : number
+    is_enrollment?         : number,
+    father?                : {
+                                lastname?      : string,
+                                firstname?     : string,
+                                middlename?    : string,
+                                pname?         : string,
+                                email?         : string,
+                                home_address?  : string,
+                                mobile?        : string
+                              },
+    mother?                : {
+                                lastname?      : string,
+                                firstname?     : string,
+                                middlename?    : string,
+                                pname?         : string,
+                                email?         : string,
+                                home_address?  : string,
+                                mobile?        : string
+                              },
+    guardian?              : {
+                                lastname?      : string,
+                                firstname?     : string,
+                                middlename?    : string,
+                                pname?         : string,
+                                email?         : string,
+                                home_address?  : string,
+                                mobile?        : string
+                              },
   }

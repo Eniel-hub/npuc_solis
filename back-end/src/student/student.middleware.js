@@ -25,6 +25,20 @@ const getProfile = async (req, res, next)=>{
         return res.json({error: 'not a student'})
     
     let student = await service.GetStudent(user.student_id);
+    let myParents = await service.GetMyParents(student.ID);
+    let parents =[];
+    for (let par of myParents){
+        let parent = await service.GetParent(par.ID)
+        parents.push(parent)
+    };
+    console.log(parents)
+    let [father, ] = parents.filter(parent => parent.relationship === 'Father')
+    let [mother, ] = parents.filter(parent => parent.relationship === 'Mother')
+    let [guardian, ] = parents.filter(parent => parent.relationship === 'Guardian')
+
+    if(father) student.father = {... father}
+    if(mother) student.mother = {... mother}
+    if(guardian) student.guardian = {... guardian}
     return res.json(student);
 }
 

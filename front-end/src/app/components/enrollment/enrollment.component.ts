@@ -7,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EnrollmentComponent implements OnInit {
   menuItems = [
+    { name : 'dashboard', link : '/student/dashboard'},
+    { name : 'student', link : '/student/profile'},
     { name : 'profile', link : '/user/profile'},
-    { name : 'home', link : '/student/dashboard'},
     { name : 'about', link : '/about'},
     { name : 'logout'},
   ]
