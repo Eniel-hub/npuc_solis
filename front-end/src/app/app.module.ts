@@ -44,6 +44,8 @@ import { EnrollmentComponent } from './components/enrollment/enrollment.componen
 import { AlertComponent } from './components/alert/alert.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 
+import { globalStudent } from './global.student';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,7 +94,7 @@ import { StudentProfileComponent } from './components/student-profile/student-pr
     MdbValidationModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [globalStudent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

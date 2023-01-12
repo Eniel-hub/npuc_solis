@@ -104,7 +104,10 @@ h2:hover{
 
 .img img {
   margin: auto;
-  width: calc(9vh + 9vw);
+  width: var(--img-sqr-size);
+  height: var(--img-sqr-size);
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .img img:hover{

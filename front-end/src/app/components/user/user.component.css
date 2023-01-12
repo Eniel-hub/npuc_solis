@@ -6,6 +6,7 @@
   width: fit-content;
   width: calc(9vh + 9vw);
   display: flex;
+  margin: auto;
 }
 
 .userdiv .pp {
@@ -54,7 +55,7 @@ fa-icon {
   background-color: var(--marroon-light);
 }
 
-.userdiv > a {
+a {
   color: black;
 }
 

@@ -13,7 +13,7 @@
       <div *ngIf="!isEditing" class="row">
         <div class="col">
           <div class="img">
-            <img src="https://i.pinimg.com/originals/8b/44/51/8b4451665d6b2139e29f29b51ffb1829.png" alt="">
+            <img [src]="profile || image" alt="">
           </div>
         </div>
         <div class="col form">
@@ -41,13 +41,13 @@
       <div *ngIf="isEditing" class="row">
         <div class="col">
           <div class="img">
-            <img [src]="profile || 'https://i.pinimg.com/originals/8b/44/51/8b4451665d6b2139e29f29b51ffb1829.png'" alt="">
+            <img [src]="profile || image" alt="">
           </div>
         </div>
         <div class="col form">
           <div class="input-container ic1" id="ppicture">
             <input id="picture" class="input" type="file"
-                  placeholder=" " [(ngModel)]="profile">
+                  placeholder=" " (change)="selectFile($event)">
             <div class="cut cut-xl"></div>
             <label for="ppicture" class="placeholder">Profile Picture</label>
           </div>

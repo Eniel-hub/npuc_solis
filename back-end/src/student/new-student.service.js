@@ -5,9 +5,9 @@ const helper = require('../utils/helper')
 const RegisterNewStudent = async (username, student) =>{
     // console.log(student)
     student.fullname = helper.FullName(student.firstname, student.lastname, student.middlename);
-    student.father.pname = helper.FullName(student.father.firstname, student.father.lastname, student.father.middlename);
-    student.mother.pname = helper.FullName(student.mother.firstname, student.mother.lastname, student.mother.middlename);
-    student.guardian.pname = helper.FullName(student.guardian.firstname, student.guardian.lastname, student.guardian.middlename);
+    student.father.pname = student.father.firstname ? helper.FullName(student.father.firstname, student.father.lastname, student.father.middlename) : '';
+    student.mother.pname = student.mother.firstname ? helper.FullName(student.mother.firstname, student.mother.lastname, student.mother.middlename) : '';
+    student.guardian.pname = student.guardian.firstname ? helper.FullName(student.guardian.firstname, student.guardian.lastname, student.guardian.middlename) : '';
     if(student.nationality_id === '0') {
         const nationalityId = await SaveNationality(student.nationality);
         student.nationality_id = nationalityId;

@@ -16,7 +16,7 @@ export class UserPublishedService {
   }
 
   //student Publised
-  private studentP = new Subject<Student>();
+  studentP = new Subject<Student>();
   studentSet = this.studentP.asObservable();
   emitStudentChange(student: Student){
     this.studentP.next(student)

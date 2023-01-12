@@ -1,7 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
+import { globalStudent } from 'src/app/global.student';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-logout',
@@ -17,6 +18,7 @@ export class LogoutComponent implements OnInit {
 
   constructor(
     public modalRef: MdbModalRef<LogoutComponent>,
+    public GlobalStudent : globalStudent,
     private userService : UserService,
     private router : Router
     ) { }
@@ -32,8 +34,14 @@ export class LogoutComponent implements OnInit {
         console.log('error while loging out')
         return
       }
+
+      this.removeStudent();
       this.modalRef.close();
       this.router.navigate(['/home']);
     });
+  }
+
+  removeStudent(){
+    this.GlobalStudent.updateGlobalVar({});
   }
 }

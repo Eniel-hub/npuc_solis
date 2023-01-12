@@ -1,3 +1,4 @@
+import { globalStudent } from './../../global.student';
 import { UserPublishedService } from '../../services/user-published.service';
 import { StudentService } from '../../services/student.service';
 import { UserService } from '../../services/user.service';
@@ -30,6 +31,7 @@ export class DashboardComponent implements OnInit {
   ]
 
   constructor(
+    private GlobalStudent : globalStudent,
     private studentService : StudentService,
     private publish : UserPublishedService,
     private userService : UserService,
@@ -37,6 +39,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.getFirstCard();
 
     this.userService.getUser()
@@ -58,7 +61,13 @@ export class DashboardComponent implements OnInit {
         this.student = response;
         this.publish.emitStudentChange(this.student);
         this.studentService.setStudentInfo(this.student.ID || 0);
+
+        this.selectedStudent(this.student)
       });
+  }
+
+  selectedStudent(student: Student) {
+    this.GlobalStudent.updateGlobalVar(student);
   }
 
   getFirstCard = () =>{

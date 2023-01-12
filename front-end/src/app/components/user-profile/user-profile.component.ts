@@ -1,5 +1,7 @@
 import { Error } from 'src/app/interfaces/Error';
 import { Component, OnInit } from '@angular/core';
+import { Student } from 'src/app/interfaces/Student';
+import { globalStudent } from 'src/app/global.student';
 import { AlertComponent } from '../alert/alert.component';
 import { UserService } from 'src/app/services/user.service';
 import { faEye, faEyeSlash} from  '@fortawesome/free-solid-svg-icons';
@@ -14,8 +16,8 @@ export class UserProfileComponent implements OnInit {
   //todo: make the profile change works
   profile : any;
   eyeIcon = faEye;
-  image : any = '';
   ID : number = 10000;
+  image : string = '';
   password : string = '';
   password1 : string = '';
   password2 : string = '';
@@ -30,13 +32,31 @@ export class UserProfileComponent implements OnInit {
   user : any = localStorage.getItem("userInfo");
   username : any = JSON.parse(this.user).username;
   modalRef : MdbModalRef<AlertComponent> | null = null;
+  globalStudent : Student = {};
+  subscription : any;
 
   menuItems = [
     { name : 'dashboard', link : '/student/dashboard'},
     { name : 'student', link : '/student/profile'},
-    { name : 'about', link : '/about'},
+    { name : 'about', link : '/about-us'},
     { name : 'logout'},
   ]
+
+  constructor(
+    private GlobalStudent : globalStudent,
+    private service : UserService,
+    private modalService: MdbModalService,
+    ) {   }
+
+
+  ngOnInit(): void {
+    this.globalStudent = this.GlobalStudent.getGlobalVarStudent();
+
+    if(this.globalStudent.gender == "Male")
+      this.image = '../../../assets/imgs/pp-g.jpeg'
+    else
+      this.image = '../../../assets/imgs/pp-f.jpeg'
+  }
 
   eye() {
     if (this.isVisible) return this.eyeIcon
@@ -48,12 +68,16 @@ export class UserProfileComponent implements OnInit {
     this.passwordType = this.isVisible? 'text' : 'password'
   }
 
-  constructor(
-    private service : UserService,
-    private modalService: MdbModalService,
-    ) {   }
-
-  ngOnInit(): void {
+  selectFile(event: any) {
+    // @ts-ignore: Object is possibly 'null'
+    const file = (event!.target as HTMLInputElement).files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.profile = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   change(){
