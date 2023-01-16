@@ -11,12 +11,30 @@ const GetUser = async (username) =>{
     return user;
 }
 
-const CreateUser = async(newUser) =>{
-    await db.Query(
-        `INSERT INTO student_login (username, hash, salt)
-        VALUES (?, ?, ?)`,
-        [newUser.username, newUser.hash, newUser.salt]
+const GetUserI = async (ID) =>{
+    const result = await db.Query(
+        'SELECT * FROM student_login WHERE student_id = ?',
+        [ID]
     );
+    const user = helper.EmptyOrRows(result);
+    return user;
+}
+
+const CreateUser = async(newUser) =>{
+    if(newUser.student_id){        
+        await db.Query(
+            `INSERT INTO student_login (username, hash, salt, student_id)
+            VALUES (?, ?, ?, ?)`,
+            [newUser.username, newUser.hash, newUser.salt, newUser.student_id]
+        );
+    }
+    else{
+        await db.Query(
+            `INSERT INTO student_login (username, hash, salt)
+            VALUES (?, ?, ?)`,
+            [newUser.username, newUser.hash, newUser.salt]
+        );
+    }
 }
 
 const ChangePassword = async (user) =>{
@@ -43,6 +61,7 @@ const ChangeProfilePicture = async (user) => {
 
 module.exports = {
     GetUser,
+    GetUserI,
     CreateUser,
     ChangePassword,
     AddProfilePicture,

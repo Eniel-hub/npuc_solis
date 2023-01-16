@@ -68,6 +68,13 @@ img{
   .display-small{
     display:block!important;
   }
+  #first{
+    padding: 0 16px;
+    border-radius: 25px;
+    margin-top: -25px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }
 
 .section-content{

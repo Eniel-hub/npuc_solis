@@ -8,6 +8,10 @@ import { cards } from '../../interfaces/cards';
 import { User } from '../../interfaces/User';
 import { Card } from '../../interfaces/Card';
 import { Router } from '@angular/router';
+import {
+  faChevronLeft as arrLeft,
+  faChevronRight as arrRight,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +20,9 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   user : User = {};
+  arrLeft = arrLeft;
   index : number = 0;
+  arrRight = arrRight;
   cards : Card[] = cards;
   student : Student = {};
   card : Card = this.cards[0];

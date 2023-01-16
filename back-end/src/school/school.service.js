@@ -32,8 +32,26 @@ const GetAllSchools = async () => {
     return schools;
 }
 
+const getAcademicDept = async (school_id) =>{
+    const IDs = await db.Query(
+        'SELECT ID FROM academic_dept WHERE school_id = ?',
+        [school_id] 
+    )
+    return IDs
+}
+
+const getGrades = async (ID) =>{
+    const grades = await db.Query(
+        'SELECT * FROM grade_level WHERE academic_id = ?',
+        [ID]
+    )
+    return grades;
+}
+
 module.exports = {
+    getGrades,
     GetImage,
     GetSchoolByName,
+    getAcademicDept,
     GetAllSchools
 }

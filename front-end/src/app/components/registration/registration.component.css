@@ -61,7 +61,6 @@
     outline: none;
     border-radius: 5px;
     padding: 0 1% 0 10%;
-    color: var(--marroon-darkest);
     background-color: var(--marroon-light-5);
     color: var(--marroon-darker) ;
   }
@@ -81,7 +80,7 @@
 
   #school .input:focus{
     background-color: var(--marroon-light);
-    color: #fff;
+    /* color: #fff; */
   }
 
   #school .cut{

@@ -110,20 +110,26 @@ img{
     float: right;
   }
 
-  @media (max-width:650px){
-    .hide-small{
-        display:none!important;
-    }
-    .card{
-      margin-top: 60px;
-    }
-    .navigation{
-        padding: 5px !important;
-    }
-    .navigation.top{
-        padding: 0 !important;
-        position: fixed;
-        margin-top: 55px;
-        background-color: transparent;
-    }
+/*big phones*/
+@media (max-width:600px){
+  .hide-small{
+    display:none!important;
   }
+  .card{
+    margin-top: 60px;
+  }
+  .navigation{
+      padding: 5px !important;
+  }
+  .navigation.top{
+      padding: 0 !important;
+      position: fixed;
+      margin-top: 55px;
+      background-color: transparent;
+  }
+}
+
+/*small phones*/
+@media (max-width:320px){
+
+}

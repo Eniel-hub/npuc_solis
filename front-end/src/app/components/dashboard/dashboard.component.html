@@ -13,9 +13,9 @@
                 <div class="text hide-small">{{card.title}}</div>
             </div>
             <div class="navigation top">
-                <div class="btn btn-success" (click)="previous()">Previous</div>
-                <div class="btn btn-success" (click)="next()">Next</div>
-            </div>
+              <div class="btn btn-sm btn-warning" (click)="previous()"><fa-icon [icon]="arrLeft"></fa-icon></div>
+              <div class="btn btn-sm btn-warning" (click)="next()"><fa-icon [icon]="arrRight"></fa-icon></div>
+          </div>
         </div>
         <div class="empty">
             <img
@@ -28,9 +28,9 @@
             <h1>{{card.title}}</h1>
             <span>{{card.content}}</span>
         </div>
-        <div class="navigation bottom">
-            <div class="btn btn-success" (click)="previous()">Previous</div>
-            <div class="btn btn-success" (click)="next()">Next</div>
+        <div class="navigation bottom small">
+            <div class="btn btn-sm btn-warning" (click)="previous()"><fa-icon [icon]="arrLeft"></fa-icon></div>
+            <div class="btn btn-sm btn-warning" (click)="next()"><fa-icon [icon]="arrRight"></fa-icon></div>
         </div>
     </div>
 

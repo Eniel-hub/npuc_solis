@@ -21,7 +21,25 @@ const GetAllSchools = async (req, res, next) => {
     }
 }
 
+
+const getGrades = async (req, res, next) =>{
+    //1st step : get academic_dept ID
+    let academic_dept_IDs = await schlService.getAcademicDept(req.body.school_id);
+    let grades = [];
+    academic_dept_IDs.forEach(async (academic_dept) => {
+        //2nd step : get grades
+        let Grades = await schlService.getGrades(academic_dept.ID);
+        Grades.forEach(grade =>{
+            grades.push(grade.grade_level)
+        })
+    });
+    setTimeout(() => {
+        res.json(grades)
+    }, 100);
+}
+
 module.exports = { 
     GetSchoolImage,
-    GetAllSchools 
+    GetAllSchools,
+    getGrades
 };

@@ -12,7 +12,7 @@ module.exports = (passport) => {
     
     const VerifyCallback = async (req, username, password, done) =>{
         try{
-            user = await auth.GetUser(username);
+            user = await auth.GetUser({username : username});
             if(!user)
                     return done(null, false, {error : "username not found"});
             const isValid = auth.CheckPassword(password, user.hash, user.salt);

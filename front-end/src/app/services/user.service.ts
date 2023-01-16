@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ServerIP } from '../../../config';
+import { ServerPORT } from '../../../config';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../interfaces/User';
 import { lastValueFrom } from 'rxjs';
@@ -7,12 +9,12 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private getUserUrl = 'http://localhost:5000/user';
-  private loginUrl = 'http://localhost:5000/user/login';
-  private logoutUrl = 'http://localhost:5000/user/logout';
-  private registerUrl = 'http://localhost:5000/user/register';
-  private updatePasswordUrl = 'http://localhost:5000/user/password';
-  private profilePictureUrl = 'http://localhost:5000/user/profile-picture';
+  private getUserUrl = `http://${ServerIP}:${ServerPORT}/user`;
+  private loginUrl = `http://${ServerIP}:${ServerPORT}/user/login`;
+  private logoutUrl = `http://${ServerIP}:${ServerPORT}/user/logout`;
+  private registerUrl = `http://${ServerIP}:${ServerPORT}/user/register`;
+  private updatePasswordUrl = `http://${ServerIP}:${ServerPORT}/user/password`;
+  private profilePictureUrl = `http://${ServerIP}:${ServerPORT}/user/profile-picture`;
 
   getUser(){
     return this.httpClient.get(this.getUserUrl, {withCredentials : true});
@@ -42,7 +44,8 @@ export class UserService {
   saveUser = (user : User) =>{
     return this.httpClient.post(this.registerUrl,
                                 {"username" : user.username,
-                                "password" : user.password});
+                                 "password" : user.password,
+                                 "student_id" : user.student_id});
   }
 
   logOut = () =>{

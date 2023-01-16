@@ -1,5 +1,7 @@
 import { lastValueFrom } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { ServerIP } from '../../../config';
+import { ServerPORT } from '../../../config';
 import { Student } from '../interfaces/Student';
 import { HttpClient } from '@angular/common/http';
 import { UserPublishedService } from './user-published.service';
@@ -16,11 +18,11 @@ export class StudentService {
     private service : UserPublishedService
   ) { }
 
-  private url = 'http://localhost:5000/student/profile';
-  private natUrl = 'http://localhost:5000/student/nation';
-  private catUrl = 'http://localhost:5000/student/category';
-  private reliUrl = 'http://localhost:5000/student/religion';
-  private applicationUrl = 'http://localhost:5000/student/application';
+  private url = `http://${ServerIP}:${ServerPORT}/student/profile`;
+  private natUrl = `http://${ServerIP}:${ServerPORT}/student/nation`;
+  private catUrl = `http://${ServerIP}:${ServerPORT}/student/category`;
+  private reliUrl = `http://${ServerIP}:${ServerPORT}/student/religion`;
+  private applicationUrl = `http://${ServerIP}:${ServerPORT}/student/application`;
 
   getStudentProfile(){
     return this.httpClient.get(this.url, {withCredentials:true});

@@ -19,7 +19,7 @@ const NewApplication = async (req, res, next) =>{
 }
 
 const getProfile = async (req, res, next)=>{
-    let user = await pport.GetUser(req.user);
+    let user = await pport.GetUser({username : req.user});
 
     if(!user.student_id)
         return res.json({error: 'not a student'})
@@ -31,7 +31,6 @@ const getProfile = async (req, res, next)=>{
         let parent = await service.GetParent(par.ID)
         parents.push(parent)
     };
-    console.log(parents)
     let [father, ] = parents.filter(parent => parent.relationship === 'Father')
     let [mother, ] = parents.filter(parent => parent.relationship === 'Mother')
     let [guardian, ] = parents.filter(parent => parent.relationship === 'Guardian')

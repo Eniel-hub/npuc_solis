@@ -1,3 +1,4 @@
+import { studentCategories } from './../../interfaces/studentCategories';
 import { StudentApplication } from '../../interfaces/StudentApplication';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { StudentService } from './../../services/student.service';
@@ -55,12 +56,13 @@ export class RegistrationComponent implements OnInit {
   newNation : string = '';
   schools : School[] = [];
   student : Student = {};
-  grades: number[] = [];
   value : string = '';
   arrRight = arrRight;
   index : number = 0;
   count : number = 0;
   arrLeft = arrLeft;
+  grades : any;
+  grade : any;
 
   menuItems = [
     { name : 'logout',},
@@ -97,7 +99,7 @@ export class RegistrationComponent implements OnInit {
   openModal() {
     this.modalRef = this.modalService.open(AlertComponent, {
       data : {
-        title : 'Registeation',
+        title : 'Registration',
         body : 'Registration Successfull'
       }
     })
@@ -117,6 +119,15 @@ export class RegistrationComponent implements OnInit {
 
   inputSchool(value : number){
     this.student.school_id = value;
+    this.schoolService.getGrades(this.student.school_id).subscribe((response : any) =>{
+      this.grades = response;
+    })
+  }
+
+  selectGrade(event : Event) : void {
+    console.log(this.grades)
+    this.grade = (event.target as HTMLInputElement).value;
+    console.log((event.target as HTMLInputElement).value)
   }
 
   getSchool(id? : number){
@@ -220,9 +231,16 @@ export class RegistrationComponent implements OnInit {
     })[0].religion
   }
 
-  submit(){
+  getStudentCategory (grade_level : string){
+    if(grade_level.match(/^\w{6}.*/)) { return 'P'} //Kinder I & II
+    if(grade_level.match(/^\w{5}\s[123456]$/)) { return 'E'} //Grades 1 - 6
+    if(grade_level.match(/^\w{5}\s[7891]0?$/)) { return 'J'} //Grades 7 - 10
+    if(grade_level.match(/^\w{5}\s1[12]$/)) { return 'S'} //Grades 11 & 12
+    return 'T'
+  }
 
-    this.student.student_cat_id = 'E'
+  submit(){
+    this.student.student_cat_id = this.getStudentCategory(this.grade)
     this.newStudentApplication = {... this.student}
     this.newStudentApplication.father = {... this.father}
     this.newStudentApplication.mother = {... this.mother}

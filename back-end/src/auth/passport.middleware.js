@@ -3,6 +3,7 @@ const helper = require('../utils/helper');
 const mySQLStore = require('express-mysql-session');
 const sessionDbConfig = require('../_db/db.config')[1];
 const userService = require('../user/user.service');
+const studentService = require('../student/student.service')
 
 
 const Initialize = (app, passport, session) =>{
@@ -33,22 +34,43 @@ const GenPassword = (password) => {
     return pass;
 }
 
-const GetUser = async (username) => {
-    try {
-        const [user, ] = await userService.GetUser(username);
-        return user;
-    } catch (err) {
-        console.log(`error while getting user by name : ${err.message}`);
+const GetUser = async ({username, ID}) => {
+    if(username){
+        try {
+            const [user, ] = await userService.GetUser(username);
+            return user;
+        } catch (err) {
+            console.log(`error while getting user by name : ${err.message}`);
+        }
+    }
+    if(ID){
+        try {
+            const [user, ] = await userService.GetUserI(ID);
+            return user;
+        } catch (err) {
+            console.log(`error while getting user by name : ${err.message}`);
+        }
     }
 }
 
-const CreateUser = async (username, password) =>{
+const CreateUser = async (username, password, ID) =>{
     try {
         password = GenPassword(password);
-        const newUser = {
-            username : username,
-            hash: password.hash,
-            salt: password.salt
+        let newUser;
+        if(ID == 0){
+            newUser = {
+                username : username,
+                hash: password.hash,
+                salt: password.salt
+            }
+        }
+        else {
+            newUser = {
+                username : username,
+                hash: password.hash,
+                salt: password.salt,
+                student_id : ID
+            }
         }
         await userService.CreateUser(newUser);
     } catch (err) {
@@ -56,22 +78,46 @@ const CreateUser = async (username, password) =>{
     }
 }
 
-const UserExits = async (req, res, next) =>{
+const createUserCheck = async (req, res, next) =>{
     try{
-        const user = await GetUser(req.body.username);
-        if(user){
-            res.json({ error : "username taken"});
+        const student = await studentService.GetStudent(req.body.student_id)
+        if(student || req.body.student_id == 0){
+            try{
+                let user = await GetUser({username : req.body.username});
+                if(user){
+                    res.json({ error : "username taken"});
+                    return
+                }
+                else{
+                    if (req.body.student_id != 0){
+                        user = await GetUser({ID : req.body.student_id});
+                        if(user){
+                            res.json({ error : "ID taken"});
+                            return
+                        }
+                        else{
+                            next();
+                        }
+                    }
+                    else{
+                        next();
+                    }
+                }
+            } catch(err){
+                console.log(err)
+            }
         }
         else{
-            next();
+            res.json({error : "id not found"})  
+            return;         
         }
-    } catch(err){
+    } catch (err){
         console.log(err)
     }
 }
 
 const updatePassword = async (username, password, newPassword) =>{
-    let user = await GetUser(username)
+    let user = await GetUser({username : username})
     if(CheckPassword(password, user.hash, user.salt)){
         try {
             if(CheckPassword(newPassword, user.hash, user.salt))
@@ -98,10 +144,10 @@ const updatePassword = async (username, password, newPassword) =>{
 
 
 module.exports = {
+    createUserCheck,
     updatePassword,
     CheckPassword,
     Initialize,
     CreateUser,
-    UserExits,
     GetUser
 }

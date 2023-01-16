@@ -11,7 +11,7 @@
   position:fixed;
   width:100%;
   z-index:1;
-  top:0
+  top:0;
 }
 
 .title{
@@ -42,7 +42,6 @@
   display:table;
   clear:both
 }
-
 
 .menu-items{
   float: right;
@@ -115,6 +114,7 @@
   display: flex;
 }
 
+/*big phones*/
 @media (max-width:600px){
   .hide-small{
       display:none!important;
@@ -124,7 +124,8 @@
   }
 }
 
-@media (max-width:360px){
+/*small phones*/
+@media (max-width:320px){
   .hide{
       display:none!important;
   }

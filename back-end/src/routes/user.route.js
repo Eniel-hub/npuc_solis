@@ -5,7 +5,7 @@ const auth = require('../auth/AuthAndAut');
 
 //post request
 router.get('/', auth.IsAuth, async (req, res, next) =>{
-    let user = await pportMiddleware.GetUser(req.user);
+    let user = await pportMiddleware.GetUser({username : req.user});
     return res.json({
         username : user.username, 
         profile_picture : user.profile_picture,
@@ -35,11 +35,12 @@ router.get('/logout', auth.IsAuth, (req, res, next) => {
     });
 });
 
-router.post('/register', pportMiddleware.UserExits, (req, res) =>{
+router.post('/register', pportMiddleware.createUserCheck, async (req, res) =>{
     console.log(req.body)
     const username = req.body.username;
     const password = req.body.password;
-    pportMiddleware.CreateUser(username, password);
+    const student_id = req.body.student_id;
+    await pportMiddleware.CreateUser(username, password, student_id);
     res.json({success : true});
 });
 

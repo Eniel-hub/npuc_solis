@@ -5,7 +5,9 @@ import { Component, OnInit } from '@angular/core';
 import { AlertComponent } from '../alert/alert.component';
 import { UserService } from 'src/app/services/user.service';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
-import { faUser, faLock, faEye, faEyeSlash } from  '@fortawesome/free-solid-svg-icons';
+import { faUser, faLock,
+         faEye, faEyeSlash,
+         faIdBadge } from  '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-register',
@@ -32,6 +34,7 @@ export class RegisterComponent implements OnInit {
   isVisible : boolean = false;
   errorMessage : string = '';
   eyeSlashIcon = faEyeSlash;
+  idIcon = faIdBadge;
   lockIcon = faLock;
   userIcon = faUser;
   user : User = {};
@@ -108,8 +111,14 @@ export class RegisterComponent implements OnInit {
     this.errorClass = 'error';
     this.successClass = 'nothing';
     switch(this.error.type) {
+      case 'id not found':
+        this.errorMessage = 'The ID Number was not found';
+        break;
+      case 'ID taken':
+        this.errorMessage = 'An Account is already link to this ID';
+        break;
       case 'empty field':
-        this.errorMessage = 'Fill all the fields';
+        this.errorMessage = 'Fill all the required fields';
         break;
       case 'username not alphanumeric':
         this.errorMessage = 'You can only use letter and numbers for your username';
@@ -153,6 +162,8 @@ export class RegisterComponent implements OnInit {
       this.getErrorMessage();
 
     else {
+      if(!this.user.student_id)
+        this.user.student_id = 0;
       this.userService.saveUser(this.user).subscribe((response : any) => {
         if(response.error) {
           this.checkErrors(response.error);
