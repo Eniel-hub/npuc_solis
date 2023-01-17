@@ -9,6 +9,9 @@
 #env file
 .env
 
+#config
+./config.ts
+
 # Node
 /node_modules
 npm-debug.log

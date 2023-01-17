@@ -4,7 +4,7 @@
   </div>
   <div class="content">
       <div class="form">
-          <h1>REGISTRATION</h1>
+          <h1>STUDENT PROFILE</h1>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               Praesent ornare facilisis posuere. Phasellus arcu augue,
               imperdiet eget enim gravida, ornare suscipit turpis. Nunc
@@ -12,7 +12,6 @@
               nec aliquet dui varius et. Nullam interdum felis sed arcu
               sagittis, sed ornare metus auctor. </p>
 
-          <!--  REVIEW  -->
           <div *ngIf="review">
             <div class="section">
               <h1>SCHOOL</h1>
@@ -21,7 +20,19 @@
                 id="schChosen" class="input" type="text" placeholder=" " disabled />
                 <div class="cut cut-m"></div>
                 <label for="schChosen" class="placeholder">School</label>
-            </div>
+              </div>
+              <div class="input-container ic1" id="student_id">
+                <input id="student_id" class="input" type="text"
+                      placeholder=" " [value]="student.ID" disabled>
+                <div class="cut cut-l"></div>
+                <label for="student_id" class="placeholder">student_id</label>
+              </div>
+              <div class="input-container ic1" id="gradelevel">
+                <input id="gradelevel" class="input" type="text"
+                      placeholder=" " [value]="gradeLevel" disabled>
+                <div class="cut cut-l"></div>
+                <label for="student_id" class="placeholder">Grade Level</label>
+              </div>
             </div>
             <div class="section">
               <h1>PERSONAL INFORMATION</h1>

@@ -70,6 +70,18 @@ const GetParent = async(ID) =>{
     return result[0];
 }
 
+const GetGradeLevel = async (ID) =>{
+    const result = await db.Query(
+        `select grade_level.grade_level from grade_level inner join 
+        (section, class_record, registration) on grade_level.id = 
+        section.grade_level_id and section.id = class_record.section_id 
+        and class_record.reg_id = registration.id 
+        and registration.student_id = ?`,
+        [ID])
+    return result[0];
+}
+
+
 module.exports = {
     GetNation,
     GetParent,
@@ -77,6 +89,7 @@ module.exports = {
     GetReligion,
     GetMyParents,
     GetAllNations,
+    GetGradeLevel,
     GetAllReligions,
     getAllCategories,
 };

@@ -94,12 +94,25 @@ const GetNation =  async (req, res, next) => { //get a religion based on id
     }
 }
 
+const getGradeLevel = async (req, res, next) =>{
+    let user = await pport.GetUser({username : req.user});
+    try{
+        const gradelevel = await service.GetGradeLevel(user.student_id)
+        if(!gradelevel)
+            return res.json({error : true})
+        return res.json(gradelevel)
+    } catch (err) {
+        console.log("error while getting the grade level ", err)
+    }
+}
+
 
 module.exports = {
     GetNation,
     getProfile,
     GetReligion,
     GetAllNations,
+    getGradeLevel,
     NewApplication,
     GetAllReligions,
     GetAllCategories,

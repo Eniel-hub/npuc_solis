@@ -14,8 +14,11 @@ router.get('/religion', middleware.GetAllReligions);
 
 router.get('/category', middleware.GetAllCategories);
 
+router.get('/gradelevel', Auth.IsAuth, middleware.getGradeLevel);
+
 //POST
 router.post('/application', Auth.IsAuth, middleware.NewApplication);
+
 
 //todo router.post('/enrollment, Auth.IsAuth, middleware.NewEnrollment)
 

@@ -5,6 +5,8 @@ import { SchoolService } from 'src/app/services/school.service';
 import { StudentService } from 'src/app/services/student.service';
 import { Nationality } from 'src/app/interfaces/Nationality';
 import { Religion } from 'src/app/interfaces/Religion';
+import { globalStudent } from 'src/app/global.student';
+
 @Component({
   selector: 'app-student-profile',
   templateUrl: './student-profile.component.html',
@@ -15,6 +17,7 @@ export class StudentProfileComponent implements OnInit {
   student : Student = {};
   review : boolean = true;
   schools : School[] = [];
+  gradeLevel : string = 'Kinder II';
   religions : Religion[] = [];
   nationalities : Nationality[] = [];
   BDay : any;
@@ -30,6 +33,7 @@ export class StudentProfileComponent implements OnInit {
   constructor(
     private service : StudentService,
     private schoolService : SchoolService,
+    private globalStudent : globalStudent
     ) { }
 
   ngOnInit(): void {
@@ -38,18 +42,23 @@ export class StudentProfileComponent implements OnInit {
           this.schools = response.schools;
         });
 
-    this.service.getStudentProfile()
-        .subscribe((response:any) =>{
-      this.student = response;
-
-     let day = this.student.bday ? this.student.bday : '';
-     this.BDay = day;
-     this.BDay = this.BDay.split("T")[0];
-    })
+    this.student = this.globalStudent.getGlobalVarStudent()
+    let day = this.student.bday ? this.student.bday : '';
+    this.BDay = day;
+    this.BDay = this.BDay.split("T")[0];
 
     this.service.getAllNations()
     .subscribe((arr:any) =>{
       this.nationalities = arr;
+    })
+
+    this.service.getGradeLevel()
+    .subscribe((response:any) =>{
+      if(response.error)
+        console.log(response.error);
+      else
+        this.gradeLevel = response.grade_level;
+
     })
 
     this.service.getAllReligions()

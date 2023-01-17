@@ -22,10 +22,15 @@ export class StudentService {
   private natUrl = `http://${ServerIP}:${ServerPORT}/student/nation`;
   private catUrl = `http://${ServerIP}:${ServerPORT}/student/category`;
   private reliUrl = `http://${ServerIP}:${ServerPORT}/student/religion`;
+  private gradeUrl = `http://${ServerIP}:${ServerPORT}/student/gradelevel`;
   private applicationUrl = `http://${ServerIP}:${ServerPORT}/student/application`;
 
   getStudentProfile(){
     return this.httpClient.get(this.url, {withCredentials:true});
+  }
+
+  getGradeLevel(){
+    return this.httpClient.get(this.gradeUrl, {withCredentials : true});
   }
 
   getStudentCat(){
