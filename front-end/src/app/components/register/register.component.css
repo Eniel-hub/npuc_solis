@@ -93,11 +93,6 @@ h2{
   color: var(--marroon-light);
 }
 
-.form .input, .form .label, .form button{
-  margin: auto;
-  margin-top: calc(.5vh + .5vw);
-}
-
 .form .input{
   position: relative;
   border-radius: 5px;
@@ -170,6 +165,16 @@ input{
 
 .form .info .success{
   color: green;
+}
+
+.form .info.info-policy{
+  margin-bottom: -10px;
+  word-spacing: 0px;
+}
+
+.form button{
+  margin: auto;
+  margin-top: 0px !important;
 }
 
 .form a{

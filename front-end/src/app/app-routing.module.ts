@@ -1,3 +1,4 @@
+import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: 'policy', component : PolicyComponent},
   {path: 'about-us', component : AboutUsComponent},
   {path: 'user/login', component : LoginComponent},
+  {path: 'user/upsw', component : UpdatePasswordComponent},
   {path: 'user/logout', component : LogoutComponent,
     canActivate : [AuthGuard] },
   {path: 'user/register', component : RegisterComponent},

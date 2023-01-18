@@ -45,6 +45,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 
 import { globalStudent } from './global.student';
+import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { globalStudent } from './global.student';
     EnrollmentComponent,
     AlertComponent,
     StudentProfileComponent,
+    UpdatePasswordComponent,
   ],
   imports: [
     BrowserModule,

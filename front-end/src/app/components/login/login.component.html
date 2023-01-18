@@ -17,7 +17,7 @@
         </div>
         <div class="col form">
           <div class="label">
-            <label>Username : </label>
+            <label>Username / ID : </label>
           </div>
           <div class="input">
             <fa-icon [icon] = 'userIcon'></fa-icon>
@@ -25,7 +25,7 @@
               type="text"
               name="username"
               id="username"
-              placeholder="Username"
+              placeholder="Username  / ID"
               (input) = 'getInput(0, $event)'
             >
           </div>
@@ -45,6 +45,9 @@
               class = 'eye'
               (click) = 'eyeClick()'>
             </fa-icon>
+          </div>
+          <div class="info info-psw">
+            <p>Have you forgotten your password? <a routerLink="/user/upsw">click here</a></p>
           </div>
           <div class = 'info'>
             <span [class]="successClass">

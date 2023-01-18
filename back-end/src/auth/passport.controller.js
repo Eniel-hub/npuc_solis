@@ -12,12 +12,17 @@ module.exports = (passport) => {
     
     const VerifyCallback = async (req, username, password, done) =>{
         try{
-            user = await auth.GetUser({username : username});
+            let user;
+            if(!(username.match(/[a-zA-Z]/))) {
+                let ID = Number(username)
+                user = await auth.GetUser({ID : ID})
+            } 
+            else user = await auth.GetUser({username : username});
             if(!user)
-                    return done(null, false, {error : "username not found"});
+                return done(null, false, {error : "username not found"});
             const isValid = auth.CheckPassword(password, user.hash, user.salt);
             if(isValid)
-                return done(null, username);
+                return done(null, user.username);
             else 
                 return done(null, false, {error : "wrong password"});
             

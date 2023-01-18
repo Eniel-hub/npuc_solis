@@ -52,4 +52,11 @@ router.post('/password', auth.IsAuth, async (req, res, next) =>{
     res.json(response)
 })
 
+router.post('/fpassword', pportMiddleware.fpswCheck, async (req, res, next) =>{
+    password = req.body.password;
+    username = req.body.username;
+    response  = await pportMiddleware.updatePassword(username, password);
+    res.json(response)
+})
+
 module.exports = router;

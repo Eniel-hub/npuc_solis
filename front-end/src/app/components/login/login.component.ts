@@ -54,8 +54,9 @@ export class LoginComponent implements OnInit {
   }
 
   getInput(num : number, event : Event) : void {
-    if(num === 0) this.user.username = (event.target as HTMLInputElement).value;
-    else if(num === 1) this.user.password = (event.target as HTMLInputElement).value;
+    let value = (event.target as HTMLInputElement).value;
+    if(num === 0) this.user.username = value
+    else if(num === 1) this.user.password = value;
   }
 
   checkErrors(error?:string) :void {
@@ -88,7 +89,7 @@ export class LoginComponent implements OnInit {
         this.errorMessage = 'Fill-up all the fields';
         break;
       case 'username not found':
-        this.errorMessage = 'No account found with this username';
+        this.errorMessage = 'No account found with this username or ID';
         break;
       case "wrong password":
         this.errorMessage = "You entered a Wrong Password";
@@ -126,6 +127,7 @@ export class LoginComponent implements OnInit {
         }
         else {
           this.userService.setUserInfo({username : response});
+          console.log(response)
           this.successfulLogin();
         }
       });

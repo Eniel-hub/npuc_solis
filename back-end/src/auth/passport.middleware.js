@@ -117,6 +117,21 @@ const createUserCheck = async (req, res, next) =>{
 }
 
 const updatePassword = async (username, password, newPassword) =>{
+    if(!newPassword){
+        try {
+            let pass = GenPassword(password);
+            const User = {
+                username : username,
+                hash: pass.hash,
+                salt: pass.salt
+            }
+            await userService.ChangePassword(User);
+            return {success : true}
+        } catch (err) {
+            console.log(`error while updating password ${err.message}`);
+            return {error : "an error occured"}
+        }
+    }
     let user = await GetUser({username : username})
     if(CheckPassword(password, user.hash, user.salt)){
         try {
@@ -141,7 +156,14 @@ const updatePassword = async (username, password, newPassword) =>{
     }
 }
 
-
+const fpswCheck = async (req, res, next) =>{
+    let username = req.body.username;
+    let student_id = req.body.student_id;
+    let user = await GetUser({username : username})
+    if(!user) return res.json({error : 'username not found'})
+    if(user.student_id != student_id) return res.json({error : "id and username don't match"})
+    next()
+}
 
 module.exports = {
     createUserCheck,
@@ -149,5 +171,6 @@ module.exports = {
     CheckPassword,
     Initialize,
     CreateUser,
+    fpswCheck,
     GetUser
 }

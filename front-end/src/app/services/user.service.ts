@@ -14,6 +14,7 @@ export class UserService {
   private logoutUrl = `http://${ServerIP}:${ServerPORT}/user/logout`;
   private registerUrl = `http://${ServerIP}:${ServerPORT}/user/register`;
   private updatePasswordUrl = `http://${ServerIP}:${ServerPORT}/user/password`;
+  private forgetPasswordUrl = `http://${ServerIP}:${ServerPORT}/user/fpassword`;
   private profilePictureUrl = `http://${ServerIP}:${ServerPORT}/user/profile-picture`;
 
   getUser(){
@@ -60,6 +61,13 @@ export class UserService {
                                 {"password" : password,
                                  "newPassword" : newPassword},
                                 {withCredentials : true})
+  }
+
+  forgetPassword = (user : User) =>{
+    return this.httpClient.post(this.forgetPasswordUrl,
+                                {username : user.username,
+                                 student_id : user.student_id,
+                                 password : user.password})
   }
 
   constructor(private httpClient: HttpClient) { }

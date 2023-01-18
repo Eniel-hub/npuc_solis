@@ -8,3 +8,8 @@ input{
   border-radius: 5px;
   border: 0px;
 }
+
+.info.info-psw{
+  margin: 0px;
+  margin-top: -6px !important;
+}
