@@ -42,8 +42,8 @@
                 <div class="input-container ic2" id="grade">
                   <select class="input" name="grade" id="grade" [(ngModel)]="grade">
                     <option value="none" disabled>Select a Grade</option>
-                    <option *ngFor="let grade of grades" [value]="grade">
-                      {{grade}}
+                    <option *ngFor="let grade of grades" [value]="grade.grade_level">
+                      {{grade.grade_level}}
                     </option>
                   </select>
                   <div class="cut cut-s"></div>

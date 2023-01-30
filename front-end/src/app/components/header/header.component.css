@@ -108,6 +108,36 @@
   opacity: .75;
 }
 
+.xIcon{
+  font-size: large;
+}
+
+.ani1{
+  animation: mymove1 1s;
+}
+@keyframes mymove1 {
+  0% { opacity : 1 }
+  33% { opacity: 0 }
+  100% { transform: rotate(180deg) }
+}
+
+.ani{
+  animation: fadeIn .777s;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.ani2{
+  animation: mymove2 1s;
+}
+@keyframes mymove2 {
+  0% { opacity : 1 }
+  33% { opacity: 0 }
+  100% { transform: rotate(-180deg) }
+}
+
 .user-div{
   height: auto;
   width: fit-content;
@@ -121,6 +151,9 @@
   }
   .display-small{
     display:block!important;
+  }
+  .button:hover{
+    background-color: transparent!important;
   }
 }
 

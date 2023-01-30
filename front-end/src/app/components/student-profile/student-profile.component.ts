@@ -37,6 +37,8 @@ export class StudentProfileComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
+
     this.schoolService.getHomeComponent()
         .subscribe((response : any) => {
           this.schools = response.schools;

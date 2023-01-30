@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   constructor( private service : SchoolService ) {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
 
     this.service.getHomeComponent()
         .subscribe(response => {

@@ -11,6 +11,7 @@ const schoolRouter = require('./src/routes/school.route');
 const studentRouter = require('./src/routes/student.route');
 const pportMiddleware = require('./src/auth/passport.middleware');
 const pportController = require('./src/auth/passport.controller');
+const registrationRouter = require('./src/routes/registration.route');
 
 const app = express();
 const IP = process.env.IP || 'localhost';
@@ -38,11 +39,8 @@ app.use('/home', homeRouter);
 app.use('/user',  userRouter);
 app.use('/school', schoolRouter);
 app.use('/student', studentRouter);
+app.use('/registration', registrationRouter);
 app.get('/', (req, res) =>{ res.redirect('/home') });
-// app.use('/dashboard', dashboardRouter);
-// app.get('*', function(req, res){
-//     res.sendFile(path.resolve('../frontend/enrollement-process/src/index.html'))
-// })
 
 //launch application
 app.listen(PORT, (err)=>{

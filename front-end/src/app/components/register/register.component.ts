@@ -4,7 +4,8 @@ import { Error } from '../../interfaces/Error';
 import { Component, OnInit } from '@angular/core';
 import { AlertComponent } from '../alert/alert.component';
 import { UserService } from 'src/app/services/user.service';
-import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { LoaderComponent } from '../loader/loader.component';
+import { MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit/modal';
 import { faUser, faLock,
          faEye, faEyeSlash,
          faIdBadge } from  '@fortawesome/free-solid-svg-icons';
@@ -20,6 +21,7 @@ import { faUser, faLock,
 //todo add loader component
 
 export class RegisterComponent implements OnInit {
+  loaderRef : MdbModalRef<LoaderComponent> | null = null;
   modalRef : MdbModalRef<AlertComponent> | null = null;
   menuItems = [
     { name : 'home',    link : '/home'        },
@@ -47,6 +49,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit() : void {
+    window.scrollTo(0, 0);
    }
 
    openModal() {
@@ -141,17 +144,14 @@ export class RegisterComponent implements OnInit {
   }
 
   successefulRegistration() : void{
-    this.successMessage = 'Registration in progress';
-    this.successClass = 'success';
-    this.errorClass = 'nothing';
     setTimeout( ()=>{
-      this.successMessage = 'Registration successful';
-    }, 1000);
+      this.loaderRef?.close()
+      this.openModal()
+    }, 2000);
     setTimeout( ()=>{
       this.router.navigate(['user/login']);
-    }, 2000);
+    }, 2500);
 
-    this.openModal()
   }
 
   Registration(){
@@ -162,12 +162,19 @@ export class RegisterComponent implements OnInit {
       this.getErrorMessage();
 
     else {
+      this.loaderRef = this.modalService.open(LoaderComponent, {
+        data : {
+          title : 'Register In Progress'
+        },
+        ignoreBackdropClick : true
+      })
       if(!this.user.student_id)
         this.user.student_id = 0;
       this.userService.saveUser(this.user).subscribe((response : any) => {
         if(response.error) {
           this.checkErrors(response.error);
           this.getErrorMessage();
+          this.loaderRef?.close
         }
         else {
           this.successefulRegistration();

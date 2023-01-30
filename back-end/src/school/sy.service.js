@@ -4,7 +4,7 @@ const helper = require('../utils/helper');
 //Get school year
 const GetSchoolYear = async () =>{
     const result = await db.Query(
-        'SELECT school_year FROM schoolyear WHERE current = ?',
+        'SELECT ID, school_year FROM schoolyear WHERE current = ?',
         [1]
     );
     const sy = helper.EmptyOrRows(result);
@@ -14,7 +14,7 @@ const GetSchoolYear = async () =>{
 //Get school by name
 const GetNextYear = async () =>{
     const result = await db.Query(
-        'SELECT school_year FROM schoolyear WHERE is_enrollment = ?',
+        'SELECT ID, school_year FROM schoolyear WHERE is_enrollment = ?',
         [1]
     );
     const sy = helper.EmptyOrRows(result);

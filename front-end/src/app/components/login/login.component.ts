@@ -3,6 +3,8 @@ import { User } from '../../interfaces/User';
 import { Error } from '../../interfaces/Error';
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
+import { LoaderComponent } from '../loader/loader.component';
+import { MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit/modal';
 import { faUser, faLock, faEye, faEyeSlash} from  '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -35,13 +37,17 @@ export class LoginComponent implements OnInit {
     { name : 'About',      link : '/about-us'      },
     { name : 'Register',   link : '/user/register'  }
   ]
+  loaderRef : MdbModalRef<LoaderComponent> | null = null;
 
   constructor(
+    private modalService: MdbModalService,
     private userService : UserService,
     private router : Router
     ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
+   }
 
   eye() {
     if (this.isVisible) return this.eyeIcon
@@ -100,14 +106,10 @@ export class LoginComponent implements OnInit {
   }
 
   successfulLogin() : void {
-    this.successMessage = 'Login in progress';
-    this.successClass = 'success';
-    this.errorClass = 'nothing';
-    setTimeout( ()=>{
-      this.successMessage = 'Login successful';
-    }, 1000);
+    this.successMessage = '';
     setTimeout( ()=>{
       this.router.navigate(['/student/dashboard']);
+      this.loaderRef?.close()
     }, 2000);
   }
 
@@ -120,14 +122,20 @@ export class LoginComponent implements OnInit {
       this.getErrorMessage();
 
     else {
+      this.loaderRef = this.modalService.open(LoaderComponent, {
+        data : {
+          title : 'Login In Progress'
+        },
+        ignoreBackdropClick : true
+      })
       this.userService.validate(this.user).subscribe((response : any) => {
         if(response.error) {
           this.checkErrors(response.error);
           this.getErrorMessage();
+          this.loaderRef?.close()
         }
         else {
           this.userService.setUserInfo({username : response});
-          console.log(response)
           this.successfulLogin();
         }
       });

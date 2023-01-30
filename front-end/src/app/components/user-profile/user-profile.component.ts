@@ -4,6 +4,7 @@ import { Student } from 'src/app/interfaces/Student';
 import { globalStudent } from 'src/app/global.student';
 import { AlertComponent } from '../alert/alert.component';
 import { UserService } from 'src/app/services/user.service';
+import { LoaderComponent } from '../loader/loader.component';
 import { faEye, faEyeSlash} from  '@fortawesome/free-solid-svg-icons';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 
@@ -16,7 +17,7 @@ export class UserProfileComponent implements OnInit {
   //todo: make the profile change works
   profile : any;
   eyeIcon = faEye;
-  ID : number = 10000;
+  ID : any;
   image : string = '';
   password : string = '';
   password1 : string = '';
@@ -32,6 +33,7 @@ export class UserProfileComponent implements OnInit {
   user : any = localStorage.getItem("userInfo");
   username : any = JSON.parse(this.user).username;
   modalRef : MdbModalRef<AlertComponent> | null = null;
+  loaderRef : MdbModalRef<LoaderComponent> | null = null;
   globalStudent : Student = {};
   subscription : any;
 
@@ -50,7 +52,9 @@ export class UserProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.globalStudent = this.GlobalStudent.getGlobalVarStudent();
+    this.ID = this.globalStudent.ID;
 
     if(this.globalStudent.gender == "Male")
       this.image = '../../../assets/imgs/pp-g.jpeg'
@@ -83,8 +87,10 @@ export class UserProfileComponent implements OnInit {
   change(){
     //todo: save profile picture
 
-    if(this.password1)
+    if(this.password1){
       this.passwordChange()
+
+      }
   }
 
 
@@ -104,14 +110,24 @@ export class UserProfileComponent implements OnInit {
       this.getErrorMessage();
 
     else {
+      this.loaderRef = this.modalService.open(LoaderComponent, {
+        data : {
+          title : 'Change In Progress'
+        },
+        ignoreBackdropClick : true
+      })
       this.service.updatePassword(this.password, this.password1).subscribe((response : any) => {
         if(response.error) {
           this.checkErrors(response.error);
           this.getErrorMessage();
+          this.loaderRef?.close()
         }
         else {
-          this.openModal();
-          this.edit();
+          setTimeout( ()=>{
+            this.loaderRef?.close()
+            this.openModal();
+            this.edit();
+          }, 2000);
         }
       });
     }

@@ -1,8 +1,10 @@
-import { studentCategories } from './../../interfaces/studentCategories';
+
+import { RegistrationService } from './../../services/registration.service';
 import { StudentApplication } from '../../interfaces/StudentApplication';
-import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit/modal';
 import { StudentService } from './../../services/student.service';
 import { SchoolService } from '../../services/school.service';
+import { LoaderComponent } from '../loader/loader.component';
 import { Nationality } from '../../interfaces/Nationality';
 import { AlertComponent } from '../alert/alert.component';
 import { StudentCat } from '../../interfaces/StudentCat';
@@ -31,6 +33,7 @@ import { EmailValidator } from '@angular/forms';
 export class RegistrationComponent implements OnInit {
 
   categories : string[] = ['School', 'Personal', 'Parents'];
+  loaderRef : MdbModalRef<LoaderComponent> | null = null;
   modalRef : MdbModalRef<AlertComponent> | null = null;
   newStudentApplication : StudentApplication = {};
   guardian : Parent = {relationship : 'Guardian'};
@@ -55,6 +58,7 @@ export class RegistrationComponent implements OnInit {
   review : boolean = false;
   newNation : string = '';
   schools : School[] = [];
+  enrollmentSchYear : any;
   student : Student = {};
   value : string = '';
   arrRight = arrRight;
@@ -70,6 +74,7 @@ export class RegistrationComponent implements OnInit {
 
 
   constructor(
+    private regiService : RegistrationService,
     private studentService : StudentService,
     private modalService: MdbModalService,
     private schoolService : SchoolService,
@@ -77,10 +82,13 @@ export class RegistrationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
+
     this.schoolService.getHomeComponent()
         .subscribe((response : any) => {
           this.arrSchools = response.schools;
-          this.getSchools(this.arrSchools)
+          this.getSchools(this.arrSchools);
+          this.enrollmentSchYear = response.next_year;
         });
 
     this.studentService.getAllNations().subscribe((arr:any) =>{
@@ -125,7 +133,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   selectGrade(event : Event) : void {
-    console.log(this.grades)
     this.grade = (event.target as HTMLInputElement).value;
     console.log((event.target as HTMLInputElement).value)
   }
@@ -215,6 +222,12 @@ export class RegistrationComponent implements OnInit {
   }
 
   Review(){
+    this.modalRef = this.modalService.open(AlertComponent, {
+      data : {
+        title : 'Registration',
+        body : 'please confirm your informations'
+      }
+    })
     this.review = ! this.review;
     window.scrollTo(0, 0);
   }
@@ -240,6 +253,12 @@ export class RegistrationComponent implements OnInit {
   }
 
   submit(){
+    this.loaderRef = this.modalService.open(LoaderComponent, {
+      data : {
+        title : 'Registration In Progress'
+      },
+      ignoreBackdropClick : true
+    })
     this.student.student_cat_id = this.getStudentCategory(this.grade)
     this.newStudentApplication = {... this.student}
     this.newStudentApplication.father = {... this.father}
@@ -249,10 +268,25 @@ export class RegistrationComponent implements OnInit {
     this.studentService.registerStudent(this.newStudentApplication).subscribe((response : any) =>{
       if(response.error){
         console.log(response.error)
+        this.loaderRef?.close()
         return
       }
-      this.openModal();
-      this.route.navigate(['/student/dashboard'])
+      this.regiService.setNextRegistration(this.grade, this.enrollmentSchYear.ID)
+          .subscribe((response :any) =>{
+            if(response.error){
+              this.loaderRef?.close()
+              console.log(response.error)
+            }
+            if(response.success){
+              setTimeout( ()=>{
+                this.loaderRef?.close()
+                this.openModal();
+              }, 2000);
+              setTimeout( ()=>{
+                this.route.navigate(['/student/dashboard']);
+              }, 2500);
+            }
+          })
     });
   }
 

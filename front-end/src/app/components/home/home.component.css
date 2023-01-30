@@ -25,7 +25,7 @@
 }
 
 .image{
-  max-width:100%;
+  width:100%;
   height:auto
 }
 img{
@@ -62,6 +62,10 @@ img{
 }
 
 @media (max-width:600px){
+  .school{
+    margin: auto;
+    width: 90vw;
+  }
   .hide-small{
       display:none!important;
   }
@@ -74,6 +78,9 @@ img{
     margin-top: -25px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+  }
+  .limg{
+    padding-bottom: 10px;
   }
 }
 

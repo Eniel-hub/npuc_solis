@@ -1,19 +1,71 @@
-.content{
-  width: 100%;
-  min-height: 100vh;
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Prompt:wght@300&display=swap');
+
+
+.body{
+  min-height: calc(100vh - var(--footer-height));
   height: fit-content;
   display: flex;
-  top : 0;
-  padding-top: 90px;
-  padding-bottom: 30px;
 }
 
-.wrapper{
+.content{
+  margin: auto !important;
+}
+
+.content, .form2{
+  min-height: 0px !important;
+}
+
+.form2{
+  max-width: 600px;
+  width: 100%;
+  height: fit-content;
+  background-color: white;
   margin: auto;
-  background-color: rgba(240, 248, 255, 0.825);
-  height: 80vh;
-  width: 60vw;
   box-shadow: var(--box-shadow);
+  padding: 10px;
+}
+
+@media (min-height:620px){
+}
+
+span{
+  color: rgb(14, 114, 114);
+  text-decoration: underline;
+}
+
+#intro{
+  font-size: var(--header-font-size);
+}
+
+.navigation{
+  float: right;
+}
+
+h3{
+  margin-top: 20px;
+  font-family: var(--title-font-family);
+  font-size: var(--header-font-size);
+  color: var(--marroon-darkest);
+}
+
+.subjects{
+  margin: auto;
+  padding-left: none;
+  margin-top: 0px;
+  height: fit-content;
+  max-height: 200px;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.subjects option{
+  list-style-type: none;
+  border-bottom: 1px solid var(--marroon-darker);
+}
+
+.subjects option:hover{
+  background-color: var(--marroon-light);
 }
 
 @media (max-width:600px){

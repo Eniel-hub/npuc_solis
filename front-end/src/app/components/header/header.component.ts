@@ -1,5 +1,5 @@
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -9,7 +9,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 
 export class HeaderComponent implements OnInit {
+  ani = '';
+  xIcon = '';
+  Icon : any;
   barIcon = faBars;
+  xmarkIcon = faXmark;
   homeLink : string = '';
   currentRouter : string = '';
   hasDropdown : boolean = false;
@@ -20,6 +24,7 @@ export class HeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.Icon = this.barIcon;
     let strings = window.location.href.split(window.location.host);
     let url = strings[strings.length-1];
 
@@ -34,10 +39,20 @@ export class HeaderComponent implements OnInit {
   }
 
   MenuToggle = () =>{
+    this.ani = this.menuIsActive ? 'ani2' : 'ani1';
+    setTimeout( ()=>{
+      this.ani = '';
+    }, 1000);
     this.menuIsActive = !this.menuIsActive;
+    setTimeout( ()=>{
+      this.ani = this.ani + ' ani'
+      this.Icon = this.menuIsActive ? this.xmarkIcon : this.barIcon;
+    }, 333);
     if(this.menuIsActive){
+      this.xIcon = 'xIcon ';
       this.menuClass.next('_nav animate-right');
     } else {
+      this.xIcon = '';
       this.menuClass.next('_nav animate-left');
     }
     if(!this.menuIsActive)

@@ -21,7 +21,7 @@
     padding: 10px;
 }
 
-.form > h1, .section > h1{
+.form > h1, .form2 > h1, .section > h1{
     text-align: center;
     font-family: var(--title-font-family);
     font-size: var(--title-font-size);
@@ -29,7 +29,7 @@
     color: white;
 }
 
-.form p{
+.form p, .form2 p{
     font-size: var(--body-font-size);
 }
 

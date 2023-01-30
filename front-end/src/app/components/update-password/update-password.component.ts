@@ -4,6 +4,7 @@ import { Error } from '../../interfaces/Error';
 import { Component, OnInit } from '@angular/core';
 import { AlertComponent } from '../alert/alert.component';
 import { UserService } from 'src/app/services/user.service';
+import { LoaderComponent } from '../loader/loader.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { faUser, faLock,
          faEye, faEyeSlash,
@@ -12,11 +13,12 @@ import { faUser, faLock,
 @Component({
   selector: 'app-update-password',
   templateUrl: './update-password.component.html',
-  styleUrls: ['./update-password.component.css',
-              '../register/register.component.css']
+  styleUrls: ['../register/register.component.css',
+              './update-password.component.css']
 })
 export class UpdatePasswordComponent implements OnInit {
 
+  loaderRef : MdbModalRef<LoaderComponent> | null = null;
   modalRef : MdbModalRef<AlertComponent> | null = null;
   menuItems = [
     { name : 'home',    link : '/home'        },
@@ -46,6 +48,7 @@ export class UpdatePasswordComponent implements OnInit {
   ) { }
 
   ngOnInit() : void {
+    window.scrollTo(0, 0);
    }
 
    openModal() {
@@ -121,17 +124,13 @@ export class UpdatePasswordComponent implements OnInit {
   }
 
   successfulChange() : void{
-    this.successMessage = 'Change in progress';
-    this.successClass = 'success';
-    this.errorClass = 'nothing';
     setTimeout( ()=>{
-      this.successMessage = 'Change successful';
-    }, 1000);
+      this.loaderRef?.close()
+      this.openModal()
+    }, 2000);
     setTimeout( ()=>{
       this.router.navigate(['user/login']);
-    }, 2000);
-
-    this.openModal()
+    }, 2500);
   }
 
   Change(){
@@ -142,10 +141,17 @@ export class UpdatePasswordComponent implements OnInit {
       this.getErrorMessage();
 
     else {
+      this.loaderRef = this.modalService.open(LoaderComponent, {
+        data : {
+          title : 'Change In Progress'
+        },
+        ignoreBackdropClick : true
+      })
       this.userService.forgetPassword(this.user).subscribe((response : any) => {
         if(response.error) {
           this.checkErrors(response.error);
           this.getErrorMessage();
+          this.loaderRef?.close();
         }
         else {
           this.successfulChange();

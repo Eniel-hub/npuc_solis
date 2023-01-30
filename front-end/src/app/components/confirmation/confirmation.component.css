@@ -1,6 +1,7 @@
 .modal-header{
+  justify-content: center;
   background-color: var(--marroon-darker);
-  color: #fff;
+  color: white;
 }
 
 .btn-close{

@@ -10,10 +10,20 @@
 
 <div class="big-container">
     <div *ngFor="let schools of arrOfSchools" class="row">
-      <div *ngFor="let school of schools" class="school">
-        <div class="display-container">
-          <div class="school-name">{{school.school_name}}</div>
-          <img [src]="getImage(school.school_name)" alt="{{school.school_name}}" style="width:100%">
+      <div *ngFor="let school of schools" class="school flip-card">
+        <div class="flip-card-inner">
+          <div class="display-container">
+            <div class="school-name">{{school.school_name}}</div>
+            <img [src]="getImage(school.school_name)"
+                 alt="{{school.school_name}}" style="width:100%">
+          </div>
+          <div class="flip-card-back">
+            <h1 class="school-name">{{school.school_name}}</h1>
+            <div class="flip-body">
+              <p>Located in: {{school.address}}</p>
+              <p>Established in: {{school.year_establish}}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

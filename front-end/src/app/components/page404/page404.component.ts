@@ -13,6 +13,7 @@ export class Page404Component implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.imgSrc = "../../../assets/imgs/404-bg2.gif";
     this.getImgSrc();
 

@@ -15,6 +15,7 @@ export class AboutUsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     let strings = window.location.href.split(window.location.host);
     let url = strings[strings.length-1];
 

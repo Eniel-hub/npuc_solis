@@ -2,19 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Nunito&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito&family=Prompt:wght@300&display=swap');
 
-.body{
-  /* margin-top: calc(var(--size-ratio) *4); */
-  margin-top: 30px;
-}
 
 .content{
-  height: var(--content-height);
+  min-height: calc(var(--content-height) + var(--header-height));
+  height: fit-content ;
   display: flex;
   background: transparent;
 }
 
 .wrapper{
   margin: auto;
+  margin-top: 80px;
   background-color: rgba(240, 248, 255, 0.825);
   height: fit-content;
   width: 60vw;
@@ -204,17 +202,13 @@ input{
 
 @media (max-width:600px){
   .wrapper{
+    margin: auto !important;
+  }
+  .wrapper{
       width: 80vw;
   }
 
   .form .input{
     width: 250px!important;
   }
-
-  /* .form .input input{
-    width: 130px!important;
-  }
-  .form .input #username{
-    width: 150px!important;
-  } */
 }

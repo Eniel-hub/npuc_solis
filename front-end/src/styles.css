@@ -4,8 +4,9 @@
 
 :root{
   --size-ratio : calc(0.43vh + 1vw);
-  --header-height : 48px;
-  --footer-height : calc(var(--size-ratio) *0);
+  --header-height : 20px;
+  --footer-height : 120px;
+  /* --footer-height : calc(var(--size-ratio) * 6.3); */
   --content-height : calc(100vh - var(--header-height) - var(--footer-height));
   --content-width : 100vw;
   --max-height : 100vh;

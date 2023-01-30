@@ -1,6 +1,5 @@
-import { lastValueFrom } from 'rxjs';
 import { globalStudent } from 'src/app/global.student';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from '../../interfaces/User';
 import { Student } from '../../interfaces/Student';
 import { Component, OnInit, Input } from '@angular/core';

@@ -72,11 +72,12 @@ const GetParent = async(ID) =>{
 
 const GetGradeLevel = async (ID) =>{
     const result = await db.Query(
-        `select grade_level.grade_level from grade_level inner join 
-        (section, class_record, registration) on grade_level.id = 
+        `select grade_level.* from grade_level inner join 
+        (section, class_record, registration, schoolyear) on grade_level.id = 
         section.grade_level_id and section.id = class_record.section_id 
-        and class_record.reg_id = registration.id 
-        and registration.student_id = ?`,
+        and class_record.reg_id = registration.ID 
+        and registration.student_id = ? and registration.school_year_id = 
+        schoolyear.id and schoolyear.current = 1` ,
         [ID])
     return result[0];
 }

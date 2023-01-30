@@ -1,9 +1,7 @@
-/* center  black  padding-16 */
 *,
 *::before,
 *::after{
   font-family: var(--body-font-family);
-  /* font-size: var(--body-font-size); */
   color: #fff;
   padding-top: 0.5%;
   padding-bottom: 0.5%;
@@ -15,6 +13,7 @@
   padding-top:16px;
   padding-bottom:16px;
   position: relative;
+  height: var(--footer-height);
 }
 
 .title{

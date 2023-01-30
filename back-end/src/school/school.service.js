@@ -40,10 +40,13 @@ const getAcademicDept = async (school_id) =>{
     return IDs
 }
 
-const getGrades = async (ID) =>{
+const getGrades = async (school_ID) =>{
     const grades = await db.Query(
-        'SELECT * FROM grade_level WHERE academic_id = ?',
-        [ID]
+        `select grade_level.grade_level from grade_level join (academic_dept) on 
+            academic_dept.school_id = 1000 and
+            grade_level.academic_id = academic_dept.id
+            and grade_level.enable = 1;`,
+        [school_ID]
     )
     return grades;
 }

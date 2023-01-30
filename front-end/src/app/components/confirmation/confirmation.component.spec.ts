@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SchoolModalComponent } from './school-modal.component';
+import { ConfirmationComponent } from './confirmation.component';
 
-describe('SchoolModalComponent', () => {
-  let component: SchoolModalComponent;
-  let fixture: ComponentFixture<SchoolModalComponent>;
+describe('ConfirmationComponent', () => {
+  let component: ConfirmationComponent;
+  let fixture: ComponentFixture<ConfirmationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SchoolModalComponent ]
+      declarations: [ ConfirmationComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SchoolModalComponent);
+    fixture = TestBed.createComponent(ConfirmationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
