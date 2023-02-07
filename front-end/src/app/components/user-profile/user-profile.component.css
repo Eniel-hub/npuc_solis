@@ -17,7 +17,7 @@
 
 .wrapper{
   margin: auto;
-  background-color: #f0f8ffd2;
+  background-color: rgba(240, 248, 255, 1);
   height: fit-content;
   width: 60vw;
   box-shadow: var(--box-shadow);

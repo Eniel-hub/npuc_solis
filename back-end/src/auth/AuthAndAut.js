@@ -5,7 +5,7 @@ const IsAuth = (req, res, next) =>{
         next();
     } 
     else {
-        res.json({message : "not authenticated"});
+        res.json({isAuth : false});
         console.log('not authenticated')
     }
 }

@@ -26,7 +26,7 @@ export class StudentProfileComponent implements OnInit {
     { name : 'dashboard', link : '/student/dashboard'},
     { name : 'enrollment', link : '/student/enrollment'},
     { name : 'profile', link : '/user/profile'},
-    { name : 'about', link : '/about'},
+    { name : 'about', link : '/about-us'},
     { name : 'logout'},
   ]
 
@@ -75,7 +75,6 @@ export class StudentProfileComponent implements OnInit {
       date.getMonth(),
       date.getDate()
     );
-    console.log(d)
     return d;
   }
 

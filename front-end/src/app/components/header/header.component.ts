@@ -1,6 +1,7 @@
-import { BehaviorSubject, Subject, Observable } from 'rxjs';
-import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { BehaviorSubject} from 'rxjs';
 import { Component, OnInit, Input } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -21,16 +22,16 @@ export class HeaderComponent implements OnInit {
   menuClass = new BehaviorSubject('hide');
   @Input() menuItems : {name : string, link? : string}[] = [];
 
-  constructor() { }
+  constructor( private userService : UserService ) { }
 
   ngOnInit(): void {
     this.Icon = this.barIcon;
-    let strings = window.location.href.split(window.location.host);
-    let url = strings[strings.length-1];
-
-    if(url.match('student') || url.match('profile')){
-      this.hasDropdown = true
+    // let strings = window.location.href.split(window.location.host);
+    // let url = strings[strings.length-1];
+    let auth = this.userService.isAuthenticated()
+    if(auth){
       this.homeLink = '/student/dashboard'
+      this.hasDropdown = true
     }
     else{
       this.hasDropdown = false

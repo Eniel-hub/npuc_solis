@@ -14,7 +14,7 @@
 
           <div *ngIf="review">
             <div class="section">
-              <h1>SCHOOL</h1>
+              <h1>ACADEMIC</h1>
               <div class="input-container ic1" id="choice">
                 <input [value]="getSchool(student.school_id)[0].school_name"
                 id="schChosen" class="input" type="text" placeholder=" " disabled />
@@ -35,7 +35,7 @@
               </div>
             </div>
             <div class="section">
-              <h1>PERSONAL INFORMATION</h1>
+              <h1>PERSONAL</h1>
               <div class="input-container ic1" id="lastname">
                 <input id="lastname" class="input" type="text"
                       placeholder=" " [value]="student.lastname"/>
@@ -89,7 +89,7 @@
               </div>
             </div>
             <div class="section">
-              <h1>PARENTS AND GUARDIAN INFORMATION</h1>
+              <h1>PARENTS AND GUARDIAN</h1>
               <!-- Father -->
               <div  *ngIf="showParent('father')">
                 <div class="input-container ic1" id="father">

@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { User } from '../../interfaces/User';
 import { Error } from '../../interfaces/Error';
+import { globalStudent } from 'src/app/global.student';
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { LoaderComponent } from '../loader/loader.component';
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private modalService: MdbModalService,
+    public GlobalStudent : globalStudent,
     private userService : UserService,
     private router : Router
     ) { }
@@ -111,6 +113,13 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/student/dashboard']);
       this.loaderRef?.close()
     }, 2000);
+
+    //loging out after session expires
+    setTimeout(() => {
+      this.userService.logOut();
+      this.GlobalStudent.updateGlobalVar({});
+      this.router.navigate(['/home']);
+    }, 1000*60*60*5 ); //ms*s*min*hours 5hours
   }
 
   login () : void {

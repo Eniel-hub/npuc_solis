@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
     { name : 'enrollment', link : '/student/enrollment'},
     { name : 'student', link : '/student/profile'},
     { name : 'profile', link : '/user/profile'},
-    { name : 'about', link : '/about'},
+    { name : 'about', link : '/about-us'},
     { name : 'logout'},
   ]
 

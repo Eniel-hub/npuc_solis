@@ -1,7 +1,6 @@
-import { globalStudent } from 'src/app/global.student';
-import { Router } from '@angular/router';
 import { User } from '../../interfaces/User';
 import { Student } from '../../interfaces/Student';
+import { globalStudent } from 'src/app/global.student';
 import { Component, OnInit, Input } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { UserPublishedService } from '../../services/user-published.service';
@@ -27,8 +26,7 @@ export class UserComponent implements OnInit {
 
   constructor(
     private GlobalStudent : globalStudent,
-    private service : UserPublishedService,
-    private Route : Router
+    private service : UserPublishedService
     ) { }
 
   ngOnInit (): void {
@@ -38,7 +36,7 @@ export class UserComponent implements OnInit {
         this.name = this.student.lastname || '';
       if(this.student.gender == "Male")
         this.profile = '../../../assets/imgs/pp-g.jpeg'
-      else
+      else if(this.student.gender == "Female")
         this.profile = '../../../assets/imgs/pp-f.jpeg'
     })
     //todo : get profile picture from database
@@ -49,18 +47,18 @@ export class UserComponent implements OnInit {
     })
 
     this.globalStudent = this.GlobalStudent.getGlobalVarStudent();
-    this.subscription = this.GlobalStudent.globalVarStudentUpdate.subscribe(
-      student => this.selectedStudent(student));
 
     this.student = this.globalStudent;
     if(this.student.ID)
       this.name = this.student.lastname || '';
     if(this.student.gender == "Male")
       this.profile = '../../../assets/imgs/pp-g.jpeg'
-    else
+    else if(this.student.gender == "Female")
       this.profile = '../../../assets/imgs/pp-f.jpeg'
-    }
 
+    this.subscription = this.GlobalStudent.globalVarStudentUpdate.subscribe(
+      student => this.selectedStudent(student));
+    }
 
     selectedStudent(student: Student) {
       this.globalStudent = student;
@@ -68,5 +66,4 @@ export class UserComponent implements OnInit {
     ngOnDestroy() {
       this.subscription.unsubscribe();
     }
-
 }

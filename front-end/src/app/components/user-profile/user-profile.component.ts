@@ -18,7 +18,6 @@ export class UserProfileComponent implements OnInit {
   profile : any;
   eyeIcon = faEye;
   ID : any;
-  image : string = '';
   password : string = '';
   password1 : string = '';
   password2 : string = '';
@@ -32,6 +31,7 @@ export class UserProfileComponent implements OnInit {
   passwordType : string = 'password';
   user : any = localStorage.getItem("userInfo");
   username : any = JSON.parse(this.user).username;
+  image : string = '../../../assets/imgs/pp-n.jpeg';
   modalRef : MdbModalRef<AlertComponent> | null = null;
   loaderRef : MdbModalRef<LoaderComponent> | null = null;
   globalStudent : Student = {};
@@ -58,7 +58,7 @@ export class UserProfileComponent implements OnInit {
 
     if(this.globalStudent.gender == "Male")
       this.image = '../../../assets/imgs/pp-g.jpeg'
-    else
+    else if(this.globalStudent.gender == "Female")
       this.image = '../../../assets/imgs/pp-f.jpeg'
   }
 

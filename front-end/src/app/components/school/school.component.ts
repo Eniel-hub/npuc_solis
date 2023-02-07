@@ -60,7 +60,6 @@ export class SchoolComponent implements OnInit {
     if(last != schools.length){
       arr.push(temp)
     }
-    console.log(arr)
     this.arrOfSchools = arr;
   }
 

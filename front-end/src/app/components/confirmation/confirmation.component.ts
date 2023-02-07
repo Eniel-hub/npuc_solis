@@ -21,11 +21,8 @@ export class ConfirmationComponent implements OnInit {
   }
 
   confirm(){
-    console.log(1)
     this.confirmPublish.updateGlobalVar(true);
-    console.log(2)
     this.modalRef.close();
-    console.log(3)
   }
 
   close(){

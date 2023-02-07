@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
+import { UserPublishedService } from 'src/app/services/user-published.service';
 
 @Component({
   selector: 'app-about-us',
@@ -6,23 +8,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about-us.component.css']
 })
 export class AboutUsComponent implements OnInit {
-  homelink : string = '';
-  menuItems = [
-    { name : 'home',             link : this.homelink  },
-    { name : 'privacy policy',   link : '/policy/'       },
-  ]
+  homeLink : string =  '/student/dashboard';
+  menuItems :any;
+  home : string = 'dashboard';
 
-  constructor() { }
+  constructor( private userService : UserService ) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    let strings = window.location.href.split(window.location.host);
-    let url = strings[strings.length-1];
-
-    if(url.match('student'))
-      this.homelink = '/student/dashboard'
-    else
-      this.homelink = '/home'
+    let auth = this.userService.isAuthenticated()
+    if(!auth){
+      this.homeLink = '/home'
+      this.home = 'home';
+    }
+    this.menuItems = [
+      { name : this.home,          link : this.homeLink  },
+      { name : 'privacy policy',   link : '/policy'      },
+    ]
   }
 
 }

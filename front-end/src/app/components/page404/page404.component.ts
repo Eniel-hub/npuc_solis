@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-page404',
@@ -7,23 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Page404Component implements OnInit {
   imgSrc : string = ""
-  homelink : string = '';
-  menuItems = [ { name : 'home',  link : this.homelink  } ]
+  homeLink : string = '/student/dashboard';
+  menuItems :any;
+  home : string = 'dashboard';
 
-  constructor() { }
+  constructor( private userService : UserService ) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.imgSrc = "../../../assets/imgs/404-bg2.gif";
     this.getImgSrc();
-
-    let strings = window.location.href.split(window.location.host);
-    let url = strings[strings.length-1];
-
-    if(url.match('student'))
-      this.homelink = '/student/dashboard'
-    else
-      this.homelink = '/home'
+    let auth = this.userService.isAuthenticated()
+    if(!auth){
+      this.homeLink = '/home';
+      this.home = 'home';
+    }
+    this.menuItems = [
+      { name : this.home,             link : this.homeLink  },
+      { name : 'about',            link : '/about-us' },
+      { name : 'privacy policy',   link : '/policy'       },
+    ]
   }
 
   getImgSrc() : void {

@@ -64,10 +64,6 @@
   padding: 0 8px;
 }
 
-.school:last-child {
-  /* margin-bottom: 18px; */
-}
-
 @media (min-width:601px){
   .school{
       width:50%;
@@ -85,7 +81,7 @@
       width:25%;
   }
   .big-container{
-    max-height: calc(var(--wrapper-height)*0.6);
+    max-height: calc(var(--wrapper-height));
   }
 }
 

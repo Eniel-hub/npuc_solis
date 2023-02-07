@@ -134,7 +134,6 @@ export class RegistrationComponent implements OnInit {
 
   selectGrade(event : Event) : void {
     this.grade = (event.target as HTMLInputElement).value;
-    console.log((event.target as HTMLInputElement).value)
   }
 
   getSchool(id? : number){

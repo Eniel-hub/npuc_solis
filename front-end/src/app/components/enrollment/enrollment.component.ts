@@ -26,7 +26,7 @@ export class EnrollmentComponent implements OnInit {
     { name : 'dashboard', link : '/student/dashboard'},
     { name : 'student', link : '/student/profile'},
     { name : 'profile', link : '/user/profile'},
-    { name : 'about', link : '/about'},
+    { name : 'about', link : '/about-us'},
     { name : 'logout'},
   ]
 
