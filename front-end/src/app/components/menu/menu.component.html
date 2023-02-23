@@ -12,6 +12,11 @@
           <span>{{item.name}}</span>
         </li>
       </a>
+      <a *ngIf="item.name == 'delete'" (click)="deleteModal()">
+        <li class="_navbar-item button">
+          <span>{{item.name}}</span>
+        </li>
+      </a>
     </div>
 
   </ul>

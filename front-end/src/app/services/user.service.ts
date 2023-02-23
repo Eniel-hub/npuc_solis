@@ -12,10 +12,11 @@ export class UserService {
   private getUserUrl = `http://${ServerIP}:${ServerPORT}/user`;
   private loginUrl = `http://${ServerIP}:${ServerPORT}/user/login`;
   private logoutUrl = `http://${ServerIP}:${ServerPORT}/user/logout`;
+  private delAccUrl = `http://${ServerIP}:${ServerPORT}/user/delete`;
   private registerUrl = `http://${ServerIP}:${ServerPORT}/user/register`;
   private updatePasswordUrl = `http://${ServerIP}:${ServerPORT}/user/password`;
   private forgetPasswordUrl = `http://${ServerIP}:${ServerPORT}/user/fpassword`;
-  private profilePictureUrl = `http://${ServerIP}:${ServerPORT}/user/profile-picture`;
+  //todo: private profilePictureUrl = `http://${ServerIP}:${ServerPORT}/user/profile-picture`;
 
   getUser(){
     return this.httpClient.get(this.getUserUrl, {withCredentials : true});
@@ -68,6 +69,14 @@ export class UserService {
                                 {username : user.username,
                                  student_id : user.student_id,
                                  password : user.password})
+  }
+
+  deleteAcc = () =>{
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('studentInfo');
+    return this.httpClient.get(this.delAccUrl,
+                                {withCredentials : true});
+
   }
 
   constructor(private httpClient: HttpClient) { }

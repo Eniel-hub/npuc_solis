@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h5 class="modal-title">Log Out</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modalRef.close()"
+  ></button>
+</div>
+<div class="modal-body">
+  Do you want to Delete of your account?
+  This action is irreversible!
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
+    Close
+  </button>
+  <button type="button"  class="btn btn-danger" (click)="delete()">Delete</button>
+</div>

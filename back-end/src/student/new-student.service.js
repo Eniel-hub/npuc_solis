@@ -39,7 +39,7 @@ const SaveStudent = async (student) =>{
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                     [student.lastname, student.firstname, student.middlename, student.fullname, student.gender, 
                     student.bday, student.home_address, student.lrn, student.religion_id, student.nationality_id, 
-                    0, student.school_id, student.student_cat_id, student.Guardian, "New Student", 1])
+                    0, student.school_id, student.student_cat_id, student.Guardian, student.remarks, 1])
                 }
 
 const GetStudentId = async (student) =>{

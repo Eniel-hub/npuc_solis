@@ -47,6 +47,7 @@ import { StudentProfileComponent } from './components/student-profile/student-pr
 
 import { globalStudent } from './global.student';
 import { LoaderComponent } from './components/loader/loader.component';
+import { DeleteComponent } from './components/delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { LoaderComponent } from './components/loader/loader.component';
     UpdatePasswordComponent,
     ConfirmationComponent,
     LoaderComponent,
+    DeleteComponent,
   ],
   imports: [
     BrowserModule,

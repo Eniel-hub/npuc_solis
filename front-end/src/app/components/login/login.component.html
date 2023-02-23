@@ -16,36 +16,27 @@
           </div>
         </div>
         <div class="col form">
-          <div class="label">
-            <label>Username / ID : </label>
-          </div>
+
           <div class="input">
-            <fa-icon [icon] = 'userIcon'></fa-icon>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Username  / ID"
-              (input) = 'getInput(0, $event)'
-            >
+            <div class="input-container ic1" id="username">
+              <input class="input2" type="text"
+                    placeholder=" "
+                    (input) = 'getInput(0, $event)'>
+              <div class="cut cut-l"></div>
+              <label for="father" class="placeholder">ID Number</label>
+            </div>
           </div>
-          <div class="label">
-            <label>Password : </label>
-          </div>
+
           <div class="input">
-            <fa-icon [icon] = 'lockIcon'></fa-icon>
-            <input
-            [type]='passwordType'
-            id="password"
-            placeholder="Password"
-            (input) = 'getInput(1, $event)'
-            >
-            <fa-icon
-              [icon] = 'eye()'
-              class = 'eye'
-              (click) = 'eyeClick()'>
-            </fa-icon>
+            <div class="input-container ic1" id="father">
+              <input id="father" class="input2" [type]='passwordType'
+                    placeholder=" "
+                    (input) = 'getInput(1, $event)' >
+              <div class="cut cut-l"></div>
+              <label for="father" class="placeholder">Password</label>
+            </div>
           </div>
+
           <div class="info info-psw">
             <p>Have you forgotten your password? <a routerLink="/user/upsw">click here</a></p>
           </div>

@@ -165,12 +165,17 @@ const fpswCheck = async (req, res, next) =>{
     next()
 }
 
+const deleteAcc = async(user) =>{
+    await userService.deleteAcc(user)
+}
+
 module.exports = {
     createUserCheck,
     updatePassword,
     CheckPassword,
     Initialize,
     CreateUser,
+    deleteAcc,
     fpswCheck,
     GetUser
 }

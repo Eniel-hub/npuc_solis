@@ -59,9 +59,17 @@ const ChangeProfilePicture = async (user) => {
     )
 }
 
+const deleteAcc = async (user) =>{
+    await db.Query(
+        `DELETE FROM student_login WHERE username = ?`,
+        [user.username]
+    )
+}
+
 module.exports = {
     GetUser,
     GetUserI,
+    deleteAcc,
     CreateUser,
     ChangePassword,
     AddProfilePicture,

@@ -35,8 +35,13 @@ router.get('/logout', auth.IsAuth, (req, res, next) => {
     });
 });
 
+router.get('/delete', auth.IsAuth, async (req, res, next) =>{
+    let user = await pportMiddleware.GetUser({username : req.user});
+    await pportMiddleware.deleteAcc(user)
+    res.json({success:true})
+})
+
 router.post('/register', pportMiddleware.createUserCheck, async (req, res) =>{
-    console.log(req.body)
     const username = req.body.username;
     const password = req.body.password;
     const student_id = req.body.student_id;

@@ -1,19 +1,18 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
-import { globalStudent } from 'src/app/global.student';
 import { UserService } from 'src/app/services/user.service';
+import { globalStudent } from 'src/app/global.student';
 
 @Component({
-  selector: 'app-logout',
-  templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.css']
+  selector: 'app-delete',
+  templateUrl: './delete.component.html',
+  styleUrls: ['./delete.component.css']
 })
-
-export class LogoutComponent implements OnInit {
+export class DeleteComponent implements OnInit {
 
   constructor(
-    public modalRef: MdbModalRef<LogoutComponent>,
+    public modalRef: MdbModalRef<DeleteComponent>,
     public GlobalStudent : globalStudent,
     private userService : UserService,
     private router : Router
@@ -22,12 +21,11 @@ export class LogoutComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  logOut = () =>{
-
-    this.userService.logOut()
+  delete = () =>{
+    this.userService.deleteAcc()
     .subscribe((response : any) => {
       if(response.error){
-        console.log('error while loging out')
+        console.log('error while deleting the account')
         return
       }
 
@@ -40,4 +38,5 @@ export class LogoutComponent implements OnInit {
   removeStudent(){
     this.GlobalStudent.updateGlobalVar({});
   }
+
 }

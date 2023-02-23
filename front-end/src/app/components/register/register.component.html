@@ -16,63 +16,47 @@
           </div>
         </div>
         <div class="col-md form">
-          <div class="label">
-            <label>ID Number : </label>
-          </div>
+
           <div class="input">
-            <fa-icon [icon] = 'idIcon'></fa-icon>
-            <input
-              type="number"
-              placeholder="ID Number"
-              [(ngModel)]="user.student_id"
-            >
+            <div class="input-container ic1">
+              <input class="input2" type="text"
+                    placeholder=" "
+                    [(ngModel)]="user.student_id">
+              <div class="cut cut-sl"></div>
+              <label class="placeholder">ID Number</label>
+            </div>
           </div>
-          <div class="label">
-            <label>Username* : </label>
-          </div>
+
           <div class="input">
-            <fa-icon [icon] = 'userIcon'></fa-icon>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Username"
-              (input) = 'getInput(0, $event)'
-            >
+            <div class="input-container ic1" id="username">
+              <input class="input2" type="text"
+                    placeholder=" "
+                    (input) = 'getInput(0, $event)'>
+              <div class="cut cut-sl"></div>
+              <label class="placeholder">Username<sup style="color: var(--color-danger)">*</sup></label>
+            </div>
           </div>
-          <div class="label">
-            <label>Password* : </label>
-          </div>
+
           <div class="input">
-            <fa-icon [icon] = 'lockIcon'></fa-icon>
-            <input
-            [type]='passwordType'
-            id="password"
-            placeholder="Password"
-            (input) = 'getInput(1, $event)'
-            >
-            <fa-icon
-              [icon] = 'eye()'
-              class = 'eye'
-              (click) = 'eyeClick()'>
-            </fa-icon>
+            <div class="input-container ic1">
+              <input class="input2" [type]='passwordType'
+                    placeholder=" "
+                    (input) = 'getInput(1, $event)' >
+              <div class="cut cut-sl"></div>
+              <label class="placeholder">Password<sup style="color: var(--color-danger)">*</sup></label>
+            </div>
           </div>
-          <div class="label">
-            <label>Confirm Password* : </label>
-          </div>
+
           <div class="input">
-            <fa-icon [icon] = 'lockIcon'></fa-icon>
-            <input
-            [type]='passwordType'
-            id="password2"
-            placeholder="Confirm Password"
-            (input) = 'getInput(2, $event)'
-            >
-            <fa-icon
-              [icon] = 'eye()'
-              class = 'eye'
-              (click) = 'eyeClick()'></fa-icon>
+            <div class="input-container ic1">
+              <input class="input2" [type]='passwordType'
+                    placeholder=" "
+                    (input) = 'getInput(2, $event)' >
+              <div class="cut cut-xxl"></div>
+              <label class="placeholder">Confirm Password<sup style="color: var(--color-danger)">*</sup></label>
+            </div>
           </div>
+
           <div class = 'info'>
             <span [class]="successClass">
               {{successMessage}}
@@ -83,6 +67,7 @@
           </div>
           <div class="info info-policy">
             <p>By registering, you agree to <b>SOLIS</b>'s <a routerLink="/policy">Privacy Policy</a></p>
+            <p>Fields marked with <sup style="color: var(--color-danger)">*</sup> are required</p>
           </div>
           <button
             type="submit"

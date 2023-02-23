@@ -106,6 +106,15 @@ const getGradeLevel = async (req, res, next) =>{
     }
 }
 
+const studentExistInSchool = async(req, res, next) =>{
+    let user = await pport.GetUser({ID : req.body.studentID})
+    if(user) return res.json({isFound : false, message : 'ID Number link to an accound. please login first.'})
+    let student = await service.GetStudent(req.body.studentID);
+    if(!student) return res.json({isFound : false, message : 'no student found with the entered ID Number'})
+    if(student.school_id == req.body.schoolId) return res.json({isFound : true})
+    return res.json({isFound : false, message : "this ID Number doesn'e belong to the school selected"})
+}
+
 
 module.exports = {
     GetNation,
@@ -116,4 +125,5 @@ module.exports = {
     NewApplication,
     GetAllReligions,
     GetAllCategories,
+    studentExistInSchool
 }

@@ -1,5 +1,6 @@
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { LogoutComponent } from '../logout/logout.component';
+import { DeleteComponent } from '../delete/delete.component';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -29,6 +30,10 @@ export class MenuComponent implements OnInit {
 
   openModal() {
     this.modalRef = this.modalService.open(LogoutComponent)
+  }
+
+  deleteModal(){
+    this.modalRef = this.modalService.open(DeleteComponent)
   }
 
 

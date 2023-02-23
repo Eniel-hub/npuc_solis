@@ -12,16 +12,14 @@
   float: right;
   margin-right: 0;
   display: flex;
-  /* box-shadow: var(--small-box-shadow); */
 }
 
 .search fa-icon{
   font-weight: bolder;
   left: 3%;
-  /* line-height: 3vw; */
   margin-top: 1%;
   position: absolute;
-  color: var(--marroon-darker);
+  color: var(--on-neutral);
 }
 
 .search input{
@@ -29,9 +27,9 @@
   width: 100%;
   outline: none;
   border-radius: 5px;
-  border: 1px solid var(--marroon-darker);
+  border: 1px solid var(--on-neutral);
   padding: 0 1% 0 10%;
-  color: var(--marroon-darkest);
+  color: var(--on-neutral);
 }
 
 
@@ -41,7 +39,7 @@
   max-height: calc(var(--wrapper-height)*0.9);
   overflow-y: scroll;
   overflow-x: hidden;
-  background-color: var(--marroon-base);
+  background-color: var(--color-primary-darker);
   /* padding-top: 1%; */
   padding-bottom: 16px;
   box-shadow: var(--medium-box-shadow);
@@ -94,8 +92,8 @@
   position:absolute;
   left:0;
   top:0;
-  color:#fff;
-  background-color: var(--marroon-darkest)!important;
+  color: var(--on-primary);
+  background-color: var(--color-secondary)!important;
   padding:8px 16px;
 }
 
@@ -103,7 +101,7 @@ img{
   border-style:none;
   vertical-align:middle;
   width: 100%;
-  border: 2px solid var(--marroon-darkest);
+  border: 2px solid var(--on-neutral);
   box-shadow: var(--medium-box-shadow);
 }
 
@@ -129,13 +127,12 @@ img{
 .flip-card-back {
   position: absolute;
   width: 100%;
-  background-color: var(--marroon-darkest);
+  background-color: var(--color-primary);
   height: 100%;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
   /* text-align: center; */
-  background-color: var(--marroon-darkest);
-  color: white;
+  color: var(--on-primary);
   transform: rotateY(180deg);
 }
 

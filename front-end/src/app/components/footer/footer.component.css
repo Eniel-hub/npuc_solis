@@ -2,14 +2,14 @@
 *::before,
 *::after{
   font-family: var(--body-font-family);
-  color: #fff;
+  color: var(--on-primary);
   padding-top: 0.5%;
   padding-bottom: 0.5%;
 }
 
 .footer{
   text-align:center;
-  background-color: var(--marroon-darker);
+  background-color: var(--color-primary-darker);
   padding-top:16px;
   padding-bottom:16px;
   position: relative;
@@ -23,5 +23,5 @@
 }
 
 .link:hover{
-  color: rgb(55, 160, 230);
+  color: var(--color-prime);
 }

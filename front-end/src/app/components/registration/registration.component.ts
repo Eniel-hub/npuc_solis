@@ -33,6 +33,8 @@ import { EmailValidator } from '@angular/forms';
 export class RegistrationComponent implements OnInit {
 
   categories : string[] = ['School', 'Personal', 'Parents'];
+  transfereeBtnClass : string = 'btn btn-outline-primary';
+  newStudentBtnClass : string = 'btn btn-outline-success';
   loaderRef : MdbModalRef<LoaderComponent> | null = null;
   modalRef : MdbModalRef<AlertComponent> | null = null;
   newStudentApplication : StudentApplication = {};
@@ -47,29 +49,40 @@ export class RegistrationComponent implements OnInit {
   nationalities : Nationality[] = [];
   inputNation : string = 'hidden';
   parent : string = 'parent hide';
+  isFromASisSchl : boolean = false;
+  isTransferee : boolean = false;
   category : string = 'Personal';
+  errorClass : string = 'hidden';
   idPersonal : string = 'active';
   personal : string = 'personal';
+  isDisabled : boolean = true;
   religions : Religion[] = [];
+  errorMessage : string = '';
   arrSchools : School[] = [];
   allValid : boolean = false;
   idEducation : string = '';
   isGuardian : string = '';
   review : boolean = false;
+  prevSchool : string = '';
   newNation : string = '';
+  Schools : School[] = [];
   schools : School[] = [];
   enrollmentSchYear : any;
   student : Student = {};
+  check : boolean = true;
   value : string = '';
   arrRight = arrRight;
   index : number = 0;
   count : number = 0;
+  Page : number = 0;
   arrLeft = arrLeft;
+  prevID : any;
   grades : any;
   grade : any;
 
   menuItems = [
     { name : 'logout',},
+    {name : 'delete',}
   ];
 
 
@@ -113,6 +126,17 @@ export class RegistrationComponent implements OnInit {
     })
   }
 
+  gradeDisabled(index : number):boolean{
+    if(!this.isTransferee){
+      if(
+        this.grades[index].grade_level.match(/^\w{6}\sI$/) ||
+        this.grades[index].grade_level.match(/1/)
+      ) return false
+      return true
+    }
+    return false
+  }
+
   searchSchool(event : Event){
     this.value = (event.target as HTMLInputElement).value;
     let schools = this.arrSchools.filter(school => {
@@ -132,6 +156,40 @@ export class RegistrationComponent implements OnInit {
     })
   }
 
+  PrevSchool(schoolName? : string){
+    this.prevSchool = schoolName? schoolName : '';
+    this.previousSchool({isFound : true});
+
+  }
+
+  previousSchool(obj : {event? : Event, isFound? : boolean}){
+    let value = obj.event? (obj.event.target as HTMLInputElement).value : '';
+    if(value != '' && !obj.isFound){
+        let schools = this.arrSchools.filter(school => {
+        return school.school_name?.toLowerCase().includes(value.toLowerCase())
+      })
+      this.Schools = schools;
+      this.isFromASisSchl = true;
+      if(!schools[0]) {
+        this.PrevSchool(value)
+        this.isFromASisSchl = false;
+      }
+    } else { this.Schools = []}
+  }
+
+  transfereeClick(){
+    this.isDisabled = false;
+    this.isTransferee = true;
+    this.transfereeBtnClass = 'btn btn-primary';
+    this.newStudentBtnClass = 'btn btn-outline-success';
+  }
+  newStudentClick(){
+    this.isDisabled = false;
+    this.isTransferee = false;
+    this.newStudentBtnClass = 'btn btn-success';
+    this.transfereeBtnClass = 'btn btn-outline-primary';
+  }
+
   selectGrade(event : Event) : void {
     this.grade = (event.target as HTMLInputElement).value;
   }
@@ -145,30 +203,43 @@ export class RegistrationComponent implements OnInit {
   }
 
   next(){
-    this.allValid = this.checkValidity()
-    if(!this.student.school_id || this.index == this.categories.length-1)
-      this.index =-1;
-    this.index++;
-    this.section = this.categories[this.index];
-    for (let i = 0; i<this.btn.length; i++) this.btn[i] = "btn";
-    this.btn[this.index] = 'btn dis'
-    window.scrollTo(0, 0);
+    if(this.checkValidity()) {
+      if(this.allValid && this.check)
+        this.check = false;
+      else{
+        if(this.index == this.categories.length-1)
+          this.index = 0;
+        this.index++;
+        this.section = this.categories[this.index];
+        for (let i = 0; i<this.btn.length; i++) this.btn[i] = "btn";
+        this.btn[this.index] = 'btn dis'
+        window.scrollTo(0, 0);
+        this.errorClass = 'hidden';
+        this.errorMessage = '';
+      }
+
+    } else window.scrollTo(0, 0);
   }
 
   previous(){
-    this.allValid = this.checkValidity()
-    if(!this.student.school_id)
-      this.index = 1;
-    if(this.index == 0)
-      this.index = this.categories.length;
-    this.index--;
-    this.section = this.categories[this.index];
-    for (let i = 0; i<this.btn.length; i++) this.btn[i] = "btn";
-    this.btn[this.index] = 'btn dis'
-    window.scrollTo(0, 0);
+    if(this.checkValidity()) {
+      if(this.allValid && this.check)
+        this.check = false;
+      else{
+        if(this.index == 0)
+          this.index = this.categories.length;
+        this.index--;
+        this.section = this.categories[this.index];
+        for (let i = 0; i<this.btn.length; i++) this.btn[i] = "btn";
+        this.btn[this.index] = 'btn dis'
+        window.scrollTo(0, 0);
+        this.errorClass = 'hidden';
+        this.errorMessage = '';
+      }
+    } else window.scrollTo(0, 0);
   }
 
-  page(index : number){
+  page(index : number ){
     this.allValid = this.checkValidity()
     if(this.student.school_id){
       this.index = index;
@@ -180,22 +251,90 @@ export class RegistrationComponent implements OnInit {
     return;
   }
 
-  checkValidity(){
-    let trueSoFar : boolean = false;
-    if( this.student.lastname && this.student.firstname &&
-        this.student.gender && this.student.bday &&
-        this.student.home_address && this.student.religion_id &&
-        this.student.nationality_id && this.student.school_id /*&&
-         this.student.student_cat_id && this.student.guardian*/ ){
+  verifyPrevSchoolAndId(prevSchool : string, prevID : number) : {isFound:boolean, message:string}{
+    let value = prevSchool;
+    let schoolID;
+    let schools = this.arrSchools.filter(school => {
+      return school.school_name?.toLowerCase().includes(value.toLowerCase())
+    })
+    if(!schools[0]) return {isFound : true, message : ''};
+    else {
+      schoolID = schools[0].ID;
+      let obj = {isFound: false, message: ''}
+      if(schoolID === this.student.school_id){
+        return {isFound: false, message: 'Choose a different school of provenance'}
+      }
+      this.studentService.studentExistInSchool(prevID, schoolID).subscribe((res : any) => {obj = res})
+      setTimeout(() => {
+        console.log(obj)
+        return obj
+      }, 500);
+      console.log(obj)
+      return obj
+    }
+  }
 
+  checkValidity(){
+    //first page
+    let trueSoFar : boolean = false;
+    if(this.index == 0){
+      if(this.student.school_id){
+        if(this.isTransferee){
+          if(this.prevSchool && this.grade){
+            let obj = this.verifyPrevSchoolAndId(this.prevSchool, this.prevID)
+            if(obj.isFound == true)
+              trueSoFar = true;
+            else {
+              trueSoFar= false;
+              this.errorMessage = obj.message;
+            }
+          } else {
+            this.errorMessage = 'Please fill up all required fields'
+            trueSoFar = false;
+          }
+        } else if(this.grade) {
+          trueSoFar = true;
+        } else {
+          trueSoFar = false;
+          this.errorMessage = 'Please fill up all required fields'
+        }
+      } else {
+        this.errorMessage = 'Please fill up all required fields'
+        trueSoFar = false;
+      }
+    }
+
+    if(this.index == 1){
+      if(
+          this.student.lastname && this.student.firstname &&
+          this.student.gender && this.student.bday &&
+          this.student.home_address && this.student.religion_id &&
+          this.student.nationality_id
+        ) trueSoFar = true
+        else {
+        this.errorMessage = 'Please fill up all required fields reguarding personal information'
+        trueSoFar = false;
+      }
+    }
+
+    if(this.index == 2){
       if(this.isGuardian) trueSoFar = true;
+      else {
+        {
+          trueSoFar = false;
+          this.errorMessage ='Please choose a guardian'
+        }
+      }
         if(this.isGuardian.match('Father')){
           this.student.Guardian = 'Father'
 
           if( !(this.father.mobile && this.father.firstname &&
                 this.father.lastname &&  this.father.relationship &&
                 this.father.email &&  this.father.home_address)
-            ) trueSoFar = false;
+            ){
+              trueSoFar = false;
+              this.errorMessage ='fill up all required fields on father informations'
+            }
         }
         if(trueSoFar && this.isGuardian.match('Mother')){
           if(this.isGuardian.match('Father'))
@@ -206,7 +345,10 @@ export class RegistrationComponent implements OnInit {
           if( !(this.mother.mobile && this.mother.firstname &&
                 this.mother.lastname &&  this.mother.relationship &&
                 this.mother.email &&  this.mother.home_address)
-            ) trueSoFar = false;
+            ){
+              trueSoFar = false;
+              this.errorMessage ='fill up all required fields on mother informations'
+            }
         }
         if(trueSoFar && this.isGuardian.match('Guardian')){
           this.student.Guardian = 'Guardian'
@@ -214,8 +356,17 @@ export class RegistrationComponent implements OnInit {
           if( !(this.guardian.mobile && this.mother.firstname &&
                 this.guardian.lastname &&  this.guardian.relationship &&
                 this.guardian.email &&  this.guardian.home_address)
-            ) trueSoFar = false;
+            ){
+              trueSoFar = false;
+              this.errorMessage ='fill up all required fields on guardian informations'
+            }
         }
+
+      this.allValid = trueSoFar;
+    }
+
+    if(!trueSoFar){
+      this.errorClass= 'error'
     }
     return trueSoFar;
   }
@@ -258,6 +409,7 @@ export class RegistrationComponent implements OnInit {
       },
       ignoreBackdropClick : true
     })
+    this.student.remarks = this.isTransferee ? 'Transferee student' : 'New Student'
     this.student.student_cat_id = this.getStudentCategory(this.grade)
     this.newStudentApplication = {... this.student}
     this.newStudentApplication.father = {... this.father}

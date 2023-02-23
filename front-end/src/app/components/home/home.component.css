@@ -1,6 +1,6 @@
 *{
-  font-family: var(--body-font-family);
   font-size: var(--body-font-size);
+  font-family: var(--body-font-family);
   margin: 0;
   padding: 0;
 }
@@ -21,15 +21,22 @@
 .empty{
   max-width: 100%;
   height: auto;
-  opacity: 0;
+  /* opacity: 0; */
+  z-index: -1;
+  position: relative;
 }
 
 .image{
   width:100%;
-  height:auto
+  height:100vh;
+  object-fit: cover;
+  filter: brightness(50%);
+  vertical-align:middle;
 }
-img{
-    vertical-align:middle
+
+#img{
+  height: auto !important;
+  filter: brightness(100%) !important;
 }
 
 .title{
@@ -38,30 +45,43 @@ img{
   left:50%;
   transform:translate(-50%,-50%);
   -ms-transform:translate(-50%,-50%);
-  margin-top:16px;
   text-align: center;
 }
 
 .title-text{
-  font-size:36px;
-  color: #f1f1f1;
-  font-family: var(--title-font-family);
-  font-weight: light;
-}
-
-.title-text b{
-  font-family: var(--header-font-family);
-  font-weight: var(--header-font-weight);
+  font-size: calc(var(--title-font-size)*1.9);
+  font-family: var(--title-font-family)!important;
+  color: var(--on-primary);
+  font-weight: bolder;
+  z-index: 2;
+  position: relative;
 }
 
 .cool-bg{
-  padding:8px 16px;
-  background-color:var(--marroon-darkest);
-  opacity:0.75;
-  color: #fff;
+  margin-top: -25px;
+  padding:16px;
+  background-color:var(--color-prime);
+  opacity: .75;
+  /* position: fixed; */
+}
+
+p.blink{
+  color: var(--on-primary);
+  font-size: calc(var(--title-font-size)*0.9);
+  animation: blinker 1s linear infinite;
+  font-family: var(--title-font-family)!important;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }
 
 @media (max-width:600px){
+  .image{
+    filter: brightness(75%);
+  }
   .school{
     margin: auto;
     width: 90vw;
@@ -102,7 +122,7 @@ img{
   font-size: var(--title-font-size)!important;
   text-transform: capitalize;
 
-  color: var(--marroon-dark);
+  color: var(--on-neutral);
 }
 
 .text-section-title:after, .text-section-title:before{
@@ -112,7 +132,8 @@ img{
 }
 
 .text-section-title:hover{
-  color: var(--marroon-light);
+  color: var(--color-prime);
+  cursor: pointer;
 }
 
 .text-section-title h3{

@@ -1,18 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
-
 .userdiv{
   cursor: pointer;
   height: fit-content;
   width: fit-content;
-  width: calc(9vh + 9vw);
+  /* width: calc(9vh + 9vw); */
   display: flex;
   margin: auto;
 }
 
 .userdiv .pp {
   padding: 0%;
-  border: 1.5px solid white;
-  background-color: var(--marroon-light);
+  border: 1px solid #000;
   align-items: center;
   justify-content: center;
   width: calc(var(--size-ratio) * 2.8);
@@ -32,27 +29,21 @@
 
 }
 
-.userdiv .pp:hover{
-  background-color: var(--marroon-dark);
-  color: white;
-}
-
-fa-icon {
-  font-size: calc(15px + var(--size-ratio) * .6);
-  margin: auto;
-}
-
 .userdiv .name {
   float: right;
   margin: auto;
-  font-family: 'Inconsolata', monospace;
+  font-family: var(--name-font-family);
   font-size: var(--body-font-size);
+  color: var(--on-primary);
+  font-weight: lighter;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-.userdiv .name:hover{
-  background-color: var(--marroon-light);
+.userdiv:hover{
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  background-color: var(--color-primary-darker);
 }
 
 a {

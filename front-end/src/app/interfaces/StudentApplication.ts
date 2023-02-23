@@ -11,6 +11,7 @@ export interface StudentApplication {
   religion_id?           : number,
   nationality_id?        : number,
   nationality?           : string,
+  remarks?               : string,
   school_id?             : number,
   student_cat_id?        : string,
   father?                : {

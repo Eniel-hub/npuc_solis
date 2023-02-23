@@ -20,6 +20,7 @@ export class StudentService {
 
   private url = `http://${ServerIP}:${ServerPORT}/student/profile`;
   private natUrl = `http://${ServerIP}:${ServerPORT}/student/nation`;
+  private exiStUrl = `http://${ServerIP}:${ServerPORT}/student/exist`;
   private catUrl = `http://${ServerIP}:${ServerPORT}/student/category`;
   private reliUrl = `http://${ServerIP}:${ServerPORT}/student/religion`;
   private gradeUrl = `http://${ServerIP}:${ServerPORT}/student/gradelevel`;
@@ -43,6 +44,13 @@ export class StudentService {
 
   getAllNations(){
     return this.httpClient.get(this.natUrl);
+  }
+
+  studentExistInSchool(studentID : number, schoolId : number){
+    return this.httpClient.post(this.exiStUrl, {
+      studentID : studentID,
+      schoolId : schoolId
+    });
   }
 
   isStudent() : Boolean {
