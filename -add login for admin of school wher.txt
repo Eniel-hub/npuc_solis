@@ -1,0 +1,2 @@
+-add login for admin of school where they can check for the registered student
+use login (create new table web_login) and school_login (web_school_login)
