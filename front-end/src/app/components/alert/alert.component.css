@@ -1,8 +1,8 @@
-.modal-header{
-  background-color: var(--marroon-darker);
-  color: #fff;
+.modal-header {
+  background-color: var(--color-primary-darker);
+  color: var(--on-primary);
 }
 
-.btn-close{
-  background-color: 	rgb(223, 71, 89) !important;
+.btn-close {
+  background-color: rgb(223, 71, 89) !important;
 }

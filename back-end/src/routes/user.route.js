@@ -1,11 +1,11 @@
 const passport = require("passport");
 const router = require("express").Router();
-const pportMiddleware = require("../auth/passport.middleware");
 const auth = require("../auth/AuthAndAut");
+const userMiddleware = require("../user/user.middleware");
 
 //post request
 router.get("/", auth.IsAuth, async (req, res, next) => {
-  let user = await pportMiddleware.GetUser({ username: req.user });
+  let user = await userMiddleware.GetUser({ username: req.user });
   return res.json({
     username: user.username,
     profile_picture: user.profile_picture,
@@ -36,16 +36,16 @@ router.get("/logout", auth.IsAuth, (req, res, next) => {
 });
 
 router.get("/delete", auth.IsAuth, async (req, res, next) => {
-  let user = await pportMiddleware.GetUser({ username: req.user });
-  await pportMiddleware.deleteAcc(user);
+  let user = await userMiddleware.GetUser({ username: req.user });
+  await userMiddleware.deleteAcc(user);
   res.json({ success: true });
 });
 
-router.post("/register", pportMiddleware.createUserCheck, async (req, res) => {
+router.post("/register", userMiddleware.createUserCheck, async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const student_id = req.body.student_id;
-  await pportMiddleware.CreateUser(username, password, student_id);
+  await userMiddleware.CreateUser(username, password, student_id);
   res.json({ success: true });
 });
 
@@ -53,7 +53,7 @@ router.post("/password", auth.IsAuth, async (req, res, next) => {
   let username = req.user;
   let password = req.body.password;
   let newPassword = req.body.newPassword;
-  response = await pportMiddleware.updatePassword(
+  response = await userMiddleware.updatePassword(
     username,
     password,
     newPassword
@@ -61,10 +61,10 @@ router.post("/password", auth.IsAuth, async (req, res, next) => {
   res.json(response);
 });
 
-router.post("/fpassword", pportMiddleware.fpswCheck, async (req, res, next) => {
+router.post("/fpassword", userMiddleware.fpswCheck, async (req, res, next) => {
   password = req.body.password;
   username = req.body.username;
-  response = await pportMiddleware.updatePassword(username, password);
+  response = await userMiddleware.updatePassword(username, password);
   res.json(response);
 });
 

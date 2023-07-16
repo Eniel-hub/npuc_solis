@@ -1,9 +1,9 @@
-.modal-header{
+.modal-header {
   justify-content: center;
-  background-color: var(--marroon-darker);
-  color: white;
+  background-color: var(--color-primary-darker);
+  color: var(--on-primary);
 }
 
-.btn-close{
-  background-color: 	rgb(223, 71, 89) !important;
+.btn-close {
+  background-color: var(--color-danger) !important;
 }

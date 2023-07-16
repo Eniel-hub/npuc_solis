@@ -1,4 +1,4 @@
-.modal-body{
+.modal-body {
   display: flex;
 }
 
@@ -20,7 +20,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--marroon-darker);
+  background: var(--color-primary-darker);
   margin: -4px 0 0 -4px;
 }
 .lds-roller div:nth-child(1) {
@@ -88,15 +88,15 @@
   }
 }
 
-.modal-header{
+.modal-header {
   justify-content: center;
 }
 
-.modal-header{
-  background-color: var(--marroon-darker);
-  color: white;
+.modal-header {
+  background-color: var(--color-primary-darker);
+  color: var(--on-primary);
 }
 
-.btn-close{
-  background-color: 	rgb(223, 71, 89) !important;
+.btn-close {
+  background-color: var(--color-danger) !important;
 }

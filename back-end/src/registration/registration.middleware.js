@@ -1,7 +1,8 @@
+const helper = require("../utils/helper");
 const service = require("./registration.service");
 const pport = require("../auth/passport.middleware");
 const Student = require("../student/student.service");
-const helper = require("../utils/helper");
+const userMiddleware = require("../user/user.middleware");
 
 /*
  * get the current registration
@@ -11,7 +12,7 @@ const helper = require("../utils/helper");
 const get = async (req, res, next) => {
   //todo: get grade
   //get section
-  let user = await pport.GetUser({ username: req.user });
+  let user = await userMiddleware.GetUser({ username: req.user });
   try {
     const section = await service.getCurrentSection(user.student_id);
     if (!section) return res.json({ error: true });
@@ -27,7 +28,7 @@ const get = async (req, res, next) => {
  * if there is not a grade then send an error
  */
 const getNext = async (req, res, next) => {
-  let user = await pport.GetUser({ username: req.user });
+  let user = await userMiddleware.GetUser({ username: req.user });
   let gradeID = Number(req.params.id);
   //get new greade level
   let grade_level;
@@ -54,7 +55,7 @@ const getNext = async (req, res, next) => {
  * 2. save registration status (regiID, applicationDate, gradeLevel)
  */
 const setNext = async (req, res, next) => {
-  let user = await pport.GetUser({ username: req.user });
+  let user = await userMiddleware.GetUser({ username: req.user });
   let student = await Student.GetStudent(user.student_id);
   let id = user.student_id.toString() + req.body.enrollmentYearId.toString();
 
@@ -110,7 +111,7 @@ const setNext = async (req, res, next) => {
  */
 
 const check = async (req, res, next) => {
-  let user = await pport.GetUser({ username: req.user });
+  let user = await userMiddleware.GetUser({ username: req.user });
   let record = await service.GetPendingRegi(user.student_id);
   if (!record) return res.json({ notExist: true });
   return res.json(record);

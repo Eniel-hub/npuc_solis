@@ -1,4 +1,5 @@
 const auth = require("./passport.middleware");
+const userMiddleware = require("../user/user.middleware");
 const LocalStrategy = require("passport-local").Strategy;
 const flash = require("req-flash");
 
@@ -14,10 +15,14 @@ module.exports = (passport) => {
       let user;
       if (!username.match(/[a-zA-Z]/)) {
         let ID = Number(username);
-        user = await auth.GetUser({ ID: ID });
-      } else user = await auth.GetUser({ username: username });
+        user = await userMiddleware.GetUser({ ID: ID });
+      } else user = await userMiddleware.GetUser({ username: username });
       if (!user) return done(null, false, { error: "username not found" });
-      const isValid = auth.CheckPassword(password, user.hash, user.salt);
+      const isValid = userMiddleware.CheckPassword(
+        password,
+        user.hash,
+        user.salt
+      );
       if (isValid) return done(null, user.username);
       else return done(null, false, { error: "wrong password" });
     } catch (err) {

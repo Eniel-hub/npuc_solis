@@ -1,21 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Prompt:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito&family=Prompt:wght@300&display=swap");
 
-
-.body{
+.body {
   min-height: calc(100vh - var(--footer-height));
   height: fit-content;
   display: flex;
 }
 
-.content{
+.content {
   margin: auto !important;
 }
 
-.content, .form2{
+.content,
+.form2 {
   min-height: 0px !important;
 }
 
-.form2{
+.form2 {
   max-width: 600px;
   width: 100%;
   height: fit-content;
@@ -25,30 +25,30 @@
   padding: 10px;
 }
 
-@media (min-height:620px){
+@media (min-height: 620px) {
 }
 
-span{
+span {
   color: rgb(14, 114, 114);
   text-decoration: underline;
 }
 
-#intro{
+#intro {
   font-size: var(--header-font-size);
 }
 
-.navigation{
+.navigation {
   float: right;
 }
 
-h3{
+h3 {
   margin-top: 20px;
   font-family: var(--title-font-family);
   font-size: var(--header-font-size);
   color: var(--marroon-darkest);
 }
 
-.subjects{
+.subjects {
   margin: auto;
   padding-left: none;
   margin-top: 0px;
@@ -59,17 +59,17 @@ h3{
   overflow-y: scroll;
 }
 
-.subjects option{
+.subjects option {
   list-style-type: none;
-  border-bottom: 1px solid var(--marroon-darker);
+  border-bottom: 1px solid var(--color-primary-darker);
 }
 
-.subjects option:hover{
+.subjects option:hover {
   background-color: var(--marroon-light);
 }
 
-@media (max-width:600px){
-  .wrapper{
-      width: 80vw;
+@media (max-width: 600px) {
+  .wrapper {
+    width: 80vw;
   }
 }
