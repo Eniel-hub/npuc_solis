@@ -58,9 +58,10 @@ const deleteAcc = async (user) => {
 };
 
 const setProfilePicture = async (profilePicture, user) => {
+  console.log(profilePicture);
   await db.Query(
     "UPDATE student_login SET profile_picture = ? WHERE username = ?",
-    [profilePicture, user.username]
+    [profilePicture.data, user.username]
   );
 };
 

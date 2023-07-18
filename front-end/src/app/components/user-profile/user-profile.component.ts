@@ -91,6 +91,9 @@ export class UserProfileComponent implements OnInit {
 
   change() {
     //todo: save profile picture
+    if (this.img) {
+      this.imgChange();
+    }
 
     if (this.password1) {
       this.passwordChange();
@@ -105,6 +108,35 @@ export class UserProfileComponent implements OnInit {
     this.img = '';
     this.error = { valid: false, type: '' };
   }
+
+  imgChange = () => {
+    this.error = { valid: false };
+    if (!this.img.type.match('image/')) {
+      this.error.valid = true;
+      this.error.type = 'not an image';
+      this.getErrorMessage();
+      return;
+    }
+    this.loaderRef = this.modalService.open(LoaderComponent, {
+      data: {
+        title: 'Change In Progress',
+      },
+      ignoreBackdropClick: true,
+    });
+    this.service.saveProfilePicture(this.img).subscribe((response: any) => {
+      if (response.error) {
+        this.checkErrors(response.error);
+        this.getErrorMessage();
+        this.loaderRef?.close();
+      } else {
+        setTimeout(() => {
+          this.loaderRef?.close();
+          this.openModal();
+          this.edit();
+        }, 2000);
+      }
+    });
+  };
 
   passwordChange = () => {
     this.error = { valid: false };
@@ -128,7 +160,7 @@ export class UserProfileComponent implements OnInit {
           } else {
             setTimeout(() => {
               this.loaderRef?.close();
-              this.openModal();
+              this.openModal(true);
               this.edit();
             }, 2000);
           }
@@ -183,11 +215,11 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  openModal() {
+  openModal(isPassword?: boolean) {
     this.modalRef = this.modalService.open(AlertComponent, {
       data: {
-        title: 'Register',
-        body: 'Password Changed',
+        title: 'User Profile',
+        body: isPassword ? 'Password Changed' : 'Profile Picture Changed',
       },
     });
   }

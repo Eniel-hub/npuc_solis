@@ -2163,7 +2163,7 @@ CREATE TABLE IF NOT EXISTS `npuc_solis`.`student_login` (
   `username` VARCHAR(45) NULL,
   `hash` VARCHAR(255) NULL,
   `salt` VARCHAR(255) NULL,
-  `profile_picture` VARCHAR(255) NULL,
+  `profile_picture` BLOB NULL,
   `statut` ENUM('Active', 'Pending', 'Disabled') NULL DEFAULT 'Pending',
   `code` VARCHAR(5) NULL,
   PRIMARY KEY (`id`),

@@ -161,7 +161,7 @@ const saveProfilePicture = async (req, res, next) => {
   // save the img path to databse
   img.mv(imgPath).then(async () => {
     try {
-      await userService.setProfilePicture(imgPath, user);
+      await userService.setProfilePicture(img, user);
       res.status(200).json({ success: true });
     } catch (err) {
       console.log(`an error occured while changing the profile picture ${err}`);
