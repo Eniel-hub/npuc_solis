@@ -68,4 +68,6 @@ router.post("/fpassword", userMiddleware.fpswCheck, async (req, res, next) => {
   res.json(response);
 });
 
+router.post("/ppic", userMiddleware.saveProfilePicture);
+
 module.exports = router;

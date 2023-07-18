@@ -143,7 +143,35 @@ const CheckPassword = (password, hash, salt) => {
   return hash === hashVerify;
 };
 
+const saveProfilePicture = async (req, res, next) => {
+  const user = await GetUser({ username: req.user });
+  const img = req.files.img;
+  // If no image submitted, exit
+  if (!img) return res.status(400).json({ error: "no file found" });
+  //if not an image exit
+  if (!img.mimetype.match("image")) {
+    return res.status(400).json({ error: "file is not an image" });
+  }
+  //change img name
+  const ext = "." + img.mimetype.substring(6);
+  img.name = `user_00${user.id}${ext}`;
+
+  const imgPath = process.cwd() + "/public/profilepictures/" + img.name;
+
+  // save the img path to databse
+  img.mv(imgPath).then(async () => {
+    try {
+      await userService.setProfilePicture(imgPath, user);
+      res.status(200).json({ success: true });
+    } catch (err) {
+      console.log(`an error occured while changing the profile picture ${err}`);
+      res.status(400).json({ error: err });
+    }
+  });
+};
+
 module.exports = {
+  saveProfilePicture,
   createUserCheck,
   updatePassword,
   CheckPassword,

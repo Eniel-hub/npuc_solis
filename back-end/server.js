@@ -5,6 +5,7 @@ const express = require("express");
 const flash = require("req-flash");
 const passport = require("passport");
 const session = require("express-session");
+const fileUpload = require("express-fileupload");
 const homeRouter = require("./src/routes/home.route");
 const userRouter = require("./src/routes/user.route");
 const schoolRouter = require("./src/routes/school.route");
@@ -31,6 +32,14 @@ app.use(
   cors({
     origin: [`http://${appIP}:${appPORT}`],
     credentials: true,
+  })
+);
+app.use(
+  fileUpload({
+    limits: {
+      fileSize: 10 * 1024 * 1024, //10Mo
+    },
+    abortOnLimit: true,
   })
 );
 
