@@ -7,6 +7,9 @@ import { UserService } from 'src/app/services/user.service';
 import { LoaderComponent } from '../loader/loader.component';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { UserPublishedService } from 'src/app/services/user-published.service';
+import { User } from 'src/app/interfaces/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -15,9 +18,10 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 })
 export class UserProfileComponent implements OnInit {
   //todo: make the profile change works
-  profile: any;
   eyeIcon = faEye;
-  ID: any;
+  userItem: any = localStorage.getItem('userInfo');
+  username: any = JSON.parse(this.userItem).username;
+  ID: any = localStorage.getItem('studentInfo');
   img: any;
   password: string = '';
   password1: string = '';
@@ -30,14 +34,14 @@ export class UserProfileComponent implements OnInit {
   errorClass: string = 'nothing';
   successClass: string = 'nothing';
   passwordType: string = 'password';
-  user: any = localStorage.getItem('userInfo');
-  username: any = JSON.parse(this.user).username;
-  image: string = '../../../assets/imgs/pp-n.jpeg';
+  profileN: string = '../../../assets/imgs/pp-n.jpeg';
+  profile: string = this.profileN;
   modalRef: MdbModalRef<AlertComponent> | null = null;
   loaderRef: MdbModalRef<LoaderComponent> | null = null;
   globalStudent: Student = {};
   subscription: any;
   show: string = 'display: hidden';
+  user: User = {};
 
   menuItems = [
     { name: 'dashboard', link: '/student/dashboard' },
@@ -48,19 +52,24 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private GlobalStudent: globalStudent,
-    private service: UserService,
-    private modalService: MdbModalService
+    private modalService: MdbModalService,
+    private service: UserService
   ) {}
 
   ngOnInit(): void {
-    window.scrollTo(0, 0);
     this.globalStudent = this.GlobalStudent.getGlobalVarStudent();
-    this.ID = this.globalStudent.ID;
+    console.log(this.globalStudent);
 
-    if (this.globalStudent.gender == 'Male')
-      this.image = '../../../assets/imgs/pp-g.jpeg';
-    else if (this.globalStudent.gender == 'Female')
-      this.image = '../../../assets/imgs/pp-f.jpeg';
+    this.profile = localStorage.getItem('profilePicture') || this.profile;
+    if (this.globalStudent.gender == 'Male' && this.profile == this.profileN)
+      this.profile = '../../../assets/imgs/pp-g.jpeg';
+    else if (
+      this.globalStudent.gender == 'Female' &&
+      this.profile == this.profileN
+    )
+      this.profile = '../../../assets/imgs/pp-f.jpeg';
+
+    window.scrollTo(0, 0);
   }
 
   eye() {
@@ -76,17 +85,14 @@ export class UserProfileComponent implements OnInit {
   selectFile(event: any) {
     // @ts-ignore: Object is possibly 'null'
     this.img = (event!.target as HTMLInputElement).files[0];
-    // If no image submitted, exit
-    if (!this.img) {
+    //if not an image do nothing
+    if (this.img.type.match('image')) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.profile = reader.result as string;
+      };
+      reader.readAsDataURL(this.img);
     }
-    //if not an image exit
-    if (!this.img.type.match('image')) {
-    }
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.profile = reader.result as string;
-    };
-    reader.readAsDataURL(this.img);
   }
 
   change() {
@@ -130,6 +136,8 @@ export class UserProfileComponent implements OnInit {
         this.loaderRef?.close();
       } else {
         setTimeout(() => {
+          this.service.setProfilePicture(response.url);
+          console.log(response);
           this.loaderRef?.close();
           this.openModal();
           this.edit();

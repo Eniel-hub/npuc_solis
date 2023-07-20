@@ -13,7 +13,7 @@
       <div *ngIf="!isEditing" class="row">
         <div class="col">
           <div class="img">
-            <img [src]="profile || image" alt="" />
+            <img [src]="profile" alt="" />
           </div>
         </div>
         <div class="col form">
@@ -55,7 +55,7 @@
       <div *ngIf="isEditing" class="row">
         <div class="col">
           <div class="img">
-            <img [src]="profile || image" alt="" />
+            <img [src]="profile" alt="" />
           </div>
         </div>
         <div class="col form">

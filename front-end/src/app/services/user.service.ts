@@ -34,6 +34,10 @@ export class UserService {
     localStorage.setItem('userInfo', JSON.stringify(user));
   }
 
+  setProfilePicture(profilePicture: string) {
+    localStorage.setItem('profilePicture', profilePicture);
+  }
+
   //todo: set timer for the session and logout at end of timer
 
   validate = (user: User) => {
@@ -55,6 +59,7 @@ export class UserService {
   logOut = () => {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('studentInfo');
+    localStorage.removeItem('profilePicture');
     return this.httpClient.get(this.logoutUrl, { withCredentials: true });
   };
 

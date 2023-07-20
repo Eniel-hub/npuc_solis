@@ -115,22 +115,39 @@ const CreateUser = async (username, password, ID) => {
 };
 
 const GetUser = async ({ username, ID }) => {
+  let user;
   if (username) {
     try {
-      const [user] = await userService.GetUser(username);
-      return user;
+      const [userRetrieved] = await userService.GetUser(username);
+      user = userRetrieved;
     } catch (err) {
       console.log(`error while getting user by name : ${err.message}`);
     }
   }
   if (ID) {
     try {
-      const [user] = await userService.GetUserI(ID);
-      return user;
+      const [userRetrieved] = await userService.GetUserI(ID);
+      user = userRetrieved;
     } catch (err) {
       console.log(`error while getting user by name : ${err.message}`);
     }
   }
+  // if (user.profilePicture != null) {
+  //   let imgUrl;
+  //   SaveProfilePicture(user, true)
+  //     .then((url) => {
+  //       imgUrl = url;
+  //       user.profilePicture = imgUrl;
+  //       return user;
+  //     })
+  //     .catch((err) => {
+  //       console.log(
+  //         `an error occured while changing the profile picture (GetUser) ${err}`
+  //       );
+  //       return;
+  //     });
+  // }
+  return user;
 };
 
 const GenPassword = (password) => {
@@ -161,12 +178,41 @@ const saveProfilePicture = async (req, res, next) => {
   // save the img path to databse
   img.mv(imgPath).then(async () => {
     try {
-      await userService.setProfilePicture(img, user);
-      res.status(200).json({ success: true });
+      let imgUrl;
+      SaveProfilePicture(user, false, imgPath)
+        .then(async (url) => {
+          imgUrl = url;
+          await userService.setProfilePicture(imgUrl, user);
+          return res.status(200).json({ url: imgUrl });
+        })
+        .catch((err) => {
+          console.log(
+            `an error occured while changing the profile picture, 1-  ${err}`
+          );
+          return res.status(400).json({ error: err });
+        });
     } catch (err) {
-      console.log(`an error occured while changing the profile picture ${err}`);
-      res.status(400).json({ error: err });
+      console.log(
+        `an error occured while changing the profile picture, 2- ${err}`
+      );
+      return res.status(400).json({ error: err });
     }
+  });
+};
+
+const SaveProfilePicture = (user, internal, imgPath = "") => {
+  return new Promise(async (resolve, reject) => {
+    if (internal) {
+      imgPath = await helper.getPathOfImg(user.id);
+    }
+    helper
+      .getUrlFromImg(imgPath)
+      .then((url) => {
+        resolve(url);
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 };
 

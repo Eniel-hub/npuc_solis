@@ -44,13 +44,6 @@ const ChangePassword = async (user) => {
   );
 };
 
-// const updateProfilePicture = async (user) => {
-//   await db.Query(
-//     "INSER INTO student_login (profile_picture) VALUES ? WHERE username = ?",
-//     [user.profile_picture, user.username]
-//   );
-// };
-
 const deleteAcc = async (user) => {
   await db.Query(`DELETE FROM student_login WHERE username = ?`, [
     user.username,
@@ -58,10 +51,9 @@ const deleteAcc = async (user) => {
 };
 
 const setProfilePicture = async (profilePicture, user) => {
-  console.log(profilePicture);
   await db.Query(
     "UPDATE student_login SET profile_picture = ? WHERE username = ?",
-    [profilePicture.data, user.username]
+    [profilePicture, user.username]
   );
 };
 
@@ -71,6 +63,5 @@ module.exports = {
   deleteAcc,
   CreateUser,
   ChangePassword,
-  // updateProfilePicture,
   setProfilePicture,
 };
