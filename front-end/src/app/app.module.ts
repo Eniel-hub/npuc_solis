@@ -23,26 +23,27 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { BackgroundComponent } from './components/background/background.component';
-import { HeaderComponent } from './components/header/header.component';
 import { UserComponent } from './components/user/user.component';
-import { SchoolComponent } from './components/school/school.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { ArrowComponent } from './components/arrow/arrow.component';
-import { AboutUsComponent } from './components/about-us/about-us.component';
-import { Page404Component } from './components/page404/page404.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { HeaderComponent } from './components/header/header.component';
+import { SchoolComponent } from './components/school/school.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { PolicyComponent } from './components/policy/policy.component';
-import { RegistrationComponent } from './components/registration/registration.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { Page404Component } from './components/page404/page404.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { RegisterComponent } from './components/register/register.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { BackgroundComponent } from './components/background/background.component';
 import { EnrollmentComponent } from './components/enrollment/enrollment.component';
-import { AlertComponent } from './components/alert/alert.component';
-import { UpdatePasswordComponent } from './components/update-password/update-password.component';
+import { AdminLoginComponent } from './components/admin-login/admin-login.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 
 import { globalStudent } from './global.student';
@@ -76,6 +77,7 @@ import { DeleteComponent } from './components/delete/delete.component';
     ConfirmationComponent,
     LoaderComponent,
     DeleteComponent,
+    AdminLoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,9 +100,9 @@ import { DeleteComponent } from './components/delete/delete.component';
     MdbTabsModule,
     MdbTooltipModule,
     MdbValidationModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [globalStudent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

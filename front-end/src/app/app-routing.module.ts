@@ -2,6 +2,7 @@ import { UpdatePasswordComponent } from './components/update-password/update-pas
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { EnrollmentComponent } from './components/enrollment/enrollment.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -20,31 +21,77 @@ import { AuthGuardStudentService as Student } from './services/auth-guard.servic
 import { AuthGuardNotStudentService as NotStudent } from './services/auth-guard.service';
 
 const routes: Routes = [
-  {path: '', component : HomeComponent},
-  {path: 'home', component : HomeComponent},
-  {path: 'policy', component : PolicyComponent},
-  {path: 'about-us', component : AboutUsComponent},
-  {path: 'user/login', component : LoginComponent},
-  {path: 'user/upsw', component : UpdatePasswordComponent},
-  {path: 'user/logout', component : LogoutComponent,
-    canActivate : [AuthGuard] },
-  {path: 'user/register', component : RegisterComponent},
-  {path: 'user/profile', component : UserProfileComponent,
-    canActivate : [AuthGuard]},
-  {path: 'student/dashboard', component : DashboardComponent,
-    canActivate : [AuthGuard] },
-  {path: 'student/enrollment', component : EnrollmentComponent,
-    canActivate : [AuthGuard] },
-  {path: 'student/profile', component : StudentProfileComponent,
-    canActivate : [AuthGuard]},
-  {path: 'student/application', component : RegistrationComponent,
-    canActivate : [AuthGuard, NotStudent]},
-  {path: '**', component : Page404Component}
+  {
+    path: '',
+    component: HomeComponent,
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: 'policy',
+    component: PolicyComponent,
+  },
+  {
+    path: 'about-us',
+    component: AboutUsComponent,
+  },
+  {
+    path: 'user/login',
+    component: LoginComponent,
+  },
+  {
+    path: 'user/upsw',
+    component: UpdatePasswordComponent,
+  },
+  {
+    path: 'user/logout',
+    component: LogoutComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'user/register',
+    component: RegisterComponent,
+  },
+  {
+    path: 'user/profile',
+    component: UserProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'student/dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'student/enrollment',
+    component: EnrollmentComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'student/profile',
+    component: StudentProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'student/application',
+    component: RegistrationComponent,
+    canActivate: [AuthGuard, NotStudent],
+  },
+  {
+    path: 'spa/user/login',
+    component: AdminLoginComponent,
+  },
+  {
+    path: '**',
+    component: Page404Component,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  providers : [AuthGuard, Student, NotStudent],
-  exports: [RouterModule]
+  providers: [AuthGuard, Student, NotStudent],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

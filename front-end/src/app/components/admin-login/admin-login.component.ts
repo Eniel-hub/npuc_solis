@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
-import { User } from '../../interfaces/User';
+import { Admin } from '../../interfaces/Admin';
 import { Error } from '../../interfaces/Error';
 import { globalStudent } from 'src/app/global.student';
 import { Component, Input, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
+import { AdminService } from 'src/app/services/admin.service';
 import { LoaderComponent } from '../loader/loader.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import {
@@ -14,15 +14,16 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['../register/register.component.css', './login.component.css'],
+  selector: 'app-admin-login',
+  templateUrl: './admin-login.component.html',
+  styleUrls: [
+    '../register/register.component.css',
+    './admin-login.component.css',
+  ],
 })
-
-//
-export class LoginComponent implements OnInit {
+export class AdminLoginComponent implements OnInit {
   eyeIcon = faEye;
-  user: User = {};
+  admin: Admin = {};
   userIcon = faUser;
   lockIcon = faLock;
   name: string = '';
@@ -38,14 +39,14 @@ export class LoginComponent implements OnInit {
   menuItems = [
     { name: 'Home', link: '/home' },
     { name: 'About', link: '/about-us' },
-    { name: 'Register', link: '/user/register' },
+    { name: 'Personal', link: '/spa/user/login' },
   ];
   loaderRef: MdbModalRef<LoaderComponent> | null = null;
 
   constructor(
     private modalService: MdbModalService,
     public GlobalStudent: globalStudent,
-    private userService: UserService,
+    private adminService: AdminService,
     private router: Router
   ) {}
 
@@ -65,26 +66,26 @@ export class LoginComponent implements OnInit {
 
   getInput(num: number, event: Event): void {
     let value = (event.target as HTMLInputElement).value;
-    if (num === 0) this.user.username = value;
-    else if (num === 1) this.user.password = value;
+    if (num === 0) this.admin.ID = value;
+    else if (num === 1) this.admin.password = value;
   }
 
   checkErrors(error?: string): void {
     if (error) {
       this.error.valid = true;
-      this.error.type = error; //wrong password or username not found in database
+      this.error.type = error; //wrong password or ID not found in database
     }
-    if (!(this.user.password && this.user.username)) {
+    if (!(this.admin.password && this.admin.ID)) {
       this.error.valid = true;
       this.error.type = 'empty field';
       return;
     }
-    if (this.user.password.length < 8) {
+    if (this.admin.password.length < 8) {
       this.error.valid = true;
       this.error.type = 'wrong password';
       return;
     }
-    if (!this.user.username.match(/^[0-9a-z]+$/i)) {
+    if (!this.admin.ID.match(/^[0-9a-z]+$/i)) {
       this.error.valid = true;
       this.error.type = 'username not found';
       return;
@@ -112,14 +113,13 @@ export class LoginComponent implements OnInit {
   successfulLogin(): void {
     this.successMessage = '';
     setTimeout(() => {
-      this.router.navigate(['/student/dashboard']);
+      this.router.navigate(['/spa/dashboard']);
       this.loaderRef?.close();
     }, 2000);
 
     //loging out after session expires
     setTimeout(() => {
-      this.userService.logOut();
-      this.GlobalStudent.updateGlobalVar({});
+      this.adminService.logOut();
       this.router.navigate(['/home']);
     }, 1000 * 60 * 60 * 5); //ms*s*min*hours 5hours
   }
@@ -136,13 +136,16 @@ export class LoginComponent implements OnInit {
         },
         ignoreBackdropClick: true,
       });
-      this.userService.validate(this.user).subscribe((response: any) => {
+      this.adminService.validate(this.admin).subscribe((response: any) => {
         if (response.error) {
           this.checkErrors(response.error);
           this.getErrorMessage();
           this.loaderRef?.close();
         } else {
-          this.userService.setUserInfo({ username: response });
+          this.adminService.setUserInfo({
+            ID: response.ID,
+            type: response.type,
+          });
           this.successfulLogin();
         }
       });

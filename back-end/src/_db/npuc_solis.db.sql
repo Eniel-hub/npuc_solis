@@ -2213,12 +2213,70 @@ CREATE TABLE IF NOT EXISTS `npuc_solis`.`web_registration_status` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-USE `npuc_solis` ;
+-- -----------------------------------------------------
+-- Table `npuc_solis`.`web_school_login`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `npuc_solis`.`web_school_login` ;
+
+CREATE TABLE IF NOT EXISTS `npuc_solis`.`web_school_login` (
+  `staff_id` INT UNSIGNED NOT NULL,
+  `type_id` INT UNSIGNED NULL,
+  `username` VARCHAR(45) NULL,
+  `profile_picture` VARCHAR(128) NULL,
+  `status` ENUM('Active', 'Disable') NULL DEFAULT 'Disable',
+  `hash` VARCHAR(255) NULL,
+  `salt` VARCHAR(255) NULL,
+  `code` VARCHAR(5) NULL,
+  PRIMARY KEY (`staff_id`),
+  INDEX `user_to_type_idx` (`type_id` ASC) VISIBLE,
+  CONSTRAINT `login_to_staff`
+    FOREIGN KEY (`staff_id`)
+    REFERENCES `npuc_solis`.`school_staff` (`ID`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `user_to_type`
+    FOREIGN KEY (`type_id`)
+    REFERENCES `npuc_solis`.`school_user_type` (`ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+-- -----------------------------------------------------
+-- Table `npuc_solis`.`web_admin_user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `npuc_solis`.`web_admin_user` ;
+
+CREATE TABLE IF NOT EXISTS `npuc_solis`.`web_admin_user` (
+  `ID` VARCHAR(7) NOT NULL,
+  `account_name` VARCHAR(45) NULL,
+  `staff_id` INT UNSIGNED NULL,
+  `hash` VARCHAR(255) NULL,
+  `salt` VARCHAR(255) NULL,
+  `code` VARCHAR(5) NULL,
+  PRIMARY KEY (`ID`),
+  INDEX `admin_to_staff_idx` (`staff_id` ASC) VISIBLE,
+  CONSTRAINT `admin_to_staff`
+    FOREIGN KEY (`staff_id`)
+    REFERENCES `npuc_solis`.`school_staff` (`ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
 -- -----------------------------------------------------
 -- Placeholder table for view `npuc_solis`.`vw_bong`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `npuc_solis`.`vw_bong` (`ID` INT, `balance` INT, `taccount_id` INT, `trandate` INT, `reference` INT, `particular` INT, `amount` INT);
+CREATE TABLE IF NOT EXISTS `npuc_solis`.`vw_bong` (
+  `ID` INT, 
+  `balance` INT, 
+  `taccount_id` INT, 
+  `trandate` INT, 
+  `reference` INT, 
+  `particular` INT, 
+  `amount` INT)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
 -- -----------------------------------------------------
 -- View `npuc_solis`.`vw_bong`

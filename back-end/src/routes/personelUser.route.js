@@ -1,20 +1,22 @@
 const passport = require("passport");
 const router = require("express").Router();
 const auth = require("../auth/AuthAndAut");
-const userMiddleware = require("../user/user.middleware");
+const adminUserMiddleware = require("../adminUser/adminUser.middleware");
 
 //post request
 router.get("/", auth.IsAuth, async (req, res, next) => {
-  let user = await userMiddleware.GetUser({ username: req.user });
+  let user = await adminUserMiddleware.GetUser({ username: req.user });
+  let type = await adminUserMiddleware.GetUserType(user.type_id);
   return res.json({
     username: user.username,
     profile_picture: user.profile_picture,
     student_id: user.student_id,
+    type: type,
   });
 });
 
 router.post("/login", (req, res, next) => {
-  passport.authenticate("student-local", (err, user, info) => {
+  passport.authenticate("admin-local", (err, user, info) => {
     if (err) return next(err);
     if (!user) return res.json({ error: info.error });
     req.logIn(user, (err) => {
@@ -36,24 +38,28 @@ router.get("/logout", auth.IsAuth, (req, res, next) => {
 });
 
 router.get("/delete", auth.IsAuth, async (req, res, next) => {
-  let user = await userMiddleware.GetUser({ username: req.user });
-  await userMiddleware.deleteAcc(user);
+  let user = await adminUserMiddleware.GetUser({ username: req.user });
+  await adminUserMiddleware.deleteAcc(user);
   res.json({ success: true });
 });
 
-router.post("/register", userMiddleware.createUserCheck, async (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const student_id = req.body.student_id;
-  await userMiddleware.CreateUser(username, password, student_id);
-  res.json({ success: true });
-});
+router.post(
+  "/register",
+  adminUserMiddleware.createUserCheck,
+  async (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    const staff_id = req.body.staff_id;
+    await adminUserMiddleware.CreateUser(username, password, student_id);
+    res.json({ success: true });
+  }
+);
 
 router.post("/password", auth.IsAuth, async (req, res, next) => {
   let username = req.user;
   let password = req.body.password;
   let newPassword = req.body.newPassword;
-  response = await userMiddleware.updatePassword(
+  response = await adminUserMiddleware.updatePassword(
     username,
     password,
     newPassword
@@ -61,13 +67,17 @@ router.post("/password", auth.IsAuth, async (req, res, next) => {
   res.json(response);
 });
 
-router.post("/fpassword", userMiddleware.fpswCheck, async (req, res, next) => {
-  password = req.body.password;
-  username = req.body.username;
-  response = await userMiddleware.updatePassword(username, password);
-  res.json(response);
-});
+router.post(
+  "/fpassword",
+  adminUserMiddleware.fpswCheck,
+  async (req, res, next) => {
+    password = req.body.password;
+    username = req.body.username;
+    response = await adminUserMiddleware.updatePassword(username, password);
+    res.json(response);
+  }
+);
 
-router.post("/ppic", userMiddleware.saveProfilePicture);
+router.post("/ppic", adminUserMiddleware.saveProfilePicture);
 
 module.exports = router;

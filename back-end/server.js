@@ -10,6 +10,7 @@ const homeRouter = require("./src/routes/home.route");
 const userRouter = require("./src/routes/user.route");
 const schoolRouter = require("./src/routes/school.route");
 const studentRouter = require("./src/routes/student.route");
+const adminRouter = require("./src/routes/adminUser.route");
 const pportMiddleware = require("./src/auth/passport.middleware");
 const pportController = require("./src/auth/passport.controller");
 const registrationRouter = require("./src/routes/registration.route");
@@ -47,6 +48,7 @@ app.use(
 app.use("/home", homeRouter);
 app.use("/user", userRouter);
 app.use("/school", schoolRouter);
+app.use("/spa/user", adminRouter);
 app.use("/student", studentRouter);
 app.use("/registration", registrationRouter);
 app.get("/", (req, res) => {

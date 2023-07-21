@@ -1,5 +1,7 @@
 const auth = require("./passport.middleware");
 const userMiddleware = require("../user/user.middleware");
+const adminUserMiddleware = require("../adminUser/adminUser.middleware");
+const adminMiddleware = require("../adminUser/adminUser.middleware");
 const LocalStrategy = require("passport-local").Strategy;
 const flash = require("req-flash");
 
@@ -9,8 +11,13 @@ module.exports = (passport) => {
     passwordField: "password",
     passReqToCallback: true,
   };
+  const Adminfields = {
+    usernameField: "ID",
+    passwordField: "password",
+    passReqToCallback: true,
+  };
 
-  const VerifyCallback = async (req, username, password, done) => {
+  const StudentVerifyCallback = async (req, username, password, done) => {
     try {
       let user;
       if (!username.match(/[a-zA-Z]/)) {
@@ -30,8 +37,62 @@ module.exports = (passport) => {
     }
   };
 
-  const verifyStrategy = new LocalStrategy(fields, VerifyCallback);
-  passport.use(verifyStrategy);
+  const AdminVerifyCallback = async (req, username, password, done) => {
+    try {
+      let user;
+      if (!username.match(/[a-zA-Z]/)) {
+        let ID = Number(username);
+        user = await adminUserMiddleware.GetUser({ ID: ID });
+      } else user = await adminUserMiddleware.GetUser({ username: username });
+      if (!user) return done(null, false, { error: "username not found" });
+      const isValid = adminUserMiddleware.CheckPassword(
+        password,
+        user.hash,
+        user.salt
+      );
+      if (isValid) return done(null, user.username);
+      else return done(null, false, { error: "wrong password" });
+    } catch (err) {
+      return done(err);
+    }
+  };
+
+  const adminVerifyCallback = async (req, username, password, done) => {
+    try {
+      let admin;
+      let ID = username;
+      admin = await adminMiddleware.GetUser(ID);
+      console.log(admin);
+      if (!admin) return done(null, false, { error: "ID not found" });
+      const isValid = adminMiddleware.CheckPassword(
+        password,
+        admin.hash,
+        admin.salt
+      );
+      if (isValid == null) {
+        ~adminMiddleware.updatePassword(admin.ID, password);
+        return done(null, { ID: admin.ID, type: "Admin" });
+      } else if (isValid) return done(null, { ID: admin.ID, type: "Admin" });
+      else return done(null, false, { error: "wrong password" });
+    } catch (err) {
+      return done(err);
+    }
+  };
+
+  const studentVerifyStrategy = new LocalStrategy(
+    fields,
+    StudentVerifyCallback
+  );
+  passport.use("student-local", studentVerifyStrategy);
+
+  const adminverifyStrategy = new LocalStrategy(fields, adminVerifyCallback);
+  passport.use("spAdmin-local", adminverifyStrategy);
+
+  const adminVerityStrategy = new LocalStrategy(
+    Adminfields,
+    AdminVerifyCallback
+  );
+  passport.use("admin-local", adminVerityStrategy);
 
   // used to serialize the user for the session
   passport.serializeUser((user, done) => {
