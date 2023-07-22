@@ -9,6 +9,7 @@ import { lastValueFrom, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
+  private isAuthUrl = `http://${ServerIP}:${ServerPORT}/auth`;
   private getUserUrl = `http://${ServerIP}:${ServerPORT}/user`;
   private loginUrl = `http://${ServerIP}:${ServerPORT}/user/login`;
   private logoutUrl = `http://${ServerIP}:${ServerPORT}/user/logout`;
@@ -17,6 +18,10 @@ export class UserService {
   private profilePictureUrl = `http://${ServerIP}:${ServerPORT}/user/ppic`;
   private updatePasswordUrl = `http://${ServerIP}:${ServerPORT}/user/password`;
   private forgetPasswordUrl = `http://${ServerIP}:${ServerPORT}/user/fpassword`;
+
+  isAuth() {
+    return this.httpClient.get(this.isAuthUrl, { withCredentials: true });
+  }
 
   getUser() {
     return this.httpClient.get(this.getUserUrl, { withCredentials: true });

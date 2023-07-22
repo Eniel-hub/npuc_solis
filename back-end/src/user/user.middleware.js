@@ -161,7 +161,7 @@ const CheckPassword = (password, hash, salt) => {
 };
 
 const saveProfilePicture = async (req, res, next) => {
-  const user = await GetUser({ username: req.user });
+  const user = req.user;
   const img = req.files.img;
   // If no image submitted, exit
   if (!img) return res.status(400).json({ error: "no file found" });

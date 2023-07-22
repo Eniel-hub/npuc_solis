@@ -1,35 +1,37 @@
-import { SchoolService } from '../../services/school.service';
-import { Component, OnInit } from '@angular/core';
-import { School } from '../../interfaces/School';
+import {SchoolService} from '../../services/school.service';
+import {Component, OnInit} from '@angular/core';
+import {School} from '../../interfaces/School';
+import {MenuItems} from 'src/app/services/menu-items.service';
 
-@Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
-})
+@Component({selector: 'app-home', templateUrl: './home.component.html', styleUrls: ['./home.component.css']})
 export class HomeComponent implements OnInit {
-  homeComponents: any;
-  schools: School[] = [];
-  nextSchoolYear: string = '';
-  currentSchoolYear: string = '';
-  menuItems = [
-    { name: 'About', link: '/about-us' },
-    { name: 'Login', link: '/user/login' },
-    { name: 'Register', link: '/user/register' },
-    { name: 'Personal', link: '/spa/user/login' },
-    { name: 'Admin', link: '/spa/user/login' },
-  ];
+	homeComponents : any;
+	schools : School[] = [];
+	nextSchoolYear : string = '';
+	currentSchoolYear : string = '';
+	menuItems : {
+		name?: string,
+		link?: string
+	}[] = []
+	menuSubscription : any;
 
-  constructor(private service: SchoolService) {}
+	constructor(private service : SchoolService, private MenuItems : MenuItems) {
+		this.menuSubscription = this.MenuItems.menuItemsUpdate.subscribe((menuItems) => {
+			this.menuItems = menuItems;
+		});
+	}
 
-  ngOnInit(): void {
-    window.scrollTo(0, 0);
+	ngOnInit(): void {
+		window.scrollTo(0, 0);
 
-    this.service.getHomeComponent().subscribe((response) => {
-      this.homeComponents = response;
-      this.schools = this.homeComponents.schools;
-      this.currentSchoolYear = this.homeComponents.current_year.school_year;
-      this.nextSchoolYear = this.homeComponents.next_year.school_year;
-    });
-  }
+		this.MenuItems.updateMenuItems(false)
+		this.menuItems = this.MenuItems.getMenuItems();
+
+		this.service.getHomeComponent().subscribe((response) => {
+			this.homeComponents = response;
+			this.schools = this.homeComponents.schools;
+			this.currentSchoolYear = this.homeComponents.current_year.school_year;
+			this.nextSchoolYear = this.homeComponents.next_year.school_year;
+		});
+	}
 }

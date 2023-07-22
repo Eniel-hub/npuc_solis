@@ -5,12 +5,14 @@ const adminUserMiddleware = require("../adminUser/adminUser.middleware");
 
 //post request
 router.get("/", auth.IsAuth, async (req, res, next) => {
-  let admin = await adminUserMiddleware.GetUser(req.admin);
-  return res.json({
-    ID: admin.ID,
-    account_name: admin.account_name,
-    staff_id: admin.staff_id,
-  });
+  console.log("called");
+  res.json({ msg: "called" });
+  // let admin = await adminUserMiddleware.GetUser(req.admin);
+  // return res.json({
+  //   ID: admin.ID,
+  //   account_name: admin.account_name,
+  //   staff_id: admin.staff_id,
+  // });
 });
 
 router.post("/login", (req, res, next) => {

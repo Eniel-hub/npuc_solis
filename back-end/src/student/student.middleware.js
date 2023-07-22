@@ -7,7 +7,7 @@ const NewApplication = async (req, res, next) => {
   // const application = req.body;
   let application = {};
   application = { ...req.body };
-  application.username = req.user;
+  application.username = req.user.username;
 
   try {
     await nsService.RegisterNewStudent(application.username, application);
@@ -20,7 +20,7 @@ const NewApplication = async (req, res, next) => {
 };
 
 const getProfile = async (req, res, next) => {
-  let user = await userMiddleware.GetUser({ username: req.user });
+  let user = req.user;
 
   if (!user.student_id) return res.json({ error: "not a student" });
 
@@ -95,7 +95,7 @@ const GetNation = async (req, res, next) => {
 };
 
 const getGradeLevel = async (req, res, next) => {
-  let user = await userMiddleware.GetUser({ username: req.user });
+  let user = req.user;
   try {
     const gradelevel = await service.GetGradeLevel(user.student_id);
     if (!gradelevel) return res.json({ error: true });

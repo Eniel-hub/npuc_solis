@@ -5,6 +5,7 @@ const express = require("express");
 const flash = require("req-flash");
 const passport = require("passport");
 const session = require("express-session");
+const Auth = require("./src/auth/AuthAndAut");
 const fileUpload = require("express-fileupload");
 const homeRouter = require("./src/routes/home.route");
 const userRouter = require("./src/routes/user.route");
@@ -48,9 +49,10 @@ app.use(
 app.use("/home", homeRouter);
 app.use("/user", userRouter);
 app.use("/school", schoolRouter);
-app.use("/spa/user", adminRouter);
+app.use("/admin", adminRouter);
 app.use("/student", studentRouter);
 app.use("/registration", registrationRouter);
+app.use("/auth", Auth.IsAuth, (req, res) => res.json({ isAuth: true }));
 app.get("/", (req, res) => {
   res.redirect("/home");
 });

@@ -5,7 +5,7 @@ const userMiddleware = require("../user/user.middleware");
 
 //post request
 router.get("/", auth.IsAuth, async (req, res, next) => {
-  let user = await userMiddleware.GetUser({ username: req.user });
+  let user = req.user;
   return res.json({
     username: user.username,
     profile_picture: user.profile_picture,
@@ -36,7 +36,7 @@ router.get("/logout", auth.IsAuth, (req, res, next) => {
 });
 
 router.get("/delete", auth.IsAuth, async (req, res, next) => {
-  let user = await userMiddleware.GetUser({ username: req.user });
+  let user = req.user;
   await userMiddleware.deleteAcc(user);
   res.json({ success: true });
 });
@@ -50,7 +50,7 @@ router.post("/register", userMiddleware.createUserCheck, async (req, res) => {
 });
 
 router.post("/password", auth.IsAuth, async (req, res, next) => {
-  let username = req.user;
+  let username = req.user.username;
   let password = req.body.password;
   let newPassword = req.body.newPassword;
   response = await userMiddleware.updatePassword(
