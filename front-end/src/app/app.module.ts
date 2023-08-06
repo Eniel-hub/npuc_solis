@@ -51,6 +51,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { DeleteComponent } from './components/delete/delete.component';
 import { ManageLevelComponent } from './components/manage-level/manage-level.component';
 import { ConfirmationAndRejectComponent } from './components/confirmation-and-reject/confirmation-and-reject.component';
+import { LoginMenuComponent } from './components/login-menu/login-menu.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { ConfirmationAndRejectComponent } from './components/confirmation-and-re
     AdminLoginComponent,
     ManageLevelComponent,
     ConfirmationAndRejectComponent,
+    LoginMenuComponent,
   ],
   imports: [
     BrowserModule,

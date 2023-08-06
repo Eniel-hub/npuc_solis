@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
-import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faXmark, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, Input } from '@angular/core';
 import { MenuItems } from 'src/app/services/menu-items.service';
 import { User } from 'src/app/interfaces/User';
@@ -22,13 +22,17 @@ export class HeaderComponent implements OnInit {
   ani = '';
   xIcon = '';
   Icon: any;
+  LIcon: any;
   barIcon = faBars;
+  userIcon = faUser;
   xmarkIcon = faXmark;
   homeLink: string = '/home';
   currentRouter: string = '';
   hasDropdown: boolean = false;
   menuIsActive: boolean = false;
+  LmenuIsActive: boolean = false;
   menuClass = new BehaviorSubject('hide');
+  LmenuClass = new BehaviorSubject('hide');
   @Input() menuItems: { name?: string; link?: string }[] = [];
 
   menuSubscription: any;
@@ -143,6 +147,7 @@ export class HeaderComponent implements OnInit {
     // );
 
     this.Icon = this.barIcon;
+    this.LIcon = this.userIcon;
     this.menuSubscription;
     console.log(this.user);
   }
@@ -150,7 +155,9 @@ export class HeaderComponent implements OnInit {
   HasNav = (hasNav: boolean) => {
     if (hasNav) {
       this.menuIsActive = false;
+      this.LmenuIsActive = false;
       this.Icon = this.barIcon;
+      this.LIcon = this.userIcon;
     }
   };
 
@@ -174,6 +181,29 @@ export class HeaderComponent implements OnInit {
     if (!this.menuIsActive)
       setTimeout(() => {
         this.menuClass.next('_nav hide');
+      }, 500);
+  };
+
+  UserToggle = () => {
+    this.ani = this.LmenuIsActive ? 'ani4' : 'ani3';
+    setTimeout(() => {
+      this.ani = '';
+    }, 1000);
+    this.LmenuIsActive = !this.LmenuIsActive;
+    setTimeout(() => {
+      this.ani = this.ani + 'ani';
+      this.LIcon = this.LmenuIsActive ? this.xmarkIcon : this.userIcon;
+    }, 333);
+    if (this.LmenuIsActive) {
+      this.xIcon = 'xIcon ';
+      this.LmenuClass.next('_nav2 _2animate-right');
+    } else {
+      this.xIcon = '';
+      this.LmenuClass.next('_nav2 _2animate-left');
+    }
+    if (!this.LmenuIsActive)
+      setTimeout(() => {
+        this.LmenuClass.next('_nav2 _2hide');
       }, 500);
   };
 

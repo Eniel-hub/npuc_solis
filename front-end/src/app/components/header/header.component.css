@@ -56,6 +56,10 @@
   display: none !important;
 }
 
+.not-display-small {
+  display: block !important;
+}
+
 ._navbar-item {
   text-align: center;
 }
@@ -99,6 +103,11 @@
 .icon {
   cursor: default;
 }
+.icon2 {
+  cursor: default;
+  color: var(--on-primary);
+  font-size: 21px;
+}
 .button:hover {
   color: var(--on-primary);
   background-color: var(--color-primary-darker) !important;
@@ -121,6 +130,21 @@
   }
   100% {
     transform: rotate(180deg);
+  }
+}
+
+.ani3 {
+  animation: mymove1 1s;
+}
+@keyframes mymove3 {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
@@ -151,6 +175,21 @@
   }
 }
 
+.ani4 {
+  animation: mymove4 1s;
+}
+@keyframes mymove4 {
+  0% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .user-div {
   height: auto;
   width: fit-content;
@@ -160,6 +199,9 @@
 /*big phones*/
 @media (max-width: 700px) {
   .hide-small {
+    display: none !important;
+  }
+  .not-display-small {
     display: none !important;
   }
   .display-small {

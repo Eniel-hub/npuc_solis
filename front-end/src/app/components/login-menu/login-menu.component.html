@@ -1,0 +1,11 @@
+<div [class]="navClass.value">
+  <ul>
+    <div *ngFor="let item of menuItems">
+      <a *ngIf="item.link" (click)="navigate(item.link)">
+        <li class="_navbar-item button">
+          <span>{{ item.name }}</span>
+        </li>
+      </a>
+    </div>
+  </ul>
+</div>

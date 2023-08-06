@@ -27,19 +27,19 @@ export class MenuItems {
           link: '/about-us',
         },
         {
-          name: 'Login',
-          link: '/user/login',
-        },
-        {
-          name: 'Register',
+          name: 'Student Register',
           link: '/user/register',
         },
         {
-          name: 'Staff',
+          name: 'Student Login',
+          link: '/user/login',
+        },
+        {
+          name: 'Staff Login',
           link: '/staff/login',
         },
         {
-          name: 'Admin',
+          name: 'Admin Login',
           link: '/admin/login',
         },
         {
