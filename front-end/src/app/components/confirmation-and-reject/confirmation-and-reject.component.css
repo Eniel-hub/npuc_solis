@@ -1,0 +1,9 @@
+.modal-header {
+  justify-content: center;
+  background-color: var(--color-primary-darker);
+  color: var(--on-primary);
+}
+
+.btn-close {
+  background-color: var(--color-gray) !important;
+}

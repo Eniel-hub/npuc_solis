@@ -1,15 +1,18 @@
 import { Error } from 'src/app/interfaces/Error';
 import { Component, OnInit } from '@angular/core';
 import { Student } from 'src/app/interfaces/Student';
-import { globalStudent } from 'src/app/global.student';
 import { AlertComponent } from '../alert/alert.component';
 import { UserService } from 'src/app/services/user.service';
 import { LoaderComponent } from '../loader/loader.component';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { GlobalStudent } from 'src/app/services/Global.student.service';
+import { GlobalUser } from 'src/app/services/Global.user.service';
+import { MenuItems } from 'src/app/services/menu-items.service';
 import { UserPublishedService } from 'src/app/services/user-published.service';
 import { User } from 'src/app/interfaces/User';
 import { Router } from '@angular/router';
+import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -38,35 +41,57 @@ export class UserProfileComponent implements OnInit {
   profile: string = this.profileN;
   modalRef: MdbModalRef<AlertComponent> | null = null;
   loaderRef: MdbModalRef<LoaderComponent> | null = null;
-  globalStudent: Student = {};
+  student: Student = {};
   subscription: any;
   show: string = 'display: hidden';
   user: User = {};
+  userSubscription: any;
+  studentSubscription: any;
+  menuSubscription: any;
+  menuItems: { name?: string; link?: string }[] = [];
 
-  menuItems = [
-    { name: 'dashboard', link: '/student/dashboard' },
-    { name: 'student', link: '/student/profile' },
-    { name: 'about', link: '/about-us' },
-    { name: 'logout' },
-  ];
+  // menuItems = [
+  //   { name: 'dashboard', link: '/student/dashboard' },
+  //   { name: 'student', link: '/student/profile' },
+  //   { name: 'about', link: '/about-us' },
+  //   { name: 'logout' },
+  // ];
 
   constructor(
-    private GlobalStudent: globalStudent,
+    private studentService: StudentService,
     private modalService: MdbModalService,
-    private service: UserService
-  ) {}
+    private publish: UserPublishedService,
+    private GlobalStudent: GlobalStudent,
+    private userService: UserService,
+    private GlobalUser: GlobalUser,
+    private MenuItems: MenuItems
+  ) {
+    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
+    this.studentSubscription =
+      this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
+        this.student = student;
+      });
+  }
 
   ngOnInit(): void {
-    this.globalStudent = this.GlobalStudent.getGlobalVarStudent();
-    console.log(this.globalStudent);
+    this.GlobalUser.globalVarUserUpdate.subscribe((user) => {
+      console.log('user changed in user-profile component');
+      this.user = user;
+    });
+    console.log('user profile', this.user);
+    this.MenuItems.updateMenuItems(true, this.user.type);
 
-    this.profile = localStorage.getItem('profilePicture') || this.profile;
-    if (this.globalStudent.gender == 'Male' && this.profile == this.profileN)
+    this.student = this.GlobalStudent.getGlobalVarStudent();
+    this.user = this.GlobalUser.getGlobalVarUser();
+
+    this.profile = this.user.profile_picture || this.profile;
+    if (this.student.gender == 'Male' && this.profile == this.profileN)
       this.profile = '../../../assets/imgs/pp-g.jpeg';
-    else if (
-      this.globalStudent.gender == 'Female' &&
-      this.profile == this.profileN
-    )
+    else if (this.student.gender == 'Female' && this.profile == this.profileN)
       this.profile = '../../../assets/imgs/pp-f.jpeg';
 
     window.scrollTo(0, 0);
@@ -129,14 +154,14 @@ export class UserProfileComponent implements OnInit {
       },
       ignoreBackdropClick: true,
     });
-    this.service.saveProfilePicture(this.img).subscribe((response: any) => {
+    this.userService.saveProfilePicture(this.img).subscribe((response: any) => {
       if (response.error) {
         this.checkErrors(response.error);
         this.getErrorMessage();
         this.loaderRef?.close();
       } else {
         setTimeout(() => {
-          this.service.setProfilePicture(response.url);
+          this.userService.setProfilePicture(response.url);
           console.log(response);
           this.loaderRef?.close();
           this.openModal();
@@ -158,7 +183,7 @@ export class UserProfileComponent implements OnInit {
         },
         ignoreBackdropClick: true,
       });
-      this.service
+      this.userService
         .updatePassword(this.password, this.password1)
         .subscribe((response: any) => {
           if (response.error) {

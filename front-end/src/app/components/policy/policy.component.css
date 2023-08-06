@@ -10,6 +10,10 @@
   overflow-x: hidden;
 }
 
+.body {
+  margin-top: var(--body-margin-header) !important;
+}
+
 .header {
   position: fixed;
   margin-left: auto;

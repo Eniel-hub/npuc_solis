@@ -1,31 +1,35 @@
-@media (min-width:600px) {
-  .img{
+@media (min-width: 600px) {
+  .img {
     background: var(--background-linear);
-    width: calc(var(--img-sqr-size)*.9);
-    height: calc(var(--img-sqr-size)*.9);
+    width: calc(var(--img-sqr-size) * 0.9);
+    height: calc(var(--img-sqr-size) * 0.9);
     display: grid;
     align-items: center;
     border-radius: 50%;
     margin: auto;
   }
   .img::before {
-    padding-top: calc((5.5vh + 5.5vw)*.9);
-    content: 'REGISTER';
-    width: calc(var(--img-sqr-size)*.9);
-    height: calc(var(--img-sqr-size)*.9);
+    padding-top: calc((5.5vh + 5.5vw) * 0.9);
+    content: "REGISTER";
+    width: calc(var(--img-sqr-size) * 0.9);
+    height: calc(var(--img-sqr-size) * 0.9);
     border-radius: 50%;
     border: 2px solid var(--color-prime);
     position: absolute;
     background-color: var(--color-primary-darker-50);
     opacity: 0;
-    transition: opacity .2s ease;
+    transition: opacity 0.2s ease;
   }
   .img img {
     margin: auto;
-    width: calc((9vh + 9vw)*.9);
+    width: calc((9vh + 9vw) * 0.9);
   }
 }
 
+.body {
+  margin-top: var(--body-margin-header) !important;
+}
+
 .img::before {
-  content: 'LOGIN' !important;
+  content: "LOGIN" !important;
 }

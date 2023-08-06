@@ -26,6 +26,10 @@
   }
 }
 
+.body {
+  margin-top: var(--body-margin-header) !important;
+}
+
 .img::before {
   content: "LOGIN" !important;
 }

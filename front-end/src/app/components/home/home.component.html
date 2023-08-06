@@ -1,56 +1,56 @@
-<div class="navi">
-  <app-header [menuItems]="menuItems"></app-header>
-</div>
-<div class="home">
-  <div class="header" id="home">
-    <img class="image" src="../../../assets/imgs/7.jpg" alt="SOLIS" />
-    <div class="title">
-      <h1 class="title-text">WELCOME TO SOLIS</h1>
-      <div class="cool-bg">
-        <p class="blink">Enrollment for {{ nextSchoolYear }} is on going</p>
+<div class="body">
+  <div class="home">
+    <div class="header" id="home">
+      <img class="image" src="../../../assets/imgs/7.jpg" alt="SOLIS" />
+      <div class="title">
+        <h1 class="title-text">WELCOME TO SOLIS</h1>
+        <div class="cool-bg">
+          <p class="blink">Enrollment for {{ nextSchoolYear }} is on going</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="empty">
-    <img class="image" src="../../../assets/imgs/7.jpg" alt="SOLIS" />
-  </div>
-
-  <!-- Page content -->
-  <div class="section-content" id="first">
-    <!-- school Section -->
-    <div class="text-section-title">
-      <h3>Schools</h3>
-    </div>
-    <div class="school">
-      <app-school></app-school>
+    <div class="empty">
+      <img class="image" src="../../../assets/imgs/7.jpg" alt="SOLIS" />
     </div>
 
-    <!-- About Section -->
-    <div class="section-content about-section">
-      <a routerLink="/about-us"><h3 class="text-section-title">About</h3></a>
-      <p>
-        <b>SOLIS</b> is about Lorem ipsum dolor sit amet, consectetur adipiscing
-        elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-        ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat
-        non proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </p>
-    </div>
+    <!-- Page content -->
+    <div class="section-content" id="first">
+      <!-- school Section -->
+      <div class="text-section-title">
+        <h3>Schools</h3>
+      </div>
+      <div class="school">
+        <app-school></app-school>
+      </div>
 
-    <!-- Image of NOUC -->
-    <div class="container-fluid limg">
-      <img
-        src="../../../assets/imgs/2.jpg"
-        class="image"
-        id="img"
-        style="width: 100%"
-      />
-    </div>
+      <!-- About Section -->
+      <div class="section-content about-section">
+        <a routerLink="/about-us"><h3 class="text-section-title">About</h3></a>
+        <p>
+          <b>SOLIS</b> is about Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia
+          deserunt mollit anim id est laborum consectetur adipiscing elit, sed
+          do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+          ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </p>
+      </div>
 
-    <!-- End page content -->
+      <!-- Image of NOUC -->
+      <div class="container-fluid limg">
+        <img
+          src="../../../assets/imgs/2.jpg"
+          class="image"
+          id="img"
+          style="width: 100%"
+        />
+      </div>
+
+      <!-- End page content -->
+    </div>
   </div>
 </div>

@@ -1,7 +1,4 @@
 <div class="body">
-  <div class="header">
-    <app-header [menuItems]="menuItems"></app-header>
-  </div>
   <div class="content">
     <div class="wrapper container">
       <div class="row">
@@ -12,16 +9,18 @@
       <div class="row">
         <div class="col-md">
           <div class="img">
-            <img src="../../../assets/imgs/img_1.png" alt="">
+            <img src="../../../assets/imgs/img_1.png" alt="" />
           </div>
         </div>
         <div class="col-md form">
-
           <div class="input">
             <div class="input-container ic1">
-              <input class="input2" type="text"
-                    placeholder=" "
-                    [(ngModel)]="user.student_id">
+              <input
+                class="input2"
+                type="text"
+                placeholder=" "
+                [(ngModel)]="user.student_id"
+              />
               <div class="cut cut-sl"></div>
               <label class="placeholder">ID Number</label>
             </div>
@@ -29,51 +28,76 @@
 
           <div class="input">
             <div class="input-container ic1" id="username">
-              <input class="input2" type="text"
-                    placeholder=" "
-                    (input) = 'getInput(0, $event)'>
+              <input
+                class="input2"
+                type="text"
+                placeholder=" "
+                (input)="getInput(0, $event)"
+              />
               <div class="cut cut-sl"></div>
-              <label class="placeholder">Username<sup style="color: var(--color-danger)">*</sup></label>
+              <label class="placeholder"
+                >Username<sup style="color: var(--color-danger)">*</sup></label
+              >
             </div>
           </div>
 
           <div class="input">
             <div class="input-container ic1">
-              <input class="input2" [type]='passwordType'
-                    placeholder=" "
-                    (input) = 'getInput(1, $event)' >
+              <input
+                class="input2"
+                [type]="passwordType"
+                placeholder=" "
+                (input)="getInput(1, $event)"
+              />
               <div class="cut cut-sl"></div>
-              <label class="placeholder">Password<sup style="color: var(--color-danger)">*</sup></label>
+              <label class="placeholder"
+                >Password<sup style="color: var(--color-danger)">*</sup></label
+              >
             </div>
           </div>
 
           <div class="input">
             <div class="input-container ic1">
-              <input class="input2" [type]='passwordType'
-                    placeholder=" "
-                    (input) = 'getInput(2, $event)' >
+              <input
+                class="input2"
+                [type]="passwordType"
+                placeholder=" "
+                (input)="getInput(2, $event)"
+              />
               <div class="cut cut-xxl"></div>
-              <label class="placeholder">Confirm Password<sup style="color: var(--color-danger)">*</sup></label>
+              <label class="placeholder"
+                >Confirm Password<sup style="color: var(--color-danger)"
+                  >*</sup
+                ></label
+              >
             </div>
           </div>
 
-          <div class = 'info'>
+          <div class="info">
             <span [class]="successClass">
-              {{successMessage}}
+              {{ successMessage }}
             </span>
             <span [class]="errorClass">
-              {{errorMessage}}
+              {{ errorMessage }}
             </span>
           </div>
           <div class="info info-policy">
-            <p>By registering, you agree to <b>SOLIS</b>'s <a routerLink="/policy">Privacy Policy</a></p>
-            <p>Fields marked with <sup style="color: var(--color-danger)">*</sup> are required</p>
+            <p>
+              By registering, you agree to <b>SOLIS</b>'s
+              <a routerLink="/policy">Privacy Policy</a>
+            </p>
+            <p>
+              Fields marked with
+              <sup style="color: var(--color-danger)">*</sup> are required
+            </p>
           </div>
           <button
             type="submit"
             class="btn btn-outline-success btn-sm"
-            (click) = 'Registration()'
-          >Register Now</button>
+            (click)="Registration()"
+          >
+            Register Now
+          </button>
           <a routerLink="/user/login">
             <div class="link">
               <div class="arrow">
@@ -86,8 +110,6 @@
           </a>
         </div>
       </div>
-
     </div>
   </div>
 </div>
-

@@ -1,55 +1,56 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
 
-:root{
-  --size-ratio : calc(0.43vh + 1vw);
-  --header-height : 20px;
-  --footer-height : 120px;
+:root {
+  --body-margin-header: 52px;
+  --size-ratio: calc(0.43vh + 1vw);
+  --header-height: 20px;
+  --footer-height: 120px;
   /* --footer-height : calc(var(--size-ratio) * 6.3); */
-  --content-height : calc(100vh - var(--header-height) - var(--footer-height));
-  --content-width : 100vw;
-  --max-height : 100vh;
-  --wrapper-height : calc(var(--content-height) - 3vh);
-  --wrapper-width : calc(var(--content-width) - 3vw);
-  --img-sqr-size : calc(12vh + 12vw);
+  --content-height: calc(100vh - var(--header-height) - var(--footer-height));
+  --content-width: 100vw;
+  --max-height: 100vh;
+  --wrapper-height: calc(var(--content-height) - 3vh);
+  --wrapper-width: calc(var(--content-width) - 3vw);
+  --img-sqr-size: calc(12vh + 12vw);
   /* --img-sqr-size : calc(15vh + 15vw); */
 
-  --header-font-family : 'Josefin Sans', sans-serif;
-  --header-font-weight : 800;
-  --header-font-size : 1.25em;
+  --header-font-family: "Josefin Sans", sans-serif;
+  --header-font-weight: 800;
+  --header-font-size: 1.25em;
 
-  --title-font-size : 2em;
-  --title-font-family : 'Inter Tight', sans-serif;
-  --title-font-weight : 600;
+  --title-font-size: 2em;
+  --title-font-family: "Inter Tight", sans-serif;
+  --title-font-weight: 600;
 
-  --name-font-family : 'Inconsolata', monospace;
+  --name-font-family: "Inconsolata", monospace;
 
-  --body-font-family : 'Montserrat Alternates', sans-serif;
-  --body-font-size : 1.1m;
-  --body-font-weight : bold;
+  --body-font-family: "Montserrat Alternates", sans-serif;
+  --body-font-size: 1.1m;
+  --body-font-weight: bold;
 
   /* color section */
 
-  --marroon-darkest : #1a100b;
-  --marroon-darker : #352217;
-  --marroon-dark : #462A1B;
-  --marroon-base : #9C7B63;
-  --marroon-base-5 : #9c7b6380;
-  --marroon-light : #DCB774;
-  --marroon-light-5 : #dcb87480;
-
+  --marroon-darkest: #1a100b;
+  --marroon-darker: #352217;
+  --marroon-dark: #462a1b;
+  --marroon-base: #9c7b63;
+  --marroon-base-5: #9c7b6380;
+  --marroon-light: #dcb774;
+  --marroon-light-5: #dcb87480;
 
   --color-neutral: #f7f7f7;
-  --color-primary: #41A6BA;
+  --color-primary: #41a6ba;
   --color-primary-darker-50: rgba(48, 121, 136, 0.5);
-  --color-primary-darker: #2F7987;
-  --color-primary-light: #80BAC6;
-  --color-gray : #b3b3b3;
+  --color-primary-darker: #2f7987;
+  --color-primary-light: #80bac6;
+  --color-primary-light-50: #a7e4f0;
+  --color-gray: #b3b3b3;
   --color-secondary: #ba702fc4;
   --color-secondary-50: rgba(186, 112, 47, 0.322);
-  --color-prime: #BAA800;
+  --color-prime: #baa800;
 
   --on-neutral: #334136;
   --on-primary: #f7f7f7;
@@ -60,30 +61,34 @@
   --color-warning: #f0ad4e;
   --color-info: #5bc0de;
 
+  --background-linear: linear-gradient(
+    45deg,
+    rgb(107, 40, 179) 0%,
+    rgb(38, 80, 198) 35%,
+    rgb(45, 137, 223) 70%,
+    rgb(25, 191, 236) 100%
+  );
 
-  --background-linear : linear-gradient(45deg,
-                                      rgb(107, 40, 179) 0%,
-                                      rgb(38, 80, 198) 35%,
-                                      rgb(45, 137, 223) 70%,
-                                      rgb(25, 191, 236) 100% );
-
-  --box-shadow : 5px 5px 5px 5px rgba(0,0,0,0.16),5px 5px 50px 5px rgba(0,0,0,0.12);
-  --header-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-  --medium-box-shadow : 5px 5px 5px 5px rgba(0,0,0,0.16),5px 5px 50px 5px rgba(0,0,0,0.12);
-  --small-box-shadow : 1px 1px 1px 1px rgba(0,0,0,0.16),5px 5px 50px 5px rgba(0,0,0,0.12);
+  --box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.16),
+    5px 5px 50px 5px rgba(0, 0, 0, 0.12);
+  --header-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+    0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  --medium-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.16),
+    5px 5px 50px 5px rgba(0, 0, 0, 0.12);
+  --small-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.16),
+    5px 5px 50px 5px rgba(0, 0, 0, 0.12);
 }
 
 *,
 *::before,
-*::after{
+*::after {
   margin: 0;
   padding: 0;
 }
 
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
-@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
-@import '~@fortawesome/fontawesome-free/scss/solid.scss';
-@import '~@fortawesome/fontawesome-free/scss/regular.scss';
-@import '~@fortawesome/fontawesome-free/scss/brands.scss';
-
-@import '~mdb-angular-ui-kit/assets/scss/mdb.scss';
+@import "~mdb-angular-ui-kit/assets/scss/mdb.scss";

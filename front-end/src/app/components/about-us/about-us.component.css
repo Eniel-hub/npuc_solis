@@ -5,6 +5,10 @@
   padding: 0;
 }
 
+.body {
+  margin-top: var(--body-margin-header) !important;
+}
+
 .home {
   max-width: 100%;
   overflow-x: hidden;

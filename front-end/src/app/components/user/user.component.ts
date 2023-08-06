@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 })
 export class UserComponent implements OnInit {
   pp: any;
-  user: User = {};
+  @Input() user: User = {};
   userIcon = faUser;
   student: Student = {};
   admin: Admin = {};
@@ -43,11 +43,9 @@ export class UserComponent implements OnInit {
     private adminService: AdminService,
     private router: Router
   ) {
-    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
-      (user) => {
-        this.user = user;
-      }
-    );
+    this.GlobalUser.globalVarUserUpdate.subscribe((user) => {
+      this.user = user;
+    });
     this.studentSubscription =
       this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
         this.student = student;
@@ -55,44 +53,19 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.isAuth().subscribe((response: any) => {
-      if (!response.isAuth) this.router.navigate(['/home']);
-    });
-    this.userService.getUser().subscribe((response: any) => {
-      if (response.error) return;
+    this.name = this.student.lastname || '';
 
-      let user = { ...response, type: 'student' };
-      this.GlobalUser.updateGlobalVar(user);
-      this.user = this.GlobalUser.getGlobalVarUser();
-    });
-    this.adminService.getUser().subscribe((response: any) => {
-      if (response.error) return;
-
-      let admin = { ...response, type: 'admin' };
-      this.GlobalAdmin.updateGlobalVar(admin);
-      this.admin = this.GlobalAdmin.getGlobalVarAdmin();
-    });
-    this.studentService.getStudentProfile().subscribe((response: any) => {
-      if (response.error) {
-        return;
-      }
-      let student = response;
-      this.GlobalStudent.updateGlobalVar(student);
-      this.student = this.GlobalStudent.getGlobalVarStudent();
-      this.name = this.student.lastname || '';
-
-      if (this.student.gender == 'Male' && this.profile == this.profileN)
-        this.profile = '../../../assets/imgs/pp-g.jpeg';
-      else if (this.student.gender == 'Female' && this.profile == this.profileN)
-        this.profile = '../../../assets/imgs/pp-f.jpeg';
-    });
+    if (this.student.gender == 'Male' && this.profile == this.profileN)
+      this.profile = '../../../assets/imgs/pp-g.jpeg';
+    else if (this.student.gender == 'Female' && this.profile == this.profileN)
+      this.profile = '../../../assets/imgs/pp-f.jpeg';
 
     // getting picture
     this.profile = this.user.profile_picture || this.profile;
   }
 
   ngOnDestroy() {
-    this.studentSubscription.unsubscribe();
-    this.adminSubscription.unsubscribe();
+    // this.studentSubscription.unsubscribe();
+    // this.adminSubscription.unsubscribe();
   }
 }

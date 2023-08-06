@@ -46,9 +46,11 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 
-import { globalStudent } from './global.student';
+import { GlobalStudent } from 'src/app/services/Global.student.service';
 import { LoaderComponent } from './components/loader/loader.component';
 import { DeleteComponent } from './components/delete/delete.component';
+import { ManageLevelComponent } from './components/manage-level/manage-level.component';
+import { ConfirmationAndRejectComponent } from './components/confirmation-and-reject/confirmation-and-reject.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +80,8 @@ import { DeleteComponent } from './components/delete/delete.component';
     LoaderComponent,
     DeleteComponent,
     AdminLoginComponent,
+    ManageLevelComponent,
+    ConfirmationAndRejectComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,7 +106,7 @@ import { DeleteComponent } from './components/delete/delete.component';
     MdbValidationModule,
     BrowserAnimationsModule,
   ],
-  providers: [globalStudent],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

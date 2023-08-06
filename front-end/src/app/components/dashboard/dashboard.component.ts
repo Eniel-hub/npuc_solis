@@ -1,7 +1,9 @@
 import { UserPublishedService } from '../../services/user-published.service';
+import { GlobalStudent } from 'src/app/services/Global.student.service';
+import { GlobalUser } from 'src/app/services/Global.user.service';
+import { MenuItems } from 'src/app/services/menu-items.service';
 import { StudentService } from '../../services/student.service';
 import { UserService } from '../../services/user.service';
-import { globalStudent } from './../../global.student';
 import { Student } from '../../interfaces/Student';
 import { Component, OnInit } from '@angular/core';
 import { cards } from '../../interfaces/cards';
@@ -28,51 +30,79 @@ export class DashboardComponent implements OnInit {
   profilePicture: string = ';';
   card: Card = this.cards[0];
   len: number = this.cards.length;
-
-  menuItems = [
-    { name: 'enrollment', link: '/student/enrollment' },
-    { name: 'student', link: '/student/profile' },
-    { name: 'profile', link: '/user/profile' },
-    { name: 'about', link: '/about-us' },
-    { name: 'logout' },
-  ];
+  menuItems: { name?: string; link?: string }[] = [];
+  userSubscription: any;
+  menuSubscription: any;
+  studentSubscription: any;
 
   constructor(
     private studentService: StudentService,
     private publish: UserPublishedService,
-    private GlobalStudent: globalStudent,
+    private GlobalStudent: GlobalStudent,
+    private MenuItems: MenuItems,
+    private GlobalUser: GlobalUser,
     private userService: UserService,
     private router: Router
-  ) {}
+  ) {
+    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
+    this.studentSubscription =
+      this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
+        this.student = student;
+      });
+  }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.getFirstCard();
 
-    this.userService.getUser().subscribe((response: any) => {
-      if (response.error) {
-        this.router.navigate(['/user/login']);
-        return;
-      }
-      this.user = response;
-      this.publish.emitUserChange(this.user);
-      if (this.user.profile_picture) {
-        this.profilePicture = this.user.profile_picture;
-        this.userService.setProfilePicture(this.profilePicture);
-      }
-    });
+    this.student = this.GlobalStudent.getGlobalVarStudent();
+    this.user = this.GlobalUser.getGlobalVarUser();
 
-    this.studentService.getStudentProfile().subscribe((response: any) => {
-      if (response.error) {
-        this.router.navigate(['/student/application']);
-        return;
+    this.MenuItems.updateMenuItems(true, 'student');
+    this.menuItems = this.MenuItems.getMenuItems();
+    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
       }
-      this.student = response;
-      this.publish.emitStudentChange(this.student);
-      this.studentService.setStudentInfo(this.student.ID || 0);
+    );
 
-      this.selectedStudent(this.student);
-    });
+    this.publish.emitUserChange(this.user);
+    if (this.user.profile_picture) {
+      this.profilePicture = this.user.profile_picture;
+      this.userService.setProfilePicture(this.profilePicture);
+    }
+    if (!this.student) this.router.navigate(['/student/application']);
+    this.publish.emitStudentChange(this.student);
+    this.studentService.setStudentInfo(this.student.ID || 0);
+
+    // this.userService.getUser().subscribe((response: any) => {
+    //   if (response.error) {
+    //     this.router.navigate(['/user/login']);
+    //     return;
+    //   }
+    //   this.user = response;
+    //   this.publish.emitUserChange(this.user);
+    //   if (this.user.profile_picture) {
+    //     this.profilePicture = this.user.profile_picture;
+    //     this.userService.setProfilePicture(this.profilePicture);
+    //   }
+    // });
+
+    // this.studentService.getStudentProfile().subscribe((response: any) => {
+    //   if (response.error) {
+    //     this.router.navigate(['/student/application']);
+    //     return;
+    //   }
+    //   this.student = response;
+    //   this.publish.emitStudentChange(this.student);
+    //   this.studentService.setStudentInfo(this.student.ID || 0);
+
+    //   this.selectedStudent(this.student);
+    // });
   }
 
   selectedStudent(student: Student) {

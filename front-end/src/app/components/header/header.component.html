@@ -1,21 +1,39 @@
-<div class="header" (Click) = 'MenuToggle()'>
+<div class="header" (Click)="MenuToggle()">
   <div class="_navbar">
-    <a [routerLink]="homeLink" class="_navbar-item title button"><b>SOLIS</b> <span class="hide">NPUC</span></a>
-    <div *ngIf="!hasDropdown"class="menu-items">
-      <a *ngFor="let item of menuItems" routerLink="{{item.link}}" class="_navbar-item button hide-small">{{item.name}}</a>
-      <fa-icon [icon] = 'Icon' class="_navbar-item button display-small icon"
-               [class]="xIcon+ani"
-               (click)="MenuToggle()"></fa-icon>
+    <a [routerLink]="homeLink" class="_navbar-item title button"
+      ><b>SOLIS</b> <span class="hide">NPUC</span></a
+    >
+    <div *ngIf="!hasDropdown" class="menu-items">
+      <a
+        *ngFor="let item of menuItems"
+        routerLink="{{ item.link }}"
+        class="_navbar-item button hide-small"
+        >{{ item.name }}</a
+      >
+      <fa-icon
+        [icon]="Icon"
+        class="_navbar-item button display-small icon"
+        [class]="xIcon + ani"
+        (click)="MenuToggle()"
+      ></fa-icon>
     </div>
     <div *ngIf="hasDropdown" class="menu-items">
       <div class="user-div">
-        <app-user></app-user>
+        <app-user [user]="user"></app-user>
       </div>
-      <fa-icon [icon] = 'Icon' class="_navbar-item button icon" [class]="xIcon+ani"
-               (click)="MenuToggle()"></fa-icon>
+      <fa-icon
+        [icon]="Icon"
+        class="_navbar-item button icon"
+        [class]="xIcon + ani"
+        (click)="MenuToggle()"
+      ></fa-icon>
     </div>
   </div>
   <div class="menu-dropdown">
-    <app-menu [navClass] = "menuClass" [menuItems]="menuItems"></app-menu>
+    <app-menu
+      [navClass]="menuClass"
+      [menuItems]="menuItems"
+      (hasNavigate)="HasNav($event)"
+    ></app-menu>
   </div>
 </div>

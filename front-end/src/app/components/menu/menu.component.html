@@ -1,25 +1,21 @@
-
-<div [class] = 'navClass.value'>
+<div [class]="navClass.value">
   <ul>
     <div *ngFor="let item of menuItems">
-      <a *ngIf="item.link" routerLink="{{item.link}}">
+      <a *ngIf="item.link" (click)="navigate(item.link)">
         <li class="_navbar-item button">
-          <span>{{item.name}}</span>
+          <span>{{ item.name }}</span>
         </li>
       </a>
-      <a *ngIf="item.name == 'logout'" (click)="openModal()">
+      <a *ngIf="item.name == 'logout'" (click)="logout()">
         <li class="_navbar-item button">
-          <span>{{item.name}}</span>
+          <span>{{ item.name }}</span>
         </li>
       </a>
-      <a *ngIf="item.name == 'delete'" (click)="deleteModal()">
+      <a *ngIf="item.name == 'delete'" (click)="delete()">
         <li class="_navbar-item button">
-          <span>{{item.name}}</span>
+          <span>{{ item.name }}</span>
         </li>
       </a>
     </div>
-
   </ul>
 </div>
-
-

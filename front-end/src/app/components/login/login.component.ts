@@ -1,17 +1,21 @@
 import { Router } from '@angular/router';
 import { User } from '../../interfaces/User';
 import { Error } from '../../interfaces/Error';
-import { globalStudent } from 'src/app/global.student';
+import { GlobalUser } from 'src/app/services/Global.user.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { LoaderComponent } from '../loader/loader.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { GlobalStudent } from 'src/app/services/Global.student.service';
 import {
   faUser,
   faLock,
   faEye,
   faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons';
+import { Student } from 'src/app/interfaces/Student';
+import { MenuItems } from 'src/app/services/menu-items.service';
+import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-login',
@@ -22,10 +26,11 @@ import {
 //
 export class LoginComponent implements OnInit {
   eyeIcon = faEye;
-  user: User = {};
+  user: User = { type: 'student' };
   userIcon = faUser;
   lockIcon = faLock;
   name: string = '';
+  student: Student = {};
   errorClass: string = '';
   eyeSlashIcon = faEyeSlash;
   errorMessage: string = '';
@@ -33,24 +38,43 @@ export class LoginComponent implements OnInit {
   isVisible: boolean = false;
   successMessage: string = '';
   infoClasses: string = 'info';
-  error: Error = { valid: false };
+  error: Error = {
+    valid: false,
+  };
   passwordType: string = 'password';
-  menuItems = [
-    { name: 'Home', link: '/home' },
-    { name: 'About', link: '/about-us' },
-    { name: 'Register', link: '/user/register' },
-  ];
+  menuItems: {
+    name?: string;
+    link?: string;
+  }[] = [];
   loaderRef: MdbModalRef<LoaderComponent> | null = null;
+  studentSubscription: any;
+  userSubscription: any;
+  menuSubscription: any;
 
   constructor(
+    private studentService: StudentService,
     private modalService: MdbModalService,
-    public GlobalStudent: globalStudent,
+    private GlobalStudent: GlobalStudent,
     private userService: UserService,
+    private GlobalUser: GlobalUser,
+    private MenuItems: MenuItems,
     private router: Router
-  ) {}
+  ) {
+    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
+    this.studentSubscription =
+      this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
+        this.student = student;
+      });
+  }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
+
+    this.MenuItems.updateMenuItems(false);
   }
 
   eye() {
@@ -72,7 +96,7 @@ export class LoginComponent implements OnInit {
   checkErrors(error?: string): void {
     if (error) {
       this.error.valid = true;
-      this.error.type = error; //wrong password or username not found in database
+      this.error.type = error; // wrong password or username not found in database
     }
     if (!(this.user.password && this.user.username)) {
       this.error.valid = true;
@@ -109,23 +133,40 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  successfulLogin(): void {
+  successfulLogin(user: User): void {
     this.successMessage = '';
+
+    this.GlobalUser.updateGlobalVar(user);
+    this.user = this.GlobalUser.getGlobalVarUser();
+
+    this.studentService.getStudentProfile().subscribe((response: any) => {
+      if (response.error) {
+        return;
+      }
+      let student = response;
+      this.GlobalStudent.updateGlobalVar(student);
+      this.student = this.GlobalStudent.getGlobalVarStudent();
+
+      console.log('loging student', this.student);
+      console.log('login user', this.user);
+    });
+
     setTimeout(() => {
       this.router.navigate(['/student/dashboard']);
       this.loaderRef?.close();
-    }, 2000);
+    }, 1500);
 
-    //loging out after session expires
+    // loging out after session expires
     setTimeout(() => {
       this.userService.logOut();
-      this.GlobalStudent.updateGlobalVar({});
       this.router.navigate(['/home']);
-    }, 1000 * 60 * 60 * 5); //ms*s*min*hours 5hours
+    }, 1000 * 60 * 60 * 5); // ms*s*min*hours 5hours
   }
 
   login(): void {
-    this.error = { valid: false };
+    this.error = {
+      valid: false,
+    };
     this.checkErrors();
 
     if (this.error.valid) this.getErrorMessage();
@@ -142,8 +183,9 @@ export class LoginComponent implements OnInit {
           this.getErrorMessage();
           this.loaderRef?.close();
         } else {
-          this.userService.setUserInfo({ username: response });
-          this.successfulLogin();
+          let user = { ...response, type: 'student' };
+          this.userService.setUserInfo({ username: user.username });
+          this.successfulLogin(user);
         }
       });
     }

@@ -5,14 +5,19 @@ const adminUserMiddleware = require("../adminUser/adminUser.middleware");
 
 //post request
 router.get("/", auth.IsAuth, async (req, res, next) => {
-  console.log("called");
-  res.json({ msg: "called" });
-  // let admin = await adminUserMiddleware.GetUser(req.admin);
-  // return res.json({
-  //   ID: admin.ID,
-  //   account_name: admin.account_name,
-  //   staff_id: admin.staff_id,
-  // });
+  try {
+    console.log(req.user);
+    let admin = await adminUserMiddleware.GetUser(req.user.ID);
+    if (admin)
+      return res.json({
+        ID: admin.ID,
+        account_name: admin.account_name,
+        staff_id: admin.staff_id,
+      });
+    return res.json({ error: "not an admin" });
+  } catch (error) {
+    return res.json({ error: error });
+  }
 });
 
 router.post("/login", (req, res, next) => {
@@ -59,5 +64,17 @@ router.post(
     res.json(response);
   }
 );
+
+router.post("/getsch", adminUserMiddleware.getSchool);
+
+router.post("/getstu", adminUserMiddleware.getStudents);
+
+router.get("/getyears", adminUserMiddleware.getSchoolYears);
+
+router.post("/getgrades", adminUserMiddleware.getGradeLevels);
+
+router.post("/getsections", adminUserMiddleware.getGradeSections);
+
+router.post("/getteach", adminUserMiddleware.getTeacher);
 
 module.exports = router;

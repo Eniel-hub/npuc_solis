@@ -1,196 +1,365 @@
 <div class="body">
-  <div class="header">
-      <app-header [menuItems]="menuItems"></app-header>
-  </div>
   <div class="content">
-      <div class="form">
-          <h1>STUDENT PROFILE</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Praesent ornare facilisis posuere. Phasellus arcu augue,
-              imperdiet eget enim gravida, ornare suscipit turpis. Nunc
-              semper interdum laoreet. Suspendisse condimentum ex ipsum,
-              nec aliquet dui varius et. Nullam interdum felis sed arcu
-              sagittis, sed ornare metus auctor. </p>
+    <div class="form">
+      <h1>STUDENT PROFILE</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ornare
+        facilisis posuere. Phasellus arcu augue, imperdiet eget enim gravida,
+        ornare suscipit turpis. Nunc semper interdum laoreet. Suspendisse
+        condimentum ex ipsum, nec aliquet dui varius et. Nullam interdum felis
+        sed arcu sagittis, sed ornare metus auctor.
+      </p>
 
-          <div *ngIf="review">
-            <div class="section">
-              <h1>ACADEMIC</h1>
-              <div class="input-container ic1" id="choice">
-                <input [value]="getSchool(student.school_id)[0].school_name"
-                id="schChosen" class="input" type="text" placeholder=" " disabled />
-                <div class="cut cut-m"></div>
-                <label for="schChosen" class="placeholder">School</label>
-              </div>
-              <div class="input-container ic1" id="student_id">
-                <input id="student_id" class="input" type="text"
-                      placeholder=" " [value]="student.ID" disabled>
-                <div class="cut cut-l"></div>
-                <label for="student_id" class="placeholder">student_id</label>
-              </div>
-              <div class="input-container ic1" id="gradelevel">
-                <input id="gradelevel" class="input" type="text"
-                      placeholder=" " [value]="gradeLevel" disabled>
-                <div class="cut cut-l"></div>
-                <label for="student_id" class="placeholder">Grade Level</label>
-              </div>
+      <div *ngIf="review">
+        <div class="section">
+          <h1>ACADEMIC</h1>
+          <div class="input-container ic1" id="choice">
+            <input
+              [value]="getSchool(student.school_id)[0].school_name"
+              id="schChosen"
+              class="input"
+              type="text"
+              placeholder=" "
+              disabled
+            />
+            <div class="cut cut-m"></div>
+            <label for="schChosen" class="placeholder">School</label>
+          </div>
+          <div class="input-container ic1" id="student_id">
+            <input
+              id="student_id"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="student.ID"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">student_id</label>
+          </div>
+          <div class="input-container ic1" id="gradelevel">
+            <input
+              id="gradelevel"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="gradeLevel"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">Grade Level</label>
+          </div>
+        </div>
+        <div class="section">
+          <h1>PERSONAL</h1>
+          <div class="input-container ic1" id="lastname">
+            <input
+              id="lastname"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="student.lastname"
+            />
+            <div class="cut cut-l"></div>
+            <label for="lastname" class="placeholder">Last Name </label>
+          </div>
+          <div class="input-container ic2" id="firstname">
+            <input
+              id="firstname"
+              class="input"
+              type="text"
+              placeholder=" "
+              disabled
+              [value]="student.firstname"
+            />
+            <div class="cut cut-l"></div>
+            <label for="firstname" class="placeholder">First Name </label>
+          </div>
+          <div class="input-container ic2" id="middlename">
+            <input
+              id="middlename"
+              class="input"
+              type="text"
+              placeholder=" "
+              disabled
+              [value]="student.middlename || ''"
+            />
+            <div class="cut cut-xl"></div>
+            <label for="middlename" class="placeholder">Middle Name</label>
+          </div>
+          <div class="input-container ic2" id="gender">
+            <input
+              type="text"
+              class="input"
+              name="gender"
+              disabled
+              [value]="student.gender"
+            />
+            <div class="cut cut-m"></div>
+            <label for="gender" class="placeholder">Gender </label>
+          </div>
+          <div class="input-container ic2" id="bday">
+            <input
+              id="bday"
+              class="input"
+              type="date"
+              placeholder=" "
+              disabled
+              [value]="BDay"
+            />
+            <div class="cut cut-m"></div>
+            <label for="bday" class="placeholder">Birthday </label>
+          </div>
+          <div class="input-container ic2" id="home_address">
+            <input
+              id="home_address"
+              class="input"
+              type="text"
+              placeholder=" "
+              disabled
+              [value]="student.home_address"
+            />
+            <div class="cut cut-m"></div>
+            <label for="home_address" class="placeholder">Address </label>
+          </div>
+          <div class="input-container ic2" id="lrn">
+            <input
+              id="lrn"
+              class="input"
+              type="text"
+              placeholder=" "
+              disabled
+              [value]="student.lrn || ''"
+            />
+            <div class="cut cut-s"></div>
+            <label for="lrn" class="placeholder">LRN</label>
+          </div>
+          <div class="input-container ic2" id="religion">
+            <input
+              type="text"
+              class="input"
+              disabled
+              [value]="studentReligion()"
+            />
+            <div class="cut cut-m"></div>
+            <label for="religion" class="placeholder">Religion </label>
+          </div>
+          <div class="input-container ic2" id="nationality">
+            <input
+              type="text"
+              class="input"
+              disabled
+              [value]="studentNationality()"
+            />
+            <div class="cut cut-l"></div>
+            <label for="nationality" class="placeholder">Nationality </label>
+          </div>
+        </div>
+        <div class="section">
+          <h1>PARENTS AND GUARDIAN</h1>
+          <!-- Father -->
+          <div *ngIf="showParent('father')">
+            <div class="input-container ic1" id="father">
+              <input
+                id="father"
+                class="input"
+                type="text"
+                placeholder=" "
+                value="Father"
+                disabled
+              />
+              <div class="cut cut-m"></div>
+              <label for="father" class="placeholder">Parent</label>
             </div>
-            <div class="section">
-              <h1>PERSONAL</h1>
-              <div class="input-container ic1" id="lastname">
-                <input id="lastname" class="input" type="text"
-                      placeholder=" " [value]="student.lastname"/>
-                <div class="cut cut-l"></div>
-                <label for="lastname" class="placeholder">Last Name </label>
-              </div>
-              <div class="input-container ic2" id="firstname">
-                <input id="firstname" class="input" type="text"
-                      placeholder=" " disabled [value]="student.firstname"/>
-                <div class="cut cut-l"></div>
-                <label for="firstname" class="placeholder">First Name </label>
-              </div>
-              <div class="input-container ic2" id="middlename">
-                <input id="middlename" class="input" type="text"
-                      placeholder=" " disabled [value]="student.middlename || ''"/>
-                <div class="cut cut-xl"></div>
-                <label for="middlename" class="placeholder">Middle Name</label>
-              </div>
-              <div class="input-container ic2" id="gender">
-                <input type = "text" class="input" name="gender" disabled [value]="student.gender">
-                <div class="cut cut-m"></div>
-                <label for="gender" class="placeholder">Gender </label>
-              </div>
-              <div class="input-container ic2" id="bday">
-                <input id="bday" class="input" type="date"
-                      placeholder=" " disabled [value]="BDay"/>
-                <div class="cut cut-m"></div>
-                <label for="bday" class="placeholder">Birthday </label>
-              </div>
-              <div class="input-container ic2" id="home_address">
-                <input id="home_address" class="input" type="text"
-                      placeholder=" " disabled [value]="student.home_address"/>
-                <div class="cut cut-m"></div>
-                <label for="home_address" class="placeholder">Address </label>
-              </div>
-              <div class="input-container ic2" id="lrn">
-                <input id="lrn" class="input" type="text"
-                      placeholder=" " disabled [value]="student.lrn || ''"/>
-                <div class="cut cut-s"></div>
-                <label for="lrn" class="placeholder">LRN</label>
-              </div>
-              <div class="input-container ic2" id="religion">
-                <input type="text" class="input" disabled [value] = "studentReligion()">
-                <div class="cut cut-m"></div>
-                <label for="religion" class="placeholder">Religion </label>
-              </div>
-              <div class="input-container ic2" id="nationality">
-                <input type="text" class="input" disabled [value] = "studentNationality()">
-                <div class="cut cut-l"></div>
-                <label for="nationality" class="placeholder">Nationality </label>
-              </div>
+            <div class="input-container ic1" id="name">
+              <input
+                id="name"
+                class="input"
+                type="text"
+                placeholder=" "
+                disabled
+                [value]="student.father?.pname"
+              />
+              <div class="cut cut-m"></div>
+              <label for="name" class="placeholder">Name</label>
             </div>
-            <div class="section">
-              <h1>PARENTS AND GUARDIAN</h1>
-              <!-- Father -->
-              <div  *ngIf="showParent('father')">
-                <div class="input-container ic1" id="father">
-                  <input id="father" class="input" type="text"
-                        placeholder=" " value="Father" disabled>
-                  <div class="cut cut-m"></div>
-                  <label for="father" class="placeholder">Parent</label>
-                </div>
-                <div class="input-container ic1" id="name">
-                  <input id="name" class="input" type="text"
-                        placeholder=" " disabled [value]="student.father?.pname"/>
-                  <div class="cut cut-m"></div>
-                  <label for="name" class="placeholder">Name</label>
-                </div>
-                <div class="input-container ic1" id="father-email">
-                  <input id="father-email" class="input" type="email"
-                        placeholder=" " disabled [value]="student.father?.email"/>
-                  <div class="cut cut-s"></div>
-                  <label for="father-email" class="placeholder">Email </label>
-                </div>
-                <div class="input-container ic1" id="father-mobile">
-                  <input id="father-mobile" class="input" type="text"
-                        placeholder=" " disabled [value]="student.father?.mobile"/>
-                  <div class="cut cut-xl"></div>
-                  <label for="father-mobile" class="placeholder">Phone Number </label>
-                </div>
-                <div class="input-container ic1" id="father-home_address">
-                  <input id="father-home_address" class="input" type="text"
-                        placeholder=" " disabled [value]="student.father?.home_address"/>
-                  <div class="cut cut-m"></div>
-                  <label for="father-home_address" class="placeholder">Address </label>
-                </div>
-              </div>
-              <!-- Mother -->
-              <div *ngIf="showParent('mother')">
-                <div class="input-container ic1" id="mother">
-                  <input id="mother" class="input" type="text"
-                        placeholder=" " value="Mother" disabled>
-                  <div class="cut cut-m"></div>
-                  <label for="mother" class="placeholder">Parent</label>
-                </div>
-                <div class="input-container ic1" id="mother-name">
-                  <input id="mother-name" class="input" type="text"
-                        placeholder=" " disabled [value]="student.mother?.pname"/>
-                  <div class="cut cut-m"></div>
-                  <label for="mother-name" class="placeholder">Name </label>
-                </div>
-                <div class="input-container ic1" id="mother-email">
-                  <input id="mother-email" class="input" type="email"
-                        placeholder=" " disabled [value]="student.mother?.email"/>
-                  <div class="cut cut-s"></div>
-                  <label for="mother-email" class="placeholder">Email </label>
-                </div>
-                <div class="input-container ic1" id="mother-mobile">
-                  <input id="mother-mobile" class="input" type="text"
-                        placeholder=" " disabled [value]="student.mother?.mobile"/>
-                  <div class="cut cut-xl"></div>
-                  <label for="mother-mobile" class="placeholder">Phone Number </label>
-                </div>
-                <div class="input-container ic1" id="mother-home_address">
-                  <input id="mother-home_address" class="input" type="text"
-                        placeholder=" " disabled [value]="student.mother?.home_address"/>
-                  <div class="cut cut-m"></div>
-                  <label for="mother-home_address" class="placeholder">Address </label>
-                </div>
-              </div>
-              <!-- Guardian -->
-              <div *ngIf="showParent('guardian')">
-                <div class="input-container ic1" id="guardian">
-                  <input id="guardian" class="input" type="text"
-                        placeholder=" " value="Guardian" disabled>
-                  <div class="cut cut-m"></div>
-                  <label for="guardian" class="placeholder">Parent</label>
-                </div>
-                <div class="input-container ic1" id="guardian-pname">
-                  <input id="guardian-pname" class="input" type="text"
-                        placeholder=" " disabled [value]="student.guardian?.pname"/>
-                  <div class="cut cut-m"></div>
-                  <label for="guardian-pname" class="placeholder">Name </label>
-                </div>
-                <div class="input-container ic1" id="guardian-email">
-                  <input id="guardian-email" class="input" type="email"
-                        placeholder=" " disabled [value]="student.guardian?.email"/>
-                  <div class="cut cut-s"></div>
-                  <label for="guardian-email" class="placeholder">Email </label>
-                </div>
-                <div class="input-container ic1" id="guardian-mobile">
-                  <input id="guardian-mobile" class="input" type="text"
-                        placeholder=" " disabled [value]="student.guardian?.mobile"/>
-                  <div class="cut cut-xl"></div>
-                  <label for="guardian-mobile" class="placeholder">Phone Number </label>
-                </div>
-                <div class="input-container ic1" id="guardian-home_address">
-                  <input id="guardian-home_address" class="input" type="text"
-                        placeholder=" " disabled [value]="student.guardian?.home_address"/>
-                  <div class="cut cut-m"></div>
-                  <label for="guardian-home_address" class="placeholder">Address </label>
-                </div>
-              </div>
+            <div class="input-container ic1" id="father-email">
+              <input
+                id="father-email"
+                class="input"
+                type="email"
+                placeholder=" "
+                disabled
+                [value]="student.father?.email"
+              />
+              <div class="cut cut-s"></div>
+              <label for="father-email" class="placeholder">Email </label>
+            </div>
+            <div class="input-container ic1" id="father-mobile">
+              <input
+                id="father-mobile"
+                class="input"
+                type="text"
+                placeholder=" "
+                disabled
+                [value]="student.father?.mobile"
+              />
+              <div class="cut cut-xl"></div>
+              <label for="father-mobile" class="placeholder"
+                >Phone Number
+              </label>
+            </div>
+            <div class="input-container ic1" id="father-home_address">
+              <input
+                id="father-home_address"
+                class="input"
+                type="text"
+                placeholder=" "
+                disabled
+                [value]="student.father?.home_address"
+              />
+              <div class="cut cut-m"></div>
+              <label for="father-home_address" class="placeholder"
+                >Address
+              </label>
             </div>
           </div>
+          <!-- Mother -->
+          <div *ngIf="showParent('mother')">
+            <div class="input-container ic1" id="mother">
+              <input
+                id="mother"
+                class="input"
+                type="text"
+                placeholder=" "
+                value="Mother"
+                disabled
+              />
+              <div class="cut cut-m"></div>
+              <label for="mother" class="placeholder">Parent</label>
+            </div>
+            <div class="input-container ic1" id="mother-name">
+              <input
+                id="mother-name"
+                class="input"
+                type="text"
+                placeholder=" "
+                disabled
+                [value]="student.mother?.pname"
+              />
+              <div class="cut cut-m"></div>
+              <label for="mother-name" class="placeholder">Name </label>
+            </div>
+            <div class="input-container ic1" id="mother-email">
+              <input
+                id="mother-email"
+                class="input"
+                type="email"
+                placeholder=" "
+                disabled
+                [value]="student.mother?.email"
+              />
+              <div class="cut cut-s"></div>
+              <label for="mother-email" class="placeholder">Email </label>
+            </div>
+            <div class="input-container ic1" id="mother-mobile">
+              <input
+                id="mother-mobile"
+                class="input"
+                type="text"
+                placeholder=" "
+                disabled
+                [value]="student.mother?.mobile"
+              />
+              <div class="cut cut-xl"></div>
+              <label for="mother-mobile" class="placeholder"
+                >Phone Number
+              </label>
+            </div>
+            <div class="input-container ic1" id="mother-home_address">
+              <input
+                id="mother-home_address"
+                class="input"
+                type="text"
+                placeholder=" "
+                disabled
+                [value]="student.mother?.home_address"
+              />
+              <div class="cut cut-m"></div>
+              <label for="mother-home_address" class="placeholder"
+                >Address
+              </label>
+            </div>
+          </div>
+          <!-- Guardian -->
+          <div *ngIf="showParent('guardian')">
+            <div class="input-container ic1" id="guardian">
+              <input
+                id="guardian"
+                class="input"
+                type="text"
+                placeholder=" "
+                value="Guardian"
+                disabled
+              />
+              <div class="cut cut-m"></div>
+              <label for="guardian" class="placeholder">Parent</label>
+            </div>
+            <div class="input-container ic1" id="guardian-pname">
+              <input
+                id="guardian-pname"
+                class="input"
+                type="text"
+                placeholder=" "
+                disabled
+                [value]="student.guardian?.pname"
+              />
+              <div class="cut cut-m"></div>
+              <label for="guardian-pname" class="placeholder">Name </label>
+            </div>
+            <div class="input-container ic1" id="guardian-email">
+              <input
+                id="guardian-email"
+                class="input"
+                type="email"
+                placeholder=" "
+                disabled
+                [value]="student.guardian?.email"
+              />
+              <div class="cut cut-s"></div>
+              <label for="guardian-email" class="placeholder">Email </label>
+            </div>
+            <div class="input-container ic1" id="guardian-mobile">
+              <input
+                id="guardian-mobile"
+                class="input"
+                type="text"
+                placeholder=" "
+                disabled
+                [value]="student.guardian?.mobile"
+              />
+              <div class="cut cut-xl"></div>
+              <label for="guardian-mobile" class="placeholder"
+                >Phone Number
+              </label>
+            </div>
+            <div class="input-container ic1" id="guardian-home_address">
+              <input
+                id="guardian-home_address"
+                class="input"
+                type="text"
+                placeholder=" "
+                disabled
+                [value]="student.guardian?.home_address"
+              />
+              <div class="cut cut-m"></div>
+              <label for="guardian-home_address" class="placeholder"
+                >Address
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 </div>

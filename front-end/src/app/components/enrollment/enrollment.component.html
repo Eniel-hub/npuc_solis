@@ -1,134 +1,217 @@
 <div class="body">
-  <div class="header">
-      <app-header [menuItems]="menuItems"></app-header>
-  </div>
   <div class="content">
-        <div class="form2" *ngIf="!isEnrolled">
-          <h1>ENROLLMENT</h1>
-          <div class="Section">
-            <p>Enrollment for the academic year <span>{{enrollmentSchYear.school_year}}</span> is on progress!!! </p>
+    <div class="form2" *ngIf="!isEnrolled">
+      <h1>ENROLLMENT</h1>
+      <div class="Section">
+        <p>
+          Enrollment for the academic year
+          <span>{{ enrollmentSchYear.school_year }}</span> is on progress!!!
+        </p>
+      </div>
+      <div class="Section" *ngIf="!enrollment">
+        <div class="section">
+          <h1>CURRENT ACADEMIC YEAR</h1>
+          <div class="input-container ic1" id="choice">
+            <input
+              [value]="getSchool(student.school_id)[0].school_name"
+              id="schChosen"
+              class="input"
+              type="text"
+              placeholder=" "
+              disabled
+            />
+            <div class="cut cut-m"></div>
+            <label for="schChosen" class="placeholder">School</label>
           </div>
-          <div class="Section" *ngIf="!enrollment">
-            <div class="section">
-              <h1>CURRENT ACADEMIC YEAR</h1>
-              <div class="input-container ic1" id="choice">
-                <input [value]="getSchool(student.school_id)[0].school_name"
-                id="schChosen" class="input" type="text" placeholder=" " disabled />
-                <div class="cut cut-m"></div>
-                <label for="schChosen" class="placeholder">School</label>
-              </div>
-              <div class="input-container ic1" id="student_id">
-                <input id="student_id" class="input" type="text"
-                      placeholder=" " [value]="student.ID" disabled>
-                <div class="cut cut-l"></div>
-                <label for="student_id" class="placeholder">student id</label>
-              </div>
-              <div class="input-container ic1" >
-                <input  class="input" type="text"
-                      placeholder=" " [value]="currentSchYear.school_year" disabled>
-                <div class="cut cut-l"></div>
-                <label  class="placeholder">School-year</label>
-              </div>
-              <div class="input-container ic1" >
-                <input  class="input" type="text"
-                      placeholder=" " [value]="currentSection" disabled>
-                <div class="cut cut-m"></div>
-                <label  class="placeholder">Section</label>
-              </div>
-              <div class="input-container ic1" >
-                <input  class="input" type="text"
-                      placeholder=" " [value]="gradeLevel" disabled>
-                <div class="cut cut-l"></div>
-                <label  class="placeholder">Grade Level</label>
-              </div>
-              <div class="input-container ic1" >
-                <input  class="input" type="text"
-                      placeholder=" " [value]="grade" disabled>
-                <div class="cut cut-s"></div>
-                <label  class="placeholder">Grade</label>
-              </div>
-              <div class="input-container ic1">
-                <input class="input" type="text"
-                      placeholder=" " [value]="decision(grade)" disabled>
-                <div class="cut cut-m"></div>
-                <label class="placeholder">Decision</label>
-              </div>
-            </div>
-            <div class="section navigation">
-              <div class="btn" (click)="next()">
-                Next
-              </div>
-            </div>
+          <div class="input-container ic1" id="student_id">
+            <input
+              id="student_id"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="student.ID"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">student id</label>
           </div>
-          <div class="Section" *ngIf="enrollment">
-            <div class="section">
-              <h1>{{enrollmentSchYear.school_year}}</h1>
-              <div class="input-container ic1" id="choice">
-                <input [value]="getSchool(student.school_id)[0].school_name"
-                id="schChosen" class="input" type="text" placeholder=" " disabled />
-                <div class="cut cut-m"></div>
-                <label for="schChosen" class="placeholder">School</label>
-              </div>
-              <div class="input-container ic1" id="student_id">
-                <input id="student_id" class="input" type="text"
-                      placeholder=" " [value]="student.ID" disabled>
-                <div class="cut cut-l"></div>
-                <label for="student_id" class="placeholder">student_id</label>
-              </div>
-              <div class="input-container ic1" id="gradelevel">
-                <input id="gradelevel" class="input" type="text"
-                      placeholder=" " [value]="nxtGradeLevel" disabled>
-                <div class="cut cut-l"></div>
-                <label for="student_id" class="placeholder">Grade Level</label>
-              </div>
-            </div>
-            <div class="section navigation">
-              <div class="btn" (click)="confirm()">
-                confirm
-              </div>
-            </div>
+          <div class="input-container ic1">
+            <input
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="currentSchYear.school_year"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label class="placeholder">School-year</label>
           </div>
-        </div>
-        <div class="form2" *ngIf="isEnrolled">
-          <h1>ENROLLMENT</h1>
-            <div class="Section">
-              <p>You are already enrolled for the academic year {{enrollmentSchYear.school_year}}</p>
-            </div>
-          <div class="Section">
-            <div class="section">
-              <h1>ACADEMIC</h1>
-              <div class="input-container ic1" id="choice">
-                <input [value]="getSchool(student.school_id)[0].school_name"
-                id="schChosen" class="input" type="text" placeholder=" " disabled />
-                <div class="cut cut-m"></div>
-                <label for="schChosen" class="placeholder">School</label>
-              </div>
-              <div class="input-container ic1" id="student_id">
-                <input id="student_id" class="input" type="text"
-                      placeholder=" " [value]="student.ID" disabled>
-                <div class="cut cut-l"></div>
-                <label for="student_id" class="placeholder">student_id</label>
-              </div>
-              <div class="input-container ic1">
-                <input class="input" type="text"
-                      placeholder=" " [value]="enrollmentSchYear.school_year" disabled>
-                <div class="cut cut-xl"></div>
-                <label class="placeholder">Academic Year</label>
-              </div>
-              <div class="input-container ic1" id="gradelevel">
-                <input id="gradelevel" class="input" type="text"
-                      placeholder=" " [value]="record.grade_level" disabled>
-                <div class="cut cut-l"></div>
-                <label for="student_id" class="placeholder">Grade Level</label>
-              </div>
-              <div class="input-container ic1" id="gradelevel">
-                <input id="gradelevel" class="input" type="text"
-                      placeholder=" " [value]="record.remarks" disabled>
-                <div class="cut cut-l"></div>
-                <label for="student_id" class="placeholder">Remark</label>
-              </div>
-            </div>
+          <div class="input-container ic1">
+            <input
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="currentSection"
+              disabled
+            />
+            <div class="cut cut-m"></div>
+            <label class="placeholder">Section</label>
+          </div>
+          <div class="input-container ic1">
+            <input
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="gradeLevel"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label class="placeholder">Grade Level</label>
+          </div>
+          <div class="input-container ic1">
+            <input
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="grade"
+              disabled
+            />
+            <div class="cut cut-s"></div>
+            <label class="placeholder">Grade</label>
+          </div>
+          <div class="input-container ic1">
+            <input
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="decision(grade)"
+              disabled
+            />
+            <div class="cut cut-m"></div>
+            <label class="placeholder">Decision</label>
           </div>
         </div>
+        <div class="section navigation">
+          <div class="btn" (click)="next()">Next</div>
+        </div>
+      </div>
+      <div class="Section" *ngIf="enrollment">
+        <div class="section">
+          <h1>{{ enrollmentSchYear.school_year }}</h1>
+          <div class="input-container ic1" id="choice">
+            <input
+              [value]="getSchool(student.school_id)[0].school_name"
+              id="schChosen"
+              class="input"
+              type="text"
+              placeholder=" "
+              disabled
+            />
+            <div class="cut cut-m"></div>
+            <label for="schChosen" class="placeholder">School</label>
+          </div>
+          <div class="input-container ic1" id="student_id">
+            <input
+              id="student_id"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="student.ID"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">student_id</label>
+          </div>
+          <div class="input-container ic1" id="gradelevel">
+            <input
+              id="gradelevel"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="nxtGradeLevel"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">Grade Level</label>
+          </div>
+        </div>
+        <div class="section navigation">
+          <div class="btn" (click)="confirm()">confirm</div>
+        </div>
+      </div>
+    </div>
+    <div class="form2" *ngIf="isEnrolled">
+      <h1>ENROLLMENT</h1>
+      <div class="Section">
+        <p>
+          You are already enrolled for the academic year
+          {{ enrollmentSchYear.school_year }}
+        </p>
+      </div>
+      <div class="Section">
+        <div class="section">
+          <h1>ACADEMIC</h1>
+          <div class="input-container ic1" id="choice">
+            <input
+              [value]="getSchool(student.school_id)[0].school_name"
+              id="schChosen"
+              class="input"
+              type="text"
+              placeholder=" "
+              disabled
+            />
+            <div class="cut cut-m"></div>
+            <label for="schChosen" class="placeholder">School</label>
+          </div>
+          <div class="input-container ic1" id="student_id">
+            <input
+              id="student_id"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="student.ID"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">student_id</label>
+          </div>
+          <div class="input-container ic1">
+            <input
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="enrollmentSchYear.school_year"
+              disabled
+            />
+            <div class="cut cut-xl"></div>
+            <label class="placeholder">Academic Year</label>
+          </div>
+          <div class="input-container ic1" id="gradelevel">
+            <input
+              id="gradelevel"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="record.grade_level"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">Grade Level</label>
+          </div>
+          <div class="input-container ic1" id="gradelevel">
+            <input
+              id="gradelevel"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="record.remarks"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">Remark</label>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 export interface Admin {
   ID?: string;
   account_name?: string;
-  staff_id?: Number;
+  staff_id?: number;
   password?: string;
-  code?: Number;
+  code?: number;
 }

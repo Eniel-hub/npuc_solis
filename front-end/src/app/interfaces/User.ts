@@ -1,15 +1,15 @@
 export interface User {
-	type?: string;
+  type?: string;
 
-	id?: number;
-	username?: string;
-	student_id?: Number;
-	profile_picture?: string;
+  id?: number;
+  username?: string;
+  student_id?: number;
+  profile_picture?: string;
 
-	ID?: string;
-	account_name?: string;
-	staff_id?: number;
+  ID?: string;
+  account_name?: string;
+  staff_id?: number;
 
-	password?: string;
-	password2?: string;
+  password?: string;
+  password2?: string;
 }

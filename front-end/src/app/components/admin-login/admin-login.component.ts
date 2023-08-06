@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Admin } from '../../interfaces/Admin';
 import { Error } from '../../interfaces/Error';
-import { globalStudent } from 'src/app/global.student';
+import { GlobalStudent } from 'src/app/services/Global.student.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { LoaderComponent } from '../loader/loader.component';
@@ -12,6 +12,7 @@ import {
   faEye,
   faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons';
+import { MenuItems } from 'src/app/services/menu-items.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -36,22 +37,19 @@ export class AdminLoginComponent implements OnInit {
   infoClasses: string = 'info';
   error: Error = { valid: false };
   passwordType: string = 'password';
-  menuItems = [
-    { name: 'Home', link: '/home' },
-    { name: 'About', link: '/about-us' },
-    { name: 'Personal', link: '/spa/user/login' },
-  ];
   loaderRef: MdbModalRef<LoaderComponent> | null = null;
 
   constructor(
     private modalService: MdbModalService,
-    public GlobalStudent: globalStudent,
+    private GlobalStudent: GlobalStudent,
     private adminService: AdminService,
+    private menuItems: MenuItems,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
+    this.menuItems.updateMenuItems(false);
   }
 
   eye() {
@@ -113,7 +111,7 @@ export class AdminLoginComponent implements OnInit {
   successfulLogin(): void {
     this.successMessage = '';
     setTimeout(() => {
-      this.router.navigate(['/spa/dashboard']);
+      this.router.navigate(['/admin/dashboard']);
       this.loaderRef?.close();
     }, 2000);
 
