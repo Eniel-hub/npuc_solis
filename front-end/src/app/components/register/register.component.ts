@@ -6,6 +6,7 @@ import { AlertComponent } from '../alert/alert.component';
 import { UserService } from 'src/app/services/user.service';
 import { LoaderComponent } from '../loader/loader.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { GlobalStudent } from 'src/app/services/Global.student.service';
 import {
   faUser,
   faLock,
@@ -41,6 +42,8 @@ export class RegisterComponent implements OnInit {
   userIcon = faUser;
   user: User = {};
   userSubscription: any;
+  studentSubscription: any;
+  student: any;
   eyeIcon = faEye;
 
   constructor(
@@ -48,13 +51,18 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private GlobalUser: GlobalUser,
-    private menuItems: MenuItems
+    private menuItems: MenuItems,
+    private GlobalStudent: GlobalStudent
   ) {
     this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
       (user) => {
         this.user = user;
       }
     );
+    this.studentSubscription =
+      this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
+        this.student = student;
+      });
   }
 
   ngOnInit(): void {

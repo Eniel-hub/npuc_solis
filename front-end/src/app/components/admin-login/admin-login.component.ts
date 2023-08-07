@@ -5,6 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { LoaderComponent } from '../loader/loader.component';
 import { AdminService } from 'src/app/services/admin.service';
 import { GlobalUser } from 'src/app/services/Global.user.service';
+import { GlobalStudent } from 'src/app/services/Global.student.service';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import {
   faUser,
@@ -24,6 +25,7 @@ import { MenuItems } from 'src/app/services/menu-items.service';
 })
 export class AdminLoginComponent implements OnInit {
   user: any;
+  student: any;
   eyeIcon = faEye;
   admin: Admin = {};
   userIcon = faUser;
@@ -34,6 +36,7 @@ export class AdminLoginComponent implements OnInit {
   eyeSlashIcon = faEyeSlash;
   errorMessage: string = '';
   successClass: string = '';
+  studentSubscription: any;
   isVisible: boolean = false;
   successMessage: string = '';
   infoClasses: string = 'info';
@@ -43,6 +46,7 @@ export class AdminLoginComponent implements OnInit {
 
   constructor(
     private modalService: MdbModalService,
+    private GlobalStudent: GlobalStudent,
     private adminService: AdminService,
     private GlobalUser: GlobalUser,
     private menuItems: MenuItems,
@@ -53,6 +57,10 @@ export class AdminLoginComponent implements OnInit {
         this.user = user;
       }
     );
+    this.studentSubscription =
+      this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
+        this.student = student;
+      });
   }
 
   ngOnInit(): void {

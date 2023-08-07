@@ -8,7 +8,6 @@ import {
   faCaretLeft,
   faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
-import { GlobalUser } from 'src/app/services/Global.user.service';
 
 @Component({
   selector: 'app-school',
@@ -31,16 +30,9 @@ export class SchoolComponent implements OnInit {
   schools: School[] = [];
   value: string = '';
   arrOfSchools: any;
-  user: any;
   userSubscription: any;
 
-  constructor(private service: SchoolService, private GlobalUser: GlobalUser) {
-    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
-      (user) => {
-        this.user = user;
-      }
-    );
-  }
+  constructor(private service: SchoolService) {}
 
   ngOnInit(): void {
     this.service.getHomeComponent().subscribe((response) => {

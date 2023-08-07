@@ -51,6 +51,7 @@ export class EnrollmentComponent implements OnInit {
   currentSection: string = '';
   isConfirmed: boolean = false;
   userSubscription: any;
+  studentSubscription: any;
   user: any;
 
   constructor(
@@ -69,6 +70,10 @@ export class EnrollmentComponent implements OnInit {
         this.user = user;
       }
     );
+    this.studentSubscription =
+      this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
+        this.student = student;
+      });
   }
 
   ngOnInit(): void {

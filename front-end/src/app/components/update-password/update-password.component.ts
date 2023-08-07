@@ -6,6 +6,7 @@ import { AlertComponent } from '../alert/alert.component';
 import { UserService } from 'src/app/services/user.service';
 import { LoaderComponent } from '../loader/loader.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { GlobalStudent } from 'src/app/services/Global.student.service';
 import {
   faUser,
   faLock,
@@ -35,15 +36,18 @@ export class UpdatePasswordComponent implements OnInit {
   isVisible: boolean = false;
   errorMessage: string = '';
   eyeSlashIcon = faEyeSlash;
+  studentSubscription: any;
   userSubscription: any;
   idIcon = faIdBadge;
   lockIcon = faLock;
   userIcon = faUser;
   user: User = {};
   eyeIcon = faEye;
+  student: any;
 
   constructor(
     private modalService: MdbModalService,
+    private GlobalStudent: GlobalStudent,
     private userService: UserService,
     private globalUser: GlobalUser,
     private menuItems: MenuItems,
@@ -54,6 +58,11 @@ export class UpdatePasswordComponent implements OnInit {
         this.user = user;
       }
     );
+
+    this.studentSubscription =
+      this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
+        this.student = student;
+      });
   }
 
   ngOnInit(): void {

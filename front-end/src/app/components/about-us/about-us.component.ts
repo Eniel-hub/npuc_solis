@@ -4,6 +4,7 @@ import { UserPublishedService } from 'src/app/services/user-published.service';
 import { GlobalUser } from 'src/app/services/Global.user.service';
 import { User } from 'src/app/interfaces/User';
 import { MenuItems } from 'src/app/services/menu-items.service';
+import { GlobalStudent } from 'src/app/services/Global.student.service';
 
 @Component({
   selector: 'app-about-us',
@@ -16,17 +17,24 @@ export class AboutUsComponent implements OnInit {
   user: User = {};
   home: string = 'dashboard';
   imgSrc: string = '../../../assets/imgs/1.jpg';
+  studentSubscription: any;
+  student: any;
 
   constructor(
     private userService: UserService,
     private globalUser: GlobalUser,
-    private menuItems: MenuItems
+    private menuItems: MenuItems,
+    private GlobalStudent: GlobalStudent
   ) {
     this.userSubscription = this.globalUser.globalVarUserUpdate.subscribe(
       (user: User) => {
         this.user = user;
       }
     );
+    this.studentSubscription =
+      this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
+        this.student = student;
+      });
   }
 
   ngOnInit(): void {

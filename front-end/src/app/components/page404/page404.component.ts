@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalUser } from 'src/app/services/Global.user.service';
+import { GlobalStudent } from 'src/app/services/Global.student.service';
 import { MenuItems } from 'src/app/services/menu-items.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,9 +14,12 @@ export class Page404Component implements OnInit {
   imgSrc: string = '';
   homeLink: string = '/student/dashboard';
   home: string = 'dashboard';
+  studentSubscription: any;
   userSubscription: any;
+  student: any;
 
   constructor(
+    private GlobalStudent: GlobalStudent,
     private userService: UserService,
     private menuItems: MenuItems,
     private globalUser: GlobalUser
@@ -25,6 +29,10 @@ export class Page404Component implements OnInit {
         this.user = user;
       }
     );
+    this.studentSubscription =
+      this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
+        this.student = student;
+      });
   }
 
   ngOnInit(): void {

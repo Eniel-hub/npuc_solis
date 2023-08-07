@@ -24,6 +24,7 @@ export class StudentProfileComponent implements OnInit {
   gradeLevel: string = 'Kinder II';
   religions: Religion[] = [];
   nationalities: Nationality[] = [];
+  studentSubscription: any;
   userSubscription: any;
   user: any;
   BDay: any;
@@ -40,6 +41,10 @@ export class StudentProfileComponent implements OnInit {
         this.user = user;
       }
     );
+    this.studentSubscription =
+      this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
+        this.student = student;
+      });
   }
 
   ngOnInit(): void {

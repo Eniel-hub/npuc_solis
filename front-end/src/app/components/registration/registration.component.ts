@@ -1,5 +1,6 @@
 import { RegistrationService } from './../../services/registration.service';
 import { StudentApplication } from '../../interfaces/StudentApplication';
+import { GlobalStudent } from 'src/app/services/Global.student.service';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { StudentService } from './../../services/student.service';
 import { SchoolService } from '../../services/school.service';
@@ -59,6 +60,7 @@ export class RegistrationComponent implements OnInit {
   arrSchools: School[] = [];
   allValid: boolean = false;
   idEducation: string = '';
+  studentSubscription: any;
   isGuardian: string = '';
   review: boolean = false;
   prevSchool: string = '';
@@ -85,6 +87,7 @@ export class RegistrationComponent implements OnInit {
     private studentService: StudentService,
     private modalService: MdbModalService,
     private schoolService: SchoolService,
+    private GlobalStudent: GlobalStudent,
     private GlobalUser: GlobalUser,
     private menuItems: MenuItems,
     private route: Router
@@ -94,6 +97,11 @@ export class RegistrationComponent implements OnInit {
         this.user = user;
       }
     );
+
+    this.studentSubscription =
+      this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
+        this.student = student;
+      });
   }
 
   ngOnInit(): void {
