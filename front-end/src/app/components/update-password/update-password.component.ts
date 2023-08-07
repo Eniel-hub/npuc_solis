@@ -35,6 +35,7 @@ export class UpdatePasswordComponent implements OnInit {
   isVisible: boolean = false;
   errorMessage: string = '';
   eyeSlashIcon = faEyeSlash;
+  userSubscription: any;
   idIcon = faIdBadge;
   lockIcon = faLock;
   userIcon = faUser;
@@ -47,7 +48,13 @@ export class UpdatePasswordComponent implements OnInit {
     private globalUser: GlobalUser,
     private menuItems: MenuItems,
     private router: Router
-  ) {}
+  ) {
+    this.userSubscription = this.globalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
+  }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);

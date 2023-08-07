@@ -2,6 +2,7 @@ import { SchoolService } from '../../services/school.service';
 import { Component, OnInit } from '@angular/core';
 import { School } from '../../interfaces/School';
 import { MenuItems } from 'src/app/services/menu-items.service';
+import { GlobalUser } from 'src/app/services/Global.user.service';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +15,20 @@ export class HomeComponent implements OnInit {
   nextSchoolYear: string = '';
   currentSchoolYear: string = '';
   menuSubscription: any;
+  userSubscription: any;
+  user: any;
 
-  constructor(private service: SchoolService, private MenuItems: MenuItems) {}
+  constructor(
+    private service: SchoolService,
+    private GlobalUser: GlobalUser,
+    private MenuItems: MenuItems
+  ) {
+    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
+  }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);

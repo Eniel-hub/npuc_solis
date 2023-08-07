@@ -1,10 +1,10 @@
 import { Router } from '@angular/router';
 import { Admin } from '../../interfaces/Admin';
 import { Error } from '../../interfaces/Error';
-import { GlobalStudent } from 'src/app/services/Global.student.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { AdminService } from 'src/app/services/admin.service';
 import { LoaderComponent } from '../loader/loader.component';
+import { AdminService } from 'src/app/services/admin.service';
+import { GlobalUser } from 'src/app/services/Global.user.service';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import {
   faUser,
@@ -23,11 +23,13 @@ import { MenuItems } from 'src/app/services/menu-items.service';
   ],
 })
 export class AdminLoginComponent implements OnInit {
+  user: any;
   eyeIcon = faEye;
   admin: Admin = {};
   userIcon = faUser;
   lockIcon = faLock;
   name: string = '';
+  userSubscription: any;
   errorClass: string = '';
   eyeSlashIcon = faEyeSlash;
   errorMessage: string = '';
@@ -41,11 +43,17 @@ export class AdminLoginComponent implements OnInit {
 
   constructor(
     private modalService: MdbModalService,
-    private GlobalStudent: GlobalStudent,
     private adminService: AdminService,
+    private GlobalUser: GlobalUser,
     private menuItems: MenuItems,
     private router: Router
-  ) {}
+  ) {
+    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
+  }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);

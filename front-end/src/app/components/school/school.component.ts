@@ -1,74 +1,86 @@
 import { School } from '../../interfaces/School';
 import { Component, OnInit } from '@angular/core';
 import { SchoolService } from 'src/app/services/school.service';
-import { faCaretUp, faCaretDown,
-          faCaretRight,
-          faCaretLeft,
-          faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCaretUp,
+  faCaretDown,
+  faCaretRight,
+  faCaretLeft,
+  faMagnifyingGlass,
+} from '@fortawesome/free-solid-svg-icons';
+import { GlobalUser } from 'src/app/services/Global.user.service';
 
 @Component({
   selector: 'app-school',
   templateUrl: './school.component.html',
-  styleUrls: ['./school.component.css']
+  styleUrls: ['./school.component.css'],
 })
 export class SchoolComponent implements OnInit {
-  homeComponents:any;
-  arrSchools : School[] = [];
-  selectedSchool : School = {ID : 0};
-  bgURL : string = '';
+  homeComponents: any;
+  arrSchools: School[] = [];
+  selectedSchool: School = { ID: 0 };
+  bgURL: string = '';
   upIcon = faCaretUp;
   leftIcon = faCaretLeft;
   rightIcon = faCaretRight;
   downIcon = faCaretDown;
   searchIcon = faMagnifyingGlass;
-  wrapperClassList : string = 'wrapper';
-  wrapperIsActive : boolean = false;
-  label : String = 'Select School';
-  schools : School[] = [];
-  value : string = '';
-  arrOfSchools : any;
+  wrapperClassList: string = 'wrapper';
+  wrapperIsActive: boolean = false;
+  label: String = 'Select School';
+  schools: School[] = [];
+  value: string = '';
+  arrOfSchools: any;
+  user: any;
+  userSubscription: any;
 
-  constructor(private service:SchoolService) {}
+  constructor(private service: SchoolService, private GlobalUser: GlobalUser) {
+    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
+  }
 
   ngOnInit(): void {
-    this.service.getHomeComponent()
-        .subscribe(response => {
-          this.homeComponents = response;
-          this.arrSchools = this.homeComponents.schools;
-          this.arrOfSchool(this.arrSchools);
-        });
+    this.service.getHomeComponent().subscribe((response) => {
+      this.homeComponents = response;
+      this.arrSchools = this.homeComponents.schools;
+      this.arrOfSchool(this.arrSchools);
+    });
   }
 
-  getImage(name : string){
+  getImage(name: string) {
     //todo: get iamges from database
 
-    return '../../../assets/imgs/2.jpg'
+    return '../../../assets/imgs/2.jpg';
   }
 
-  arrOfSchool(schools : School[]){
+  arrOfSchool(schools: School[]) {
     let arr = [];
-    let temp :School[] = [];
+    let temp: School[] = [];
     let last;
-    for(let index = 0; index < schools.length; index++){
+    for (let index = 0; index < schools.length; index++) {
       temp.push(schools[index]);
-      if(index%4 == 3){
+      if (index % 4 == 3) {
         last = index;
-        arr.push(temp)
-        temp = []
+        arr.push(temp);
+        temp = [];
       }
     }
-    if(last != schools.length){
-      arr.push(temp)
+    if (last != schools.length) {
+      arr.push(temp);
     }
     this.arrOfSchools = arr;
   }
 
-  searchSchool(event : Event){
+  searchSchool(event: Event) {
     this.value = (event.target as HTMLInputElement).value;
-    this.schools = this.arrSchools.filter(school => {
-      return school.school_name?.toLowerCase().includes(this.value.toLowerCase())
-    })
-    this.arrOfSchool(this.schools)
+    this.schools = this.arrSchools.filter((school) => {
+      return school.school_name
+        ?.toLowerCase()
+        .includes(this.value.toLowerCase());
+    });
+    this.arrOfSchool(this.schools);
   }
-
 }

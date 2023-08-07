@@ -12,12 +12,19 @@ export class PolicyComponent implements OnInit {
   homeLink: string = '/student/dashboard';
   home: string = 'dashboard';
   user: any;
+  userSubscription: any;
 
   constructor(
     private userService: UserService,
     private menuItems: MenuItems,
     private globalUser: GlobalUser
-  ) {}
+  ) {
+    this.userSubscription = this.globalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
+  }
 
   ngOnInit(): void {
     this.user = this.globalUser.getGlobalVarUser;

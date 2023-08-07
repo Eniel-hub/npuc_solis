@@ -6,6 +6,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { Nationality } from 'src/app/interfaces/Nationality';
 import { Religion } from 'src/app/interfaces/Religion';
 import { GlobalStudent } from 'src/app/services/Global.student.service';
+import { GlobalUser } from 'src/app/services/Global.user.service';
 import { MenuItems } from 'src/app/services/menu-items.service';
 
 @Component({
@@ -23,22 +24,23 @@ export class StudentProfileComponent implements OnInit {
   gradeLevel: string = 'Kinder II';
   religions: Religion[] = [];
   nationalities: Nationality[] = [];
+  userSubscription: any;
+  user: any;
   BDay: any;
-
-  // menuItems = [
-  //   { name: 'dashboard', link: '/student/dashboard' },
-  //   { name: 'enrollment', link: '/student/enrollment' },
-  //   { name: 'profile', link: '/user/profile' },
-  //   { name: 'about', link: '/about-us' },
-  //   { name: 'logout' },
-  // ];
 
   constructor(
     private menuItems: MenuItems,
     private service: StudentService,
     private schoolService: SchoolService,
-    private GlobalStudent: GlobalStudent
-  ) {}
+    private GlobalStudent: GlobalStudent,
+    private GlobalUser: GlobalUser
+  ) {
+    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
+  }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);

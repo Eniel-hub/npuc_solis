@@ -14,6 +14,7 @@ import {
   faIdBadge,
 } from '@fortawesome/free-solid-svg-icons';
 import { MenuItems } from 'src/app/services/menu-items.service';
+import { GlobalUser } from 'src/app/services/Global.user.service';
 
 @Component({
   selector: 'app-register',
@@ -39,14 +40,22 @@ export class RegisterComponent implements OnInit {
   lockIcon = faLock;
   userIcon = faUser;
   user: User = {};
+  userSubscription: any;
   eyeIcon = faEye;
 
   constructor(
     private modalService: MdbModalService,
     private userService: UserService,
     private router: Router,
+    private GlobalUser: GlobalUser,
     private menuItems: MenuItems
-  ) {}
+  ) {
+    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
+  }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);

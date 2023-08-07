@@ -21,6 +21,7 @@ import { ConfirmationAndRejectComponent } from '../confirmation-and-reject/confi
 import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { RejectService } from 'src/app/services/reject.service';
 import { MenuItems } from 'src/app/services/menu-items.service';
+import { GlobalUser } from 'src/app/services/Global.user.service';
 
 @Component({
   selector: 'app-manage-level',
@@ -48,6 +49,7 @@ export class ManageLevelComponent implements OnInit {
   sections: any;
   nbrStudents: any;
   teacher: any;
+  userSubscription: any;
 
   schoolYearSelected: any;
   gradeLevelSelected: any;
@@ -74,8 +76,15 @@ export class ManageLevelComponent implements OnInit {
     private router: Router,
     private confirmPublished: ConfirmationService,
     private rejectPublished: RejectService,
+    private GlobalUser: GlobalUser,
     private menuItemsService: MenuItems
-  ) {}
+  ) {
+    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
+  }
 
   ngOnInit(): void {
     this.menuItemsService.updateMenuItems(true, 'admin');

@@ -17,7 +17,7 @@ import {
   faChevronRight as arrRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
-import { EmailValidator } from '@angular/forms';
+import { GlobalUser } from 'src/app/services/Global.user.service';
 import { MenuItems } from 'src/app/services/menu-items.service';
 
 @Component({
@@ -67,6 +67,7 @@ export class RegistrationComponent implements OnInit {
   schools: School[] = [];
   enrollmentSchYear: any;
   student: Student = {};
+  userSubscription: any;
   check: boolean = true;
   value: string = '';
   arrRight = arrRight;
@@ -77,15 +78,23 @@ export class RegistrationComponent implements OnInit {
   prevID: any;
   grades: any;
   grade: any;
+  user: any;
 
   constructor(
     private regiService: RegistrationService,
     private studentService: StudentService,
     private modalService: MdbModalService,
     private schoolService: SchoolService,
+    private GlobalUser: GlobalUser,
     private menuItems: MenuItems,
     private route: Router
-  ) {}
+  ) {
+    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
+  }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);

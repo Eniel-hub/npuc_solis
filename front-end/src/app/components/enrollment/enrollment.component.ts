@@ -10,6 +10,10 @@ import { School } from 'src/app/interfaces/School';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { GlobalUser } from 'src/app/services/Global.user.service';
+
+import { UserService } from '../../services/user.service';
+
 import { ConfirmationService } from 'src/app/services/confirmation.service';
 import { AlertComponent } from '../alert/alert.component';
 import { MenuItems } from 'src/app/services/menu-items.service';
@@ -46,6 +50,8 @@ export class EnrollmentComponent implements OnInit {
   enrollment: boolean = false;
   currentSection: string = '';
   isConfirmed: boolean = false;
+  userSubscription: any;
+  user: any;
 
   constructor(
     private route: Router,
@@ -55,8 +61,15 @@ export class EnrollmentComponent implements OnInit {
     private modalService: MdbModalService,
     private menuItems: MenuItems,
     private regiService: RegistrationService,
-    private confirmPublished: ConfirmationService
-  ) {}
+    private confirmPublished: ConfirmationService,
+    private GlobalUser: GlobalUser
+  ) {
+    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
+  }
 
   ngOnInit(): void {
     this.menuItems.updateMenuItems(true, 'student');

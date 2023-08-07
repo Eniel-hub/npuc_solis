@@ -86,11 +86,16 @@ export class HeaderComponent implements OnInit {
           if (response.error) return;
 
           let user = { ...response, type: 'student' };
-          this.userService.setUserInfo({ username: user.username });
-          console.log(user);
-          this.globalUser.updateGlobalVar(user);
+          let glUser = this.globalUser.getGlobalVarUser();
+          // this.userService.setUserInfo({ username: user.username });
+          if (glUser != user) {
+            console.log('...', glUser);
+            this.globalUser.updateGlobalVar(user);
+          }
           this.user = this.globalUser.getGlobalVarUser();
           this.homeLink = '/student/dashboard';
+          console.log(user);
+          // this.router.navigate([this.homeLink]);
           this.hasDropdown = true;
 
           this.studentService.getStudentProfile().subscribe((response: any) => {
@@ -102,17 +107,16 @@ export class HeaderComponent implements OnInit {
           });
         });
 
-        this.adminService.getUser().subscribe((response: any) => {
-          if (response.error) return;
+        // this.adminService.getUser().subscribe((response: any) => {
+        //   if (response.error) return;
 
-          this.homeLink = '/staff/dashboard';
-          this.user = { ...response, type: 'admin' };
-          this.globalAdmin.updateGlobalVar(response);
-          this.admin = this.globalAdmin.getGlobalVarAdmin();
-          this.hasDropdown = true;
-        });
-
-        this.router.navigate([this.homeLink]);
+        //   this.homeLink = '/staff/dashboard';
+        //   this.router.navigate([this.homeLink]);
+        //   this.user = { ...response, type: 'admin' };
+        //   this.globalAdmin.updateGlobalVar(response);
+        //   this.admin = this.globalAdmin.getGlobalVarAdmin();
+        //   this.hasDropdown = true;
+        // });
       }
     });
 
