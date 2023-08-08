@@ -4,14 +4,7 @@ const auth = require("../auth/AuthAndAut");
 const userMiddleware = require("../user/user.middleware");
 
 //post request
-router.get("/", auth.IsAuth, async (req, res, next) => {
-  let user = req.user;
-  return res.json({
-    username: user.username,
-    profile_picture: user.profile_picture,
-    student_id: user.student_id,
-  });
-});
+router.get("/", auth.IsAuth, userMiddleware.Get);
 
 router.post("/login", (req, res, next) => {
   passport.authenticate("student-local", (err, user, info) => {

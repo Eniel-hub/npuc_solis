@@ -79,8 +79,6 @@ const getSchool = async (req, res, next) => {
 
   let [result] = await adminService.GetSchool(admin.staff_id);
   let school = helper.EmptyOrRows(result);
-
-  console.log(school);
   return res.status(200).json(school);
 };
 
@@ -88,14 +86,11 @@ const getStudents = async (req, res, next) => {
   try {
     let section_id = req.body.section_id;
     let school_year_id = req.body.school_year_id;
-    console.log(section_id, school_year_id);
 
     let students = await adminService.GetStudents(section_id, school_year_id);
-
-    console.log(students);
     return res.status(200).json(students);
   } catch (err) {
-    console.log(err);
+    console.log("an error occured while getting students", err);
     return res.status(400).json({ error: err });
   }
 };

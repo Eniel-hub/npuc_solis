@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { faBars, faXmark, faUser } from '@fortawesome/free-solid-svg-icons';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MenuItems } from 'src/app/services/menu-items.service';
 import { User } from 'src/app/interfaces/User';
 import { GlobalUser } from 'src/app/services/Global.user.service';
@@ -34,6 +34,7 @@ export class HeaderComponent implements OnInit {
   menuClass = new BehaviorSubject('hide');
   LmenuClass = new BehaviorSubject('hide');
   @Input() menuItems: { name?: string; link?: string }[] = [];
+  @Output() hasLoggedIn = new EventEmitter<boolean>();
 
   menuSubscription: any;
   userSubscription: any;
@@ -54,23 +55,27 @@ export class HeaderComponent implements OnInit {
     private adminService: AdminService,
     private router: Router
   ) {
+    this.globalUser.getGlobalUser.subscribe((user) => {
+      this.user = user;
+      this.update();
+    });
     this.menuSubscription = this.MenuItems.menuItemsUpdate.subscribe(
       (menuItems: any) => {
         this.menuItems = menuItems;
       }
     );
-    // this.userSubscription = this.globalUser.globalVarUserUpdate.subscribe(
-    //   (user: User) => {
-    //     this.user = user;
-    //     console.log('changes in user');
-    //   }
-    // );
-    // this.studentSubscription =
-    //   this.globalStudent.globalVarStudentUpdate.subscribe(
-    //     (student: Student) => {
-    //       this.student = student;
-    //     }
-    //   );
+    this.userSubscription = this.globalUser.globalVarUserUpdate.subscribe(
+      (user: User) => {
+        this.user = user;
+        console.log('inside userSubscription');
+      }
+    );
+    this.studentSubscription =
+      this.globalStudent.globalVarStudentUpdate.subscribe(
+        (student: Student) => {
+          this.student = student;
+        }
+      );
     // this.adminSubscription = this.globalAdmin.globalVarAdminUpdate.subscribe(
     //   (admin: Admin) => {
     //     this.admin = admin;
@@ -89,14 +94,9 @@ export class HeaderComponent implements OnInit {
           let glUser = this.globalUser.getGlobalVarUser();
           // this.userService.setUserInfo({ username: user.username });
           if (glUser != user) {
-            console.log('...', glUser);
             this.globalUser.updateGlobalVar(user);
           }
           this.user = this.globalUser.getGlobalVarUser();
-          this.homeLink = '/student/dashboard';
-          console.log(user);
-          // this.router.navigate([this.homeLink]);
-          this.hasDropdown = true;
 
           this.studentService.getStudentProfile().subscribe((response: any) => {
             if (response.error) return;
@@ -105,6 +105,10 @@ export class HeaderComponent implements OnInit {
             this.globalStudent.updateGlobalVar(student);
             this.student = this.globalStudent.getGlobalVarStudent();
           });
+
+          this.homeLink = '/student/dashboard';
+          this.hasDropdown = true;
+          this.router.navigate([this.homeLink]);
         });
 
         // this.adminService.getUser().subscribe((response: any) => {
@@ -120,41 +124,16 @@ export class HeaderComponent implements OnInit {
       }
     });
 
-    // this.userSubscription = this.globalUser.globalVarUserUpdate.subscribe(
-    //   (user: User) => {
-    //     console.log('logged in', user);
-    //     this.user = { ...user, type: 'student' };
-    //     console.log(user);
-    //     this.globalUser.updateGlobalVar(user);
-    //     this.user = this.globalUser.getGlobalVarUser();
-    //     this.homeLink = '/student/dashboard';
-    //     this.hasDropdown = true;
-
-    //     this.studentService.getStudentProfile().subscribe((response: any) => {
-    //       if (response.error) return;
-    //       let student = response;
-    //       console.log('response student', response);
-    //       this.globalStudent.updateGlobalVar(student);
-    //       this.student = this.globalStudent.getGlobalVarStudent();
-    //     });
-    //   }
-    // );
-
-    // this.adminSubscription = this.globalAdmin.globalVarAdminUpdate.subscribe(
-    //   (admin: Admin) => {
-    //     this.user = { ...admin, type: 'admin' };
-    //     this.globalAdmin.updateGlobalVar(admin);
-    //     this.admin = this.globalAdmin.getGlobalVarAdmin();
-    //     this.homeLink = '/staff/dashboard';
-    //     this.hasDropdown = true;
-    //   }
-    // );
-
     this.Icon = this.barIcon;
     this.LIcon = this.userIcon;
     this.menuSubscription;
     console.log(this.user);
   }
+
+  update = () => {
+    if (this.user.username) this.hasDropdown = true;
+    else this.hasDropdown = false;
+  };
 
   HasNav = (hasNav: boolean) => {
     if (hasNav) {

@@ -13,7 +13,6 @@ const NewApplication = async (req, res, next) => {
     await nsService.RegisterNewStudent(application.username, application);
     res.json({ response: true });
   } catch (err) {
-    console.log(err);
     res.json({ error: err.messsage });
     console.log(`error while doing a new application : ${err.message}`);
   }

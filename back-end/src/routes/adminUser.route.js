@@ -6,7 +6,6 @@ const adminUserMiddleware = require("../adminUser/adminUser.middleware");
 //post request
 router.get("/", auth.IsAuth, async (req, res, next) => {
   try {
-    console.log(req.user);
     let admin = await adminUserMiddleware.GetUser(req.user.ID);
     if (admin)
       return res.json({

@@ -114,6 +114,16 @@ const CreateUser = async (username, password, ID) => {
   }
 };
 
+const Get = async (req, res, next) => {
+  let user = req.user;
+  user = await GetUser({ username: user.username });
+  return res.json({
+    username: user.username,
+    profile_picture: user.profile_picture,
+    student_id: user.student_id,
+  });
+};
+
 const GetUser = async ({ username, ID }) => {
   let user;
   if (username) {
@@ -132,21 +142,6 @@ const GetUser = async ({ username, ID }) => {
       console.log(`error while getting user by name : ${err.message}`);
     }
   }
-  // if (user.profilePicture != null) {
-  //   let imgUrl;
-  //   SaveProfilePicture(user, true)
-  //     .then((url) => {
-  //       imgUrl = url;
-  //       user.profilePicture = imgUrl;
-  //       return user;
-  //     })
-  //     .catch((err) => {
-  //       console.log(
-  //         `an error occured while changing the profile picture (GetUser) ${err}`
-  //       );
-  //       return;
-  //     });
-  // }
   return user;
 };
 
@@ -225,4 +220,5 @@ module.exports = {
   deleteAcc,
   fpswCheck,
   GetUser,
+  Get,
 };

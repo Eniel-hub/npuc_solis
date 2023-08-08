@@ -24,7 +24,6 @@ export class UserProfileComponent implements OnInit {
   eyeIcon = faEye;
   userItem: any = localStorage.getItem('userInfo');
   username: any = JSON.parse(this.userItem).username;
-  ID: any = localStorage.getItem('studentInfo');
   img: any;
   password: string = '';
   password1: string = '';
@@ -50,13 +49,6 @@ export class UserProfileComponent implements OnInit {
   menuSubscription: any;
   menuItems: { name?: string; link?: string }[] = [];
 
-  // menuItems = [
-  //   { name: 'dashboard', link: '/student/dashboard' },
-  //   { name: 'student', link: '/student/profile' },
-  //   { name: 'about', link: '/about-us' },
-  //   { name: 'logout' },
-  // ];
-
   constructor(
     private studentService: StudentService,
     private modalService: MdbModalService,
@@ -78,15 +70,15 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.GlobalUser.globalVarUserUpdate.subscribe((user) => {
-      console.log('user changed in user-profile component');
-      this.user = user;
-    });
-    console.log('user profile', this.user);
-    this.MenuItems.updateMenuItems(true, this.user.type);
+    // this.GlobalUser.globalVarUserUpdate.subscribe((user) => {
+    //   console.log('user changed in user-profile component');
+    //   this.user = user;
+    // });
+    this.MenuItems.updateMenuItems(true, 'student');
 
     this.student = this.GlobalStudent.getGlobalVarStudent();
     this.user = this.GlobalUser.getGlobalVarUser();
+    console.log('user in profile is', this.user);
 
     this.profile = this.user.profile_picture || this.profile;
     if (this.student.gender == 'Male' && this.profile == this.profileN)
@@ -162,7 +154,9 @@ export class UserProfileComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.userService.setProfilePicture(response.url);
-          console.log(response);
+          this.user.profile_picture = response.url;
+          this.GlobalUser.updateGlobalVar(this.user);
+          this.profile = this.user.profile_picture || this.profile;
           this.loaderRef?.close();
           this.openModal();
           this.edit();

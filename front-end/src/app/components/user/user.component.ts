@@ -40,11 +40,11 @@ export class UserComponent implements OnInit {
     private GlobalStudent: GlobalStudent,
     private studentService: StudentService,
     private userService: UserService,
-    private adminService: AdminService,
-    private router: Router
+    private adminService: AdminService
   ) {
-    this.GlobalUser.globalVarUserUpdate.subscribe((user) => {
+    this.GlobalUser.getGlobalUser.subscribe((user) => {
       this.user = user;
+      this.update();
     });
     this.studentSubscription =
       this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
@@ -53,6 +53,13 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.GlobalUser.globalVarUserUpdate.subscribe((user) => {
+      this.user = user;
+      console.log('---------------------------------');
+      console.log('user component change of user');
+      this.profile = this.user.profile_picture || this.profile;
+    });
+    this.user = this.GlobalUser.getGlobalVarUser();
     this.name = this.student.lastname || '';
 
     if (this.student.gender == 'Male' && this.profile == this.profileN)
@@ -63,6 +70,11 @@ export class UserComponent implements OnInit {
     // getting picture
     this.profile = this.user.profile_picture || this.profile;
   }
+
+  update = () => {
+    if (this.user.username)
+      this.profile = this.user.profile_picture || this.profile;
+  };
 
   ngOnDestroy() {
     // this.studentSubscription.unsubscribe();

@@ -67,13 +67,11 @@ const setNext = async (req, res, next) => {
    */
   let stype;
   let pastRecord = await service.GetPastRecords(user.student_id);
-  console.log(pastRecord);
   if (pastRecord[0] == undefined) stype = "New";
   else {
     let classRecord = await service.GetClassRecord(
       pastRecord[pastRecord.length - 1].id
     );
-    console.log(classRecord);
     if (!classRecord) stype = "Transferee";
     else {
       let school_of_record = await service.GetSchoolOfRecord(classRecord);

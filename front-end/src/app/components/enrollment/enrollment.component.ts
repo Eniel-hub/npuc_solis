@@ -95,7 +95,7 @@ export class EnrollmentComponent implements OnInit {
     this.student = this.GlobalStudent.getGlobalVarStudent();
 
     this.service.getGradeLevel().subscribe((response: any) => {
-      if (response.error) console.log(response.error);
+      if (response.error) return;
       else {
         this.gradeLevel = response.grade_level;
         this.gradeLevelId = response.ID;
@@ -103,7 +103,7 @@ export class EnrollmentComponent implements OnInit {
     });
 
     this.regiService.getCurrentRegistration().subscribe((response: any) => {
-      if (response.error) console.log(response.error);
+      if (response.error) return;
       else {
         this.currentSection = response.section_name;
       }

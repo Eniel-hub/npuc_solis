@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { User } from '../../interfaces/User';
 import { Error } from '../../interfaces/Error';
 import { GlobalUser } from 'src/app/services/Global.user.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { LoaderComponent } from '../loader/loader.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
@@ -25,6 +25,7 @@ import { StudentService } from 'src/app/services/student.service';
 
 //
 export class LoginComponent implements OnInit {
+  @Output() hasLoggedIn = new EventEmitter<boolean>();
   eyeIcon = faEye;
   user: User = { type: 'student' };
   userIcon = faUser;
@@ -136,24 +137,20 @@ export class LoginComponent implements OnInit {
   successfulLogin(user: User): void {
     this.successMessage = '';
 
-    this.GlobalUser.updateGlobalVar(user);
-    this.user = this.GlobalUser.getGlobalVarUser();
-
-    this.studentService.getStudentProfile().subscribe((response: any) => {
-      if (response.error) {
-        return;
-      }
-      let student = response;
-      this.GlobalStudent.updateGlobalVar(student);
-      this.student = this.GlobalStudent.getGlobalVarStudent();
-
-      console.log('loging student', this.student);
-      console.log('login user', this.user);
-    });
-
     setTimeout(() => {
       this.router.navigate(['/student/dashboard']);
       this.loaderRef?.close();
+      this.GlobalUser.updateGlobalVar(user);
+      this.user = this.GlobalUser.getGlobalVarUser();
+
+      this.studentService.getStudentProfile().subscribe((response: any) => {
+        if (response.error) {
+          return;
+        }
+        let student = response;
+        this.GlobalStudent.updateGlobalVar(student);
+        this.student = this.GlobalStudent.getGlobalVarStudent();
+      });
     }, 1500);
 
     // loging out after session expires
