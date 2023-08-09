@@ -1,4 +1,4 @@
-// import { PersonelDashboardComponent } from './components/personel-dashboard/personel-dashboard.component';
+import { DashboardStaffComponent } from './components/dashboard-staff/dashboard-staff.component';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
 import { RegistrationComponent } from './components/registration/registration.component';
@@ -19,7 +19,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
-// import {AuthGuardAdminService as IsAdmin} from './services/auth-guard.service';
+import { AuthGuardAdminService as IsAdmin } from './services/auth-guard.service';
+import { AuthGuardStaffService as IsStaff } from './services/auth-guard.service';
 import { AuthGuardStudentService as Student } from './services/auth-guard.service';
 import { AuthGuardNotStudentService as NotStudent } from './services/auth-guard.service';
 
@@ -86,14 +87,15 @@ const routes: Routes = [
     path: 'admin/login',
     component: AdminLoginComponent,
   },
-  // {
-  //   path: 'staff/dashboard',
-  //   component: PersonelDashboardComponent,
-  //   canActivate: [AuthGuard /*IsAdmin*/],
-  // },
+  {
+    path: 'staff/dashboard',
+    component: DashboardStaffComponent,
+    canActivate: [AuthGuard, IsStaff],
+  },
   {
     path: 'admin/manage-levels',
     component: ManageLevelComponent,
+    canActivate: [AuthGuard, IsAdmin],
   },
   {
     path: '**',
@@ -103,7 +105,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  providers: [AuthGuard, Student, NotStudent],
+  providers: [AuthGuard, Student, NotStudent, IsAdmin],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -28,8 +28,8 @@ export class UserService {
   }
 
   isAuthenticated(): Boolean {
-    let userData = localStorage.getItem('userInfo');
-    if (userData && JSON.parse(userData)) {
+    let userData = localStorage.getItem('isLoggedIn');
+    if (userData?.match('true')) {
       return true;
     }
     return false;
@@ -37,6 +37,7 @@ export class UserService {
 
   setUserInfo(user: any) {
     localStorage.setItem('userInfo', JSON.stringify(user));
+    localStorage.setItem('isLoggedIn', 'true');
   }
 
   setProfilePicture(profilePicture: string) {

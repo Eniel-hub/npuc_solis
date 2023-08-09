@@ -126,7 +126,7 @@ export class AdminLoginComponent implements OnInit {
     this.successMessage = '';
 
     setTimeout(() => {
-      this.router.navigate(['/admin/manage-levels']);
+      this.router.navigate(['staff/dashboard']);
       this.loaderRef?.close();
       this.GlobalUser.updateGlobalVar(user);
       this.user = this.GlobalUser.getGlobalVarUser();

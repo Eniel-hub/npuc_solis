@@ -118,7 +118,7 @@ export class HeaderComponent implements OnInit {
             }
             this.user = this.globalUser.getGlobalVarUser();
 
-            this.homeLink = '/admin/manage-levels';
+            this.homeLink = 'staff/dashboard';
             this.hasDropdown = true;
             this.router.navigate([this.homeLink]);
           }
@@ -129,11 +129,11 @@ export class HeaderComponent implements OnInit {
     this.Icon = this.barIcon;
     this.LIcon = this.userIcon;
     this.menuSubscription;
-    console.log(this.user);
   }
 
   update = () => {
     if (this.user.username) this.hasDropdown = true;
+    else if (this.user.ID) this.hasDropdown = true;
     else this.hasDropdown = false;
   };
 

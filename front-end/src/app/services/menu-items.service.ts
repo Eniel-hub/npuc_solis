@@ -93,11 +93,11 @@ export class MenuItems {
         menuItems = [
           {
             name: 'dashboard',
-            link: '/admin/dashboard',
+            link: '/staff/dashboard',
           },
           {
             name: 'Grade Levels',
-            link: '/admin/manage/gdlv',
+            link: '/admin/manage-levels',
           },
           {
             name: 'Personels',

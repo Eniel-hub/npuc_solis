@@ -5,6 +5,7 @@ import { lastValueFrom, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Admin } from '../interfaces/Admin';
 import { User } from '../interfaces/User';
+import { GlobalUser } from './Global.user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +46,7 @@ export class AdminService {
   setUserInfo(user: any) {
     localStorage.setItem('userInfo', user.ID);
     localStorage.setItem('type', user.type);
+    localStorage.setItem('isLoggedIn', 'true');
   }
 
   validate = (admin: Admin) => {

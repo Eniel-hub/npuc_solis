@@ -41,6 +41,7 @@ module.exports = (passport) => {
           username: user.username,
           student_id: user.student_id,
           profile_picture: user.profile_picture,
+          type: "student",
         });
       else return done(null, false, { error: "wrong password" });
     } catch (err) {
