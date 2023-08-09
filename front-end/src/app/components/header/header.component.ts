@@ -90,37 +90,39 @@ export class HeaderComponent implements OnInit {
         this.userService.getUser().subscribe((response: any) => {
           if (response.error) return;
 
-          let user = { ...response, type: 'student' };
-          let glUser = this.globalUser.getGlobalVarUser();
-          // this.userService.setUserInfo({ username: user.username });
-          if (glUser != user) {
-            this.globalUser.updateGlobalVar(user);
+          let user = { ...response };
+          if (user.type == 'student') {
+            let glUser = this.globalUser.getGlobalVarUser();
+            if (glUser != user) {
+              this.globalUser.updateGlobalVar(user);
+            }
+            this.user = this.globalUser.getGlobalVarUser();
+
+            this.studentService
+              .getStudentProfile()
+              .subscribe((response: any) => {
+                if (response.error) return;
+                let student = response;
+                this.globalStudent.updateGlobalVar(student);
+                this.student = this.globalStudent.getGlobalVarStudent();
+              });
+
+            this.homeLink = '/student/dashboard';
+            this.hasDropdown = true;
+            this.router.navigate([this.homeLink]);
           }
-          this.user = this.globalUser.getGlobalVarUser();
+          if (user.type == 'admin') {
+            let glUser = this.globalUser.getGlobalVarUser();
+            if (glUser != user) {
+              this.globalUser.updateGlobalVar(user);
+            }
+            this.user = this.globalUser.getGlobalVarUser();
 
-          this.studentService.getStudentProfile().subscribe((response: any) => {
-            if (response.error) return;
-            let student = response;
-            console.log('response student', response);
-            this.globalStudent.updateGlobalVar(student);
-            this.student = this.globalStudent.getGlobalVarStudent();
-          });
-
-          this.homeLink = '/student/dashboard';
-          this.hasDropdown = true;
-          this.router.navigate([this.homeLink]);
+            this.homeLink = '/admin/manage-levels';
+            this.hasDropdown = true;
+            this.router.navigate([this.homeLink]);
+          }
         });
-
-        // this.adminService.getUser().subscribe((response: any) => {
-        //   if (response.error) return;
-
-        //   this.homeLink = '/staff/dashboard';
-        //   this.router.navigate([this.homeLink]);
-        //   this.user = { ...response, type: 'admin' };
-        //   this.globalAdmin.updateGlobalVar(response);
-        //   this.admin = this.globalAdmin.getGlobalVarAdmin();
-        //   this.hasDropdown = true;
-        // });
       }
     });
 

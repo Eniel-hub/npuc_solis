@@ -2,9 +2,10 @@ const passport = require("passport");
 const router = require("express").Router();
 const auth = require("../auth/AuthAndAut");
 const userMiddleware = require("../user/user.middleware");
+const adminMiddleware = require("../adminUser/adminUser.middleware");
 
 //post request
-router.get("/", auth.IsAuth, userMiddleware.Get);
+router.get("/", auth.IsAuth, userMiddleware.Get, adminMiddleware.Get);
 
 router.post("/login", (req, res, next) => {
   passport.authenticate("student-local", (err, user, info) => {

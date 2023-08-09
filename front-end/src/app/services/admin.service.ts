@@ -43,8 +43,8 @@ export class AdminService {
   }
 
   setUserInfo(user: any) {
-    localStorage.setItem('userInfo', JSON.parse(user).ID);
-    localStorage.setItem('type', JSON.parse(user).type);
+    localStorage.setItem('userInfo', user.ID);
+    localStorage.setItem('type', user.type);
   }
 
   validate = (admin: Admin) => {

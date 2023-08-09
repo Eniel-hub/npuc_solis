@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
   hasUser: boolean = false;
   @Input() toggleSignButton: string = '';
   userInfo: any = localStorage.getItem('userInfo');
-  name: any = JSON.parse(this.userInfo).username;
+  name: any;
   profileN: string = '../../../assets/imgs/pp-n.jpeg';
   profile: string = this.profileN;
   globalProfilePicture: string = '';
@@ -55,12 +55,8 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.GlobalUser.globalVarUserUpdate.subscribe((user) => {
       this.user = user;
-      console.log('---------------------------------');
-      console.log('user component change of user');
-      this.profile = this.user.profile_picture || this.profile;
     });
     this.user = this.GlobalUser.getGlobalVarUser();
-    this.name = this.student.lastname || '';
 
     if (this.student.gender == 'Male' && this.profile == this.profileN)
       this.profile = '../../../assets/imgs/pp-g.jpeg';
@@ -72,8 +68,12 @@ export class UserComponent implements OnInit {
   }
 
   update = () => {
-    if (this.user.username)
+    if (this.user.type == 'student') {
       this.profile = this.user.profile_picture || this.profile;
+      this.name = this.user.username;
+    } else if (this.user.type == 'admin') {
+      this.name = this.user.account_name;
+    }
   };
 
   ngOnDestroy() {

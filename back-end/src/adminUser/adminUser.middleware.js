@@ -118,6 +118,19 @@ const getTeacher = async (req, res, next) => {
   return res.status(200).json(teacher);
 };
 
+const Get = async (req, res, next) => {
+  let user = req.user;
+  if (user.type.toLowerCase() == "admin") {
+    user = await GetUser(user.ID);
+    return res.json({
+      ID: user.ID,
+      staff_id: user.staff_id,
+      account_name: user.account_name,
+      type: "admin",
+    });
+  } else next();
+};
+
 module.exports = {
   getGradeSections,
   getGradeLevels,
@@ -129,4 +142,5 @@ module.exports = {
   fpswCheck,
   getSchool,
   GetUser,
+  Get,
 };

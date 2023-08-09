@@ -14,6 +14,8 @@ import {
   faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons';
 import { MenuItems } from 'src/app/services/menu-items.service';
+import { GlobalAdmin } from 'src/app/services/Global.admin.service';
+import { User } from 'src/app/interfaces/User';
 
 @Component({
   selector: 'app-admin-login',
@@ -46,7 +48,7 @@ export class AdminLoginComponent implements OnInit {
 
   constructor(
     private modalService: MdbModalService,
-    private GlobalStudent: GlobalStudent,
+    private GlobalAdmin: GlobalAdmin,
     private adminService: AdminService,
     private GlobalUser: GlobalUser,
     private menuItems: MenuItems,
@@ -57,10 +59,6 @@ export class AdminLoginComponent implements OnInit {
         this.user = user;
       }
     );
-    this.studentSubscription =
-      this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
-        this.student = student;
-      });
   }
 
   ngOnInit(): void {
@@ -124,12 +122,15 @@ export class AdminLoginComponent implements OnInit {
     }
   }
 
-  successfulLogin(): void {
+  successfulLogin(user: User): void {
     this.successMessage = '';
+
     setTimeout(() => {
-      this.router.navigate(['/admin/dashboard']);
+      this.router.navigate(['/admin/manage-levels']);
       this.loaderRef?.close();
-    }, 2000);
+      this.GlobalUser.updateGlobalVar(user);
+      this.user = this.GlobalUser.getGlobalVarUser();
+    }, 1500);
 
     //loging out after session expires
     setTimeout(() => {
@@ -156,11 +157,12 @@ export class AdminLoginComponent implements OnInit {
           this.getErrorMessage();
           this.loaderRef?.close();
         } else {
+          let user = { ...response, type: 'admin' };
           this.adminService.setUserInfo({
             ID: response.ID,
-            type: response.type,
+            type: 'admin',
           });
-          this.successfulLogin();
+          this.successfulLogin(user);
         }
       });
     }

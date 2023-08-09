@@ -63,11 +63,11 @@ module.exports = (passport) => {
       );
       if (isValid == null) {
         adminMiddleware.updatePassword(admin.ID, password);
-        return done(null, { ID: admin.ID, type: "Admin" });
+        return done(null, { ID: admin.ID, type: "admin" });
       } else if (isValid)
         return done(null, {
           ID: admin.ID,
-          type: "Admin",
+          type: "admin",
           staff_id: admin.staff_id,
           account_name: admin.account_name,
         });
