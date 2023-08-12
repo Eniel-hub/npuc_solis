@@ -42,6 +42,7 @@
   --marroon-light-5: #dcb87480;
 
   --color-neutral: #f7f7f7;
+  --color-neutral-50: rgba(247, 247, 247, 0.5);
   --color-primary: #41a6ba;
   --color-primary-darker-50: rgba(48, 121, 136, 0.5);
   --color-primary-darker: #2f7987;
@@ -51,6 +52,8 @@
   --color-secondary: #ba702fc4;
   --color-secondary-50: rgba(186, 112, 47, 0.322);
   --color-prime: #baa800;
+  --color-dark: rgb(1, 1, 1);
+  --color-dark-50: rgba(1, 1, 1, 0.5);
 
   --on-neutral: #334136;
   --on-primary: #f7f7f7;
