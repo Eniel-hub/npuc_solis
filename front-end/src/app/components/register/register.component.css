@@ -17,7 +17,8 @@
   margin: auto;
   background-color: var(--color-neutral);
   height: fit-content;
-  width: 50vw;
+  max-width: 600px;
+  width: 100%;
   box-shadow: var(--box-shadow);
 }
 
@@ -41,8 +42,16 @@
   color: var(--color-prime) !important;
 }
 
-.col-md:has(.img) {
+.col:has(.img) {
   display: flex;
+}
+
+.col {
+  margin-bottom: 10px;
+  /* display: grid; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
 }
 
 .img {
@@ -91,12 +100,15 @@ label {
 
 .input {
   position: relative;
-  width: calc(var(--size-ratio) * 20);
-  max-width: 50vw;
-  display: inline-block;
+  /* width: 100%; */
+  /* max-width: 50vw; */
+  /* display: block; */
+  display: flex;
   padding-left: 5px;
   padding-right: 5px;
   cursor: text;
+  margin: auto;
+  /* margin: auto; */
 }
 
 .form .info {
@@ -158,18 +170,13 @@ label {
 
 input {
   float: left;
-  margin-right: 5px;
-  margin-left: 5px;
-  width: calc(100% - 25px);
+  /* margin-right: 5px;
+  margin-left: 5px; */
+  /* width: calc(100% - 25px); */
   background: transparent;
   outline: none;
   border: 0px;
-  padding: 0;
-}
-
-.info.info-psw {
-  margin: 0px;
-  margin-top: -6px !important;
+  /* padding: 0; */
 }
 
 .title {
@@ -178,12 +185,13 @@ input {
 
 .input-container {
   position: relative;
-  width: 100%;
-  margin-right: auto;
+  display: flex;
+  /* width: 100%; */
+  /* margin-right: auto; */
 }
 
 .ic1 {
-  margin-top: 20px;
+  margin-top: 20px !important;
 }
 
 .ic2 {
@@ -192,13 +200,13 @@ input {
 
 .input2 {
   outline: 0;
-  max-width: 50vw;
+  /* max-width: 50vw; */
   padding: 3px 15px 0;
   padding-bottom: 0.5px;
   box-sizing: border-box;
   color: var(--on-neutral);
   font-size: var(--body-font-size);
-  width: calc(var(--size-ratio) * 14);
+  /* width: calc(var(--size-ratio) * 14); */
   background-color: var(--color-neutral);
   border-bottom: 1px solid var(--on-neutral);
 }
@@ -261,6 +269,7 @@ input {
   background-color: transparent;
   color: var(--on-neutral);
   font-family: sans-serif;
+  font-size: small;
   left: 20px;
   line-height: 0;
   pointer-events: none;
@@ -278,50 +287,27 @@ input {
   transform: translateY(-30px) translateX(10px) scale(0.75);
 }
 
-@media (min-width: 600px) {
-  .form {
-    justify-content: center;
-    width: 25vw;
-    padding-left: 4.5vw;
-  }
-
-  .row .col .img {
-    margin-bottom: 10px;
-  }
-
-  .form .info.info-policy {
-    margin-top: calc(var(--size-ratio) * 0.8);
-    word-spacing: 0px;
-    line-height: 0%;
-    text-align: left;
-  }
+.form {
+  justify-content: center;
+  /* width: 20vw; */
+  padding-left: 5vw;
 }
 
-@media (min-width: 1350px) {
-  .col {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-  }
+.eye {
+  margin: auto;
+  margin-left: -23px;
+  color: rgba(78, 74, 74, 0.6);
 }
 
-@media (max-width: 600px) {
-  .ic1 {
-    margin-top: 20px !important;
-  }
-  .input {
-    width: 300px !important;
-  }
-  .input2 {
-    width: 100% !important;
-  }
+.input2:focus ~ .eye {
+  color: rgba(235, 220, 220, 0.6);
 }
 
-@media (max-width: 600px) {
-  .wrapper {
-    margin: auto !important;
+@media (max-width: 576px) {
+  .content {
+    min-height: var(--content-height);
   }
   .wrapper {
-    width: 80vw;
+    margin: auto;
   }
 }

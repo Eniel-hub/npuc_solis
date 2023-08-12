@@ -68,6 +68,10 @@
   width: calc(var(--size-ratio) * 6.7);
 }
 
+.hide {
+  display: none;
+}
+
 .right {
   /* padding-top: 2vh; */
   width: fit-content;
@@ -283,6 +287,8 @@ select {
 
 .table {
   color: var(--on-neutral);
+  min-height: 62vh;
+  height: fit-content;
 }
 .table-responsive {
   margin: none;

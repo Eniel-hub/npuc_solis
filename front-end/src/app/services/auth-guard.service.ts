@@ -35,6 +35,7 @@ export class AuthGuardStudentService implements CanActivate {
   }
 
   canActivate = async () => {
+    console.log('can activate', this.user);
     if (this.user.type == 'student' && this.user.student_id) return true;
     if (this.user.type != 'student') {
       this.route.navigate(['/home']);

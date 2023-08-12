@@ -66,10 +66,6 @@ img {
 }
 
 @media (max-width: 600px) {
-  .school {
-    margin: auto;
-    width: 90vw;
-  }
   .hide-small {
     display: none !important;
   }
@@ -78,23 +74,34 @@ img {
   }
   #first {
     padding: 0 16px;
-    border-radius: 25px;
     margin-top: -25px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
   }
   .limg {
     padding-bottom: 10px;
+  }
+  .section-content {
+    width: 100% !important;
+
+    border-radius: 25px;
+
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 }
 
 .section-content {
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
   max-width: 100%;
-  padding: 8px 16px;
-  background-color: #fff;
+  /* padding: 8px 16px; */
+  background-color: var(--color-neutral);
+  font-weight: bold;
+  width: 80%;
+  padding-bottom: 32px;
+  margin: auto;
+}
+
+.bold {
+  font-weight: 900 !important;
 }
 
 .text-section-title {
@@ -104,7 +111,8 @@ img {
   font-family: var(--title-font-family) !important;
   font-size: var(--title-font-size) !important;
   text-transform: capitalize;
-  color: var(--color-primary-darker-50);
+  color: var(--color-primary);
+  font-weight: bold;
 }
 
 h1.text-section-title {
@@ -120,7 +128,7 @@ h1.text-section-title {
 }
 
 .text-section-title:hover {
-  color: var(--marroon-light);
+  color: var(--color-prime);
 }
 
 .text-section-title h3 {

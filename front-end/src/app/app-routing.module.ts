@@ -21,7 +21,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
 import { AuthGuardAdminService as IsAdmin } from './services/auth-guard.service';
 import { AuthGuardStaffService as IsStaff } from './services/auth-guard.service';
-import { AuthGuardStudentService as Student } from './services/auth-guard.service';
+import { AuthGuardStudentService as IsStudent } from './services/auth-guard.service';
 import { AuthGuardNotStudentService as NotStudent } from './services/auth-guard.service';
 
 const routes: Routes = [
@@ -66,7 +66,7 @@ const routes: Routes = [
   {
     path: 'student/dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, IsStudent],
   },
   {
     path: 'student/enrollment',
@@ -105,7 +105,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  providers: [AuthGuard, Student, NotStudent, IsAdmin],
+  providers: [AuthGuard, IsStudent, NotStudent, IsAdmin],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

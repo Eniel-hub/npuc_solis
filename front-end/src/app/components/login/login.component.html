@@ -7,7 +7,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col col-sm-1 col-12"></div>
+        <div class="col col-12 col-sm-5">
           <div class="img">
             <img
               src="https://i.pinimg.com/originals/8b/44/51/8b4451665d6b2139e29f29b51ffb1829.png"
@@ -15,7 +16,7 @@
             />
           </div>
         </div>
-        <div class="col form">
+        <div class="col col-12 col-sm-6 form">
           <div class="input">
             <div class="input-container ic1" id="username">
               <input
@@ -30,16 +31,18 @@
           </div>
 
           <div class="input">
-            <div class="input-container ic1" id="father">
+            <div class="input-container ic1" id="password">
               <input
-                id="father"
+                id="password"
                 class="input2"
                 [type]="passwordType"
                 placeholder=" "
                 (input)="getInput(1, $event)"
               />
+              <fa-icon [icon]="eye()" class="eye" (click)="eyeClick()">
+              </fa-icon>
               <div class="cut cut-l"></div>
-              <label for="father" class="placeholder">Password</label>
+              <label for="password" class="placeholder">Password</label>
             </div>
           </div>
 

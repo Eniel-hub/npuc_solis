@@ -33,3 +33,8 @@
 .img::before {
   content: "LOGIN" !important;
 }
+
+.info.info-psw {
+  margin-top: calc(var(--size-ratio) * 0.8);
+  word-spacing: 0px;
+}

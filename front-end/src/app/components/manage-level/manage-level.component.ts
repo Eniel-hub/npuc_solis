@@ -38,8 +38,9 @@ export class ManageLevelComponent implements OnInit {
     { name: 'About', link: '/about-us' },
     { name: 'Login', link: '/user/login' },
   ];
-  admin: Admin = { ID: 'Admin', account_name: 'Eniel Leba', staff_id: 1213 };
-  user: User = { ...this.admin, type: 'admin' };
+
+  cancel_btn_class: string = 'btn btn-outline-danger btn-sm input-btn hide';
+  user: User = {};
   school: School = {
     ID: 0,
   };
@@ -79,14 +80,13 @@ export class ManageLevelComponent implements OnInit {
     private GlobalUser: GlobalUser,
     private menuItemsService: MenuItems
   ) {
-    this.userSubscription = this.GlobalUser.globalVarUserUpdate.subscribe(
-      (user) => {
-        this.user = user;
-      }
-    );
+    this.GlobalUser.getGlobalUser.subscribe((user) => {
+      this.user = user;
+    });
   }
 
   ngOnInit(): void {
+    console.log(this.user);
     this.menuItemsService.updateMenuItems(true, 'admin');
     window.scrollTo(0, 0);
 
@@ -135,8 +135,6 @@ export class ManageLevelComponent implements OnInit {
   clickedSection() {
     if (!this.gradeLevelSelected) return;
 
-    console.log(this.gradeLevelSelected);
-
     //get grade sections
     this.adminService
       .getGradeSections(this.gradeLevelSelected)
@@ -151,6 +149,7 @@ export class ManageLevelComponent implements OnInit {
   getInput(num: number, event: Event): void {}
 
   displayStudent() {
+    this.cancel_btn_class = 'btn btn-danger btn-sm input-btn';
     //get section object
     this.section = this.sections.filter((section: any) => {
       if (section.ID == this.sectionSelected) return section;
@@ -219,25 +218,21 @@ export class ManageLevelComponent implements OnInit {
         this.openModal();
         console.log(`student ${student_id} Enrolled`);
       }, 2000);
-
-      // this.adminService
-      //   .setNextRegistration(this.nxtGradeLevel, this.enrollmentSchYear.ID)
-      //   .subscribe((response: any) => {
-      //     if (response.error) {
-      //       this.loaderRef?.close();
-      //       console.log(response.error);
-      //     }
-      //     if (response.success) {
-      //       setTimeout(() => {
-      //         this.loaderRef?.close();
-      //         this.openModal();
-      //       }, 2000);
-      //       setTimeout(() => {
-      //         this.route.navigate(['/student/dashboard']);
-      //       }, 2500);
-      //     }
-      //   });
     });
+  }
+
+  cancel() {
+    this.cancel_btn_class = 'btn btn-outline-danger btn-sm input-btn hide';
+
+    this.schoolYearClicked = false;
+    this.gradeLevelClicked = false;
+    this.schoolYearSelected = null;
+    this.gradeLevelSelected = null;
+    this.sectionSelected = null;
+    this.sectionClicked = false;
+    this.nbrStudents = null;
+    this.students = [];
+    this.teacher = null;
   }
 
   startEditing() {
@@ -249,9 +244,7 @@ export class ManageLevelComponent implements OnInit {
   }
 
   submitEditing() {
-    console.log('submitted');
-    console.log(this.gradeLevelSelected);
-    console.log(this.schoolYearSelected);
+    //submi
     this.isEditing = false;
   }
 

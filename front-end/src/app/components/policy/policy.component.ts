@@ -16,6 +16,8 @@ export class PolicyComponent implements OnInit {
   student: any;
   userSubscription: any;
   studentSubscription: any;
+  date = '8/12/2023';
+  email_address = 'email address';
 
   constructor(
     private userService: UserService,

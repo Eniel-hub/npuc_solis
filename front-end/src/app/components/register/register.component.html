@@ -3,16 +3,17 @@
     <div class="wrapper container">
       <div class="row">
         <div class="col title">
-          <h2>register</h2>
+          <h2>Student Register</h2>
         </div>
       </div>
       <div class="row">
-        <div class="col-md">
+        <div class="col col-sm-1 col-12"></div>
+        <div class="col col-12 col-sm-5">
           <div class="img">
             <img src="../../../assets/imgs/img_1.png" alt="" />
           </div>
         </div>
-        <div class="col-md form">
+        <div class="col col-12 col-sm-6 form">
           <div class="input">
             <div class="input-container ic1">
               <input
@@ -49,6 +50,8 @@
                 placeholder=" "
                 (input)="getInput(1, $event)"
               />
+              <fa-icon [icon]="eye()" class="eye" (click)="eyeClick()">
+              </fa-icon>
               <div class="cut cut-sl"></div>
               <label class="placeholder"
                 >Password<sup style="color: var(--color-danger)">*</sup></label
@@ -64,6 +67,8 @@
                 placeholder=" "
                 (input)="getInput(2, $event)"
               />
+              <fa-icon [icon]="eye()" class="eye" (click)="eyeClick()">
+              </fa-icon>
               <div class="cut cut-xxl"></div>
               <label class="placeholder"
                 >Confirm Password<sup style="color: var(--color-danger)"
