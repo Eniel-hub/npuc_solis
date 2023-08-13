@@ -55,14 +55,16 @@ const setNextRegistrationStatus = async ({
   );
 };
 
-const GetPendingRegi = async (student_id) => {
+const GetEnrolRegi = async (student_id) => {
   let record = await db.Query(
-    `SELECT registration.id, registration.school_year_id, registration.stype, 
-            web_registration_status.grade_level, web_registration_status.application_date, web_registration_status.status, web_registration_status.remarks 
-    FROM registration INNER JOIN (web_registration_status) 
-    ON registration.student_id = ?
-    AND web_registration_status.registration_id = registration.id 
-    AND web_registration_status.status = 'Pending'`,
+    `SELECT registration.id, registration.school_year_id, registration.stype, registration.reg_date,
+            web_registration_status.grade_level, web_registration_status.application_date, 
+            web_registration_status.status, web_registration_status.remarks 
+    FROM registration INNER JOIN (schoolyear, web_registration_status) 
+    ON schoolyear.is_enrollment = 1
+    AND registration.student_id = ?
+    AND registration.school_year_id = schoolyear.ID
+    AND web_registration_status.registration_id = registration.ID`,
     [student_id]
   );
   record = helper.EmptyOrRows(record);
@@ -100,9 +102,19 @@ const GetSchoolOfRecord = async (classRecord) => {
   return classRecord[0];
 };
 
+const remove = async (id) => {
+  await db.Query(
+    `DELETE FROM web_registration_status WHERE registration_id = ?`,
+    [id]
+  );
+  await db.Query(`DELETE FROM registration WHERE ID = ?;`, [id]);
+  return;
+};
+
 module.exports = {
+  remove,
   getSubjects,
-  GetPendingRegi,
+  GetEnrolRegi,
   GetPastRecords,
   GetClassRecord,
   GetSchoolOfRecord,

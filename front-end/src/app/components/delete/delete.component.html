@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h5 class="modal-title">Log Out</h5>
+  <h5 class="modal-title">Delete</h5>
   <button
     type="button"
     class="btn-close"
@@ -8,12 +8,13 @@
   ></button>
 </div>
 <div class="modal-body">
-  Do you want to Delete of your account?
-  This action is irreversible!
+  {{ body }}
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
     Close
   </button>
-  <button type="button"  class="btn btn-danger" (click)="delete()">Delete</button>
+  <button type="button" class="btn btn-danger" (click)="delete()">
+    Delete
+  </button>
 </div>

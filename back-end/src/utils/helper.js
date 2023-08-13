@@ -39,6 +39,25 @@ function GenPassword(password) {
   return { salt, hash };
 }
 
+function FormatDate(d) {
+  let months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  let Date = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  return Date;
+}
+
 function GetCurrentDate() {
   let d = new Date();
   let date = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
@@ -88,6 +107,7 @@ module.exports = {
   swap,
   toHash,
   FullName,
+  FormatDate,
   GenPassword,
   EmptyOrRows,
   getPathOfImg,

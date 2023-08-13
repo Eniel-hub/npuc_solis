@@ -54,6 +54,11 @@ export class MenuComponent implements OnInit {
 
   deleteModal() {
     this.navClass.next('_nav hide');
-    this.modalRef = this.modalService.open(DeleteComponent);
+    this.modalRef = this.modalService.open(DeleteComponent, {
+      data: {
+        action: 'account',
+        body: 'Do you want to Delete your account? Please note that this action is irreversible!',
+      },
+    });
   }
 }

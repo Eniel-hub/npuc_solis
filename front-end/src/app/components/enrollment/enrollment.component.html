@@ -1,5 +1,6 @@
 <div class="body">
   <div class="content">
+    <!-- if the student is doesnt have an enrollment application yet -->
     <div class="form2" *ngIf="!isEnrolled">
       <h1>ENROLLMENT</h1>
       <div class="Section">
@@ -140,6 +141,8 @@
         </div>
       </div>
     </div>
+
+    <!-- if the student has an enrollment application -->
     <div class="form2" *ngIf="isEnrolled">
       <h1>ENROLLMENT</h1>
       <div class="Section">
@@ -202,13 +205,44 @@
             <input
               id="gradelevel"
               class="input"
+              [class]="record.status"
+              type="text"
+              placeholder=" "
+              [value]="record.status"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">Status</label>
+          </div>
+
+          <div class="input-container ic1" id="remarks">
+            <input
+              id="remarks"
+              class="input"
               type="text"
               placeholder=" "
               [value]="record.remarks"
               disabled
             />
             <div class="cut cut-l"></div>
-            <label for="student_id" class="placeholder">Remark</label>
+            <label for="student_id" class="placeholder">Remarks</label>
+          </div>
+          <div class="input-container ic1" id="date_application">
+            <input
+              id="date_application"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="record.application_date || record.reg_date"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">Applied On</label>
+          </div>
+          <div class="section navigation">
+            <div class="btn btn-outline-danger btn-cancel" (click)="Delete()">
+              Delete Application
+            </div>
           </div>
         </div>
       </div>

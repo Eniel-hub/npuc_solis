@@ -1,5 +1,6 @@
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { RegistrationService } from './../../services/registration.service';
+import { AlertComponent } from '../alert/alert.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { StudentService } from 'src/app/services/student.service';
 import { SchoolService } from 'src/app/services/school.service';
@@ -15,8 +16,8 @@ import { GlobalUser } from 'src/app/services/Global.user.service';
 import { UserService } from '../../services/user.service';
 
 import { ConfirmationService } from 'src/app/services/confirmation.service';
-import { AlertComponent } from '../alert/alert.component';
 import { MenuItems } from 'src/app/services/menu-items.service';
+import { DeleteComponent } from '../delete/delete.component';
 
 @Component({
   selector: 'app-enrollment',
@@ -77,7 +78,10 @@ export class EnrollmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //get menu items
     this.menuItems.updateMenuItems(true, 'student');
+
+    //check if there's an existing registration record fro the
     this.regiService.checkRegistration().subscribe((response: any) => {
       if (response.notExist) this.isEnrolled = false;
       else {
@@ -155,7 +159,7 @@ export class EnrollmentComponent implements OnInit {
     });
 
     this.modalRef.onClose.subscribe(() => {
-      this.isConfirmed = this.confirmPublished.getGlobalVarStudent();
+      this.isConfirmed = this.confirmPublished.getGlobalVar();
       if (this.isConfirmed) {
         this.loaderRef = this.modalService.open(LoaderComponent, {
           data: {
@@ -182,5 +186,57 @@ export class EnrollmentComponent implements OnInit {
           });
       }
     });
+  }
+
+  Delete() {
+    if (this.record.status == 'Pending' || this.record.status == 'Denied') {
+      this.modalRef = this.modalService.open(DeleteComponent, {
+        data: {
+          action: 'enrollment',
+          body: 'Do you want to Delete your application? Please note that this action is irreversible!',
+        },
+      });
+
+      this.modalRef.onClose.subscribe(() => {
+        this.isConfirmed = this.confirmPublished.getGlobalVarDE();
+        if (this.isConfirmed) {
+          this.loaderRef = this.modalService.open(LoaderComponent, {
+            data: {
+              title: 'Delete In Progress',
+            },
+            ignoreBackdropClick: true,
+          });
+          this.regiService
+            .deleteRegistration(this.record.id)
+            .subscribe((response: any) => {
+              if (response.error) {
+                this.loaderRef?.close();
+                console.log(response.error);
+              }
+              if (response.success) {
+                setTimeout(() => {
+                  this.loaderRef?.close();
+                  this.modalRef = this.modalService.open(AlertComponent, {
+                    data: {
+                      title: 'Enrollment',
+                      body: 'Record Deleted Successfully',
+                    },
+                  });
+                }, 2000);
+                setTimeout(() => {
+                  this.route.navigate(['/student/dashboard']);
+                }, 2500);
+              }
+            });
+        }
+      });
+    } else {
+      this.modalRef = this.modalService.open(AlertComponent, {
+        data: {
+          title: 'Enrollment',
+          body: 'Cannot Delete this registration because it is approved already. Please contact the adminstrator of your school to continue',
+        },
+      });
+    }
   }
 }

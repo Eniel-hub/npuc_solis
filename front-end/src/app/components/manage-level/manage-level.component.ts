@@ -188,7 +188,7 @@ export class ManageLevelComponent implements OnInit {
     });
 
     this.appRejRef.onClose.subscribe(() => {
-      this.isApproved = this.confirmPublished.getGlobalVarStudent();
+      this.isApproved = this.confirmPublished.getGlobalVar();
       if (this.isApproved) {
         this.loaderRef = this.modalService.open(LoaderComponent, {
           data: {

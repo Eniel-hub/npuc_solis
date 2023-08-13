@@ -103,21 +103,46 @@ const setNext = async (req, res, next) => {
 };
 
 /*
- * check pending registration
+ * check registration for the enrollment year
  * 1. Get registration using studentID and their status
  * 2. save registration status (regiID, applicationDate, gradeLevel)
  */
 
 const check = async (req, res, next) => {
   let user = req.user;
-  let record = await service.GetPendingRegi(user.student_id);
+  let record = await service.GetEnrolRegi(user.student_id);
+  console.log(record);
   if (!record) return res.json({ notExist: true });
+  record.application_date = record.application_date
+    ? helper.FormatDate(record.application_date)
+    : helper.FormatDate(record.reg_date);
   return res.json(record);
+};
+4;
+
+/*
+ * remove enrollment application for the enrollment year
+ * 1. Get registration using studentID and their status
+ * 2. save registration status (regiID, applicationDate, gradeLevel)
+ */
+
+const remove = async (req, res, next) => {
+  let user = req.user;
+  let record = await service.GetEnrolRegi(user.student_id);
+  if (!record) return res.json({ error: "not found" });
+  try {
+    await service.remove(record.id);
+    return res.json({ success: true });
+  } catch (err) {
+    console.log(err);
+    return res.json({ error: err });
+  }
 };
 
 module.exports = {
   get,
   check,
+  remove,
   getNext,
   setNext,
 };

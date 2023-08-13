@@ -46,7 +46,7 @@ h3 {
   margin-top: 20px;
   font-family: var(--title-font-family);
   font-size: var(--header-font-size);
-  color: var(--marroon-darkest);
+  color: var(--color-primary-darker);
 }
 
 .subjects {
@@ -66,7 +66,24 @@ h3 {
 }
 
 .subjects option:hover {
-  background-color: var(--marroon-light);
+  background-color: var(--color-primary-light);
+}
+
+.btn-cancel:hover {
+  background-color: var(--color-danger) !important;
+}
+
+.input:not(:placeholder-shown).Pending {
+  background-color: var(--color-warning-70);
+  color: var(--on-neutral);
+}
+.input:not(:placeholder-shown).Approved {
+  background-color: var(--color-success-70);
+  color: var(--on-neutral);
+}
+.input:not(:placeholder-shown).Denied {
+  background-color: var(--color-danger-70);
+  color: var(--on-neutral);
 }
 
 @media (max-width: 600px) {

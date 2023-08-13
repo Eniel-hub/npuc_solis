@@ -60,9 +60,12 @@
   --on-secondary: #1c9bb8;
 
   --color-danger: #d9534f;
+  --color-danger-70: rgba(217, 83, 79, 0.7);
   --color-success: #5cb85c;
+  --color-success-70: rgba(92, 184, 92, 0.7);
   --color-warning: #f0ad4e;
-  --color-info: #5bc0de;
+  --color-warning-70: rgba(240, 172, 78, 0.7);
+  --color-info: #0f0f0f;
 
   --background-linear: linear-gradient(
     45deg,
