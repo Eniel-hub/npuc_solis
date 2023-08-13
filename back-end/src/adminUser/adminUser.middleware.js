@@ -131,7 +131,45 @@ const Get = async (req, res, next) => {
   } else next();
 };
 
+const getregistration = async (req, res, next) => {
+  let regid = req.body.regid;
+  try {
+    let record = await adminService.getregistration(regid);
+    record.application_date = record.application_date
+      ? helper.FormatDate(record.application_date)
+      : helper.FormatDate(record.reg_date);
+    return res.json(record);
+  } catch (err) {
+    console.log(err);
+    return res.json({ error: err });
+  }
+};
+
+const deleteRegistration = async (req, res, next) => {
+  let regid = req.body.regid;
+  await adminService.deleteRegistration(regid);
+  return res.json({ success: true });
+};
+
+const approveRegistration = async (req, res, next) => {
+  let registration = req.body;
+
+  await adminService.approveRegistration(registration);
+  return res.json({ success: true });
+};
+
+const rejectRegistration = async (req, res, next) => {
+  let regid = req.body.regid;
+  let remarks = req.body.remarks;
+  await adminService.rejectRegistration(regid, remarks);
+  return res.json({ success: true });
+};
+
 module.exports = {
+  deleteRegistration,
+  approveRegistration,
+  rejectRegistration,
+  getregistration,
   getGradeSections,
   getGradeLevels,
   getSchoolYears,

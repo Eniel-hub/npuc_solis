@@ -53,6 +53,7 @@ import { ManageLevelComponent } from './components/manage-level/manage-level.com
 import { ConfirmationAndRejectComponent } from './components/confirmation-and-reject/confirmation-and-reject.component';
 import { LoginMenuComponent } from './components/login-menu/login-menu.component';
 import { DashboardStaffComponent } from './components/dashboard-staff/dashboard-staff.component';
+import { ManageStudentEnrollmentComponent } from './components/manage-student-enrollment/manage-student-enrollment.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { DashboardStaffComponent } from './components/dashboard-staff/dashboard-
     ConfirmationAndRejectComponent,
     LoginMenuComponent,
     DashboardStaffComponent,
+    ManageStudentEnrollmentComponent,
   ],
   imports: [
     BrowserModule,

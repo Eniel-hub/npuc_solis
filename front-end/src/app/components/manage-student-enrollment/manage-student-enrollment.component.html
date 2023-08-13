@@ -1,0 +1,267 @@
+<div class="body">
+  <div class="content">
+    <div class="form2">
+      <h1>{{ registration.fullname }}</h1>
+      <div class="Section">
+        <p>Registration of student {{ registration.student_id }}</p>
+      </div>
+      <div class="Section">
+        <div class="section">
+          <h1>ACADEMIC</h1>
+          <div class="input-container ic1" id="schChosen">
+            <input
+              [value]="school.school_name"
+              id="schChosen"
+              class="input"
+              type="text"
+              placeholder=" "
+              disabled
+            />
+            <div class="cut cut-m"></div>
+            <label for="schChosen" class="placeholder">School</label>
+          </div>
+          <div class="input-container ic1" id="student_id">
+            <input
+              id="student_id"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="registration.student_id"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">student id</label>
+          </div>
+          <div class="input-container ic1" id="school_year">
+            <input
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="registration.school_year"
+              disabled
+            />
+            <div class="cut cut-xl"></div>
+            <label class="placeholder">Academic Year</label>
+          </div>
+          <div class="input-container ic1" id="stype">
+            <input
+              id="stype"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="registration.stype"
+              [disabled]="!edit"
+            />
+            <div class="cut cut-s"></div>
+            <label for="student_id" class="placeholder">Type</label>
+          </div>
+          <!-- todo -->
+          <div *ngIf="!edit" class="input-container ic1" id="gradelevel">
+            <input
+              id="gradelevel"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="registration.grade_level[0].grade_level"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">Grade Level</label>
+          </div>
+          <div *ngIf="edit" class="input-container ic1" id="gradelevel">
+            <div
+              *ngIf="!gradeLevelClicked"
+              class="input-container ic1"
+              (click)="clickedGradeLevel()"
+            >
+              <input
+                class="input"
+                type="text"
+                placeholder=" "
+                [value]="registration.grade_level[0].grade_level"
+                disabled
+              />
+              <div class="cut cut-xsl"></div>
+              <label class="placeholder">Grade Level</label>
+            </div>
+            <div *ngIf="gradeLevelClicked" class="input-container ic1">
+              <select
+                class="input"
+                name="grade_level"
+                id="grade_level"
+                [(ngModel)]="gradeLevelSelected"
+              >
+                <option value="none" disabled selected>
+                  Select a grade level
+                </option>
+                <option
+                  *ngFor="let gradeLevel of gradeLevels"
+                  [value]="gradeLevel.ID"
+                >
+                  {{ gradeLevel.grade_level }}
+                </option>
+              </select>
+              <div class="cut cut-xsl"></div>
+              <label class="placeholder">Grade Level</label>
+            </div>
+          </div>
+          <!-- todo -->
+          <div *ngIf="!edit" class="input-container ic1" id="section">
+            <input
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="registration.section[0].section_name"
+              disabled
+            />
+            <div class="cut cut-m"></div>
+            <label class="placeholder">Section</label>
+          </div>
+          <div *ngIf="edit" class="input-container ic1" id="section">
+            <div
+              *ngIf="!sectionClicked"
+              class="input-container ic1"
+              (click)="clickedSection()"
+            >
+              <input
+                class="input"
+                type="text"
+                placeholder=" "
+                [value]="registration.section[0].section_name"
+                disabled
+              />
+              <div class="cut cut-m"></div>
+              <label class="placeholder">Section</label>
+            </div>
+            <div *ngIf="sectionClicked" class="input-container ic1">
+              <select
+                class="input"
+                name="section"
+                id="section"
+                [(ngModel)]="sectionSelected"
+              >
+                <!-- [(ngModel)]="student.nationality_id"> -->
+                <option value="none" disabled selected>Select a section</option>
+                <option *ngFor="let section of sections" [value]="section.ID">
+                  {{ section.section_name }}
+                </option>
+              </select>
+              <div class="cut cut-m"></div>
+              <label class="placeholder">Section</label>
+            </div>
+          </div>
+
+          <div class="input-container ic1" id="status">
+            <input
+              id="status"
+              class="input"
+              [class]="registration.status"
+              type="text"
+              placeholder=" "
+              [value]="registration.status"
+              disabled
+            />
+            <div class="cut cut-s"></div>
+            <label for="status" class="placeholder">Status</label>
+          </div>
+          <div class="input-container ic1" id="remarks">
+            <input
+              id="remarks"
+              class="input"
+              [class]="registration.status"
+              type="text"
+              placeholder=" "
+              [value]="registration.remarks"
+              [disabled]="!edit"
+            />
+            <div class="cut cut-m"></div>
+            <label for="remarks" class="placeholder">Remarks</label>
+          </div>
+          <div class="input-container ic1" id="date_application">
+            <input
+              id="date_application"
+              class="input"
+              type="text"
+              placeholder=" "
+              [value]="registration.application_date || registration.reg_date"
+              disabled
+            />
+            <div class="cut cut-l"></div>
+            <label for="student_id" class="placeholder">Applied On</label>
+          </div>
+
+          <div *ngIf="!edit" class="section navigation">
+            <div
+              class="btn btn-outline-primary"
+              (click)="takeAction()"
+              style="margin-right: 10px"
+            >
+              Take Action
+            </div>
+          </div>
+
+          <div *ngIf="edit" class="section navigation" style="float: left">
+            <div
+              class="btn btn-outline-secondary"
+              (click)="Cancel()"
+              style="margin-right: 10px"
+            >
+              Cancel
+            </div>
+          </div>
+
+          <div
+            *ngIf="edit && registration.status == 'Pending'"
+            class="section navigation"
+          >
+            <div
+              class="btn btn-outline-success"
+              (click)="Approve()"
+              style="margin-right: 10px"
+            >
+              Approve
+            </div>
+            <div class="btn btn-outline-danger btn-cancel" (click)="Reject()">
+              Reject
+            </div>
+          </div>
+          <div
+            *ngIf="
+              edit &&
+              registration.is_enrollment == 1 &&
+              registration.status == 'Approved'
+            "
+            class="section navigation"
+          >
+            <div
+              class="btn btn-outline-danger"
+              (click)="Delete()"
+              style="margin-right: 10px"
+            >
+              Delete
+            </div>
+          </div>
+          <div
+            *ngIf="
+              edit &&
+              registration.is_enrollment == 1 &&
+              registration.status == 'Denied'
+            "
+            class="section navigation"
+          >
+            <div
+              class="btn btn-outline-success"
+              (click)="Approve()"
+              style="margin-right: 10px"
+            >
+              Approve
+            </div>
+            <div class="btn btn-outline-danger btn-cancel" (click)="Delete()">
+              Delete
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

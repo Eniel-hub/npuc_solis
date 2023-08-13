@@ -1,3 +1,4 @@
+import { ManageStudentEnrollmentComponent } from './components/manage-student-enrollment/manage-student-enrollment.component';
 import { DashboardStaffComponent } from './components/dashboard-staff/dashboard-staff.component';
 import { UpdatePasswordComponent } from './components/update-password/update-password.component';
 import { StudentProfileComponent } from './components/student-profile/student-profile.component';
@@ -95,6 +96,11 @@ const routes: Routes = [
   {
     path: 'admin/manage-levels',
     component: ManageLevelComponent,
+    canActivate: [AuthGuard, IsAdmin],
+  },
+  {
+    path: 'admin/manage-student-enrollment/:regid',
+    component: ManageStudentEnrollmentComponent,
     canActivate: [AuthGuard, IsAdmin],
   },
   {

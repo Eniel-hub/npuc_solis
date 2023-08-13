@@ -111,7 +111,6 @@ const setNext = async (req, res, next) => {
 const check = async (req, res, next) => {
   let user = req.user;
   let record = await service.GetEnrolRegi(user.student_id);
-  console.log(record);
   if (!record) return res.json({ notExist: true });
   record.application_date = record.application_date
     ? helper.FormatDate(record.application_date)

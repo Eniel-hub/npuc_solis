@@ -2201,6 +2201,7 @@ DROP TABLE IF EXISTS `npuc_solis`.`web_registration_status` ;
 CREATE TABLE IF NOT EXISTS `npuc_solis`.`web_registration_status` (
   `registration_id` VARCHAR(16) NOT NULL,
   `grade_level` VARCHAR(32) NULL,
+  `section` VARCHAR(32) NULL,
   `application_date` DATE NULL,
   `status` ENUM('Pending', 'Approved', 'Denied') NOT NULL DEFAULT 'Pending',
   `remarks` VARCHAR(256) NULL,

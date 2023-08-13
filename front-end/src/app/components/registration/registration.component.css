@@ -153,9 +153,9 @@
     text-transform: capitalize;
   } */
 
-.navigation .btn:hover {
+/* .navigation .btn:hover {
   background-color: var(--color-secondary-50);
-}
+} */
 
 .btn.dis {
   background-color: var(--color-secondary-50);

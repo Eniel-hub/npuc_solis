@@ -76,4 +76,12 @@ router.post("/getsections", adminUserMiddleware.getGradeSections);
 
 router.post("/getteach", adminUserMiddleware.getTeacher);
 
+router.post("/getregistration", adminUserMiddleware.getregistration);
+
+router.post("/delereg", adminUserMiddleware.deleteRegistration);
+
+router.post("/apprreg", adminUserMiddleware.approveRegistration);
+
+router.post("/rejereg", adminUserMiddleware.rejectRegistration);
+
 module.exports = router;

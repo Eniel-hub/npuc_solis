@@ -310,20 +310,17 @@ select {
   cursor: pointer;
 }
 
-.tdStatut-Not-Approved {
-  cursor: pointer;
+.tdStatut.Denied {
   font-weight: bold;
   color: var(--color-danger) !important;
 }
 
-.tdStatut-Enrolled {
-  cursor: pointer;
+.tdStatut.Approved {
   font-weight: bold;
   color: var(--color-success) !important;
 }
 
-.tdStatut-Pending {
-  cursor: pointer;
+.tdStatut.Pending {
   font-weight: bold;
   color: var(--color-warning) !important;
 }

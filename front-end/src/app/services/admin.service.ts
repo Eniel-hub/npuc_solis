@@ -12,16 +12,20 @@ import { GlobalUser } from './Global.user.service';
 })
 export class AdminService {
   private getUserUrl = `http://${ServerIP}:${ServerPORT}/admin`;
-  private getSchoolUrl = `http://${ServerIP}:${ServerPORT}/admin/getsch`;
-  private getStudentsUrl = `http://${ServerIP}:${ServerPORT}/admin/getstu`;
   private loginUrl = `http://${ServerIP}:${ServerPORT}/admin/login`;
   private logoutUrl = `http://${ServerIP}:${ServerPORT}/admin/logout`;
-  private updatePasswordUrl = `http://${ServerIP}:${ServerPORT}/admin/password`;
-  private forgetPasswordUrl = `http://${ServerIP}:${ServerPORT}/admin/fpassword`;
-  private getSchoolYearsUrl = `http://${ServerIP}:${ServerPORT}/admin/getyears`;
-  private getGradeLevelsUrl = `http://${ServerIP}:${ServerPORT}/admin/getgrades`;
-  private getGradeSectionsUrl = `http://${ServerIP}:${ServerPORT}/admin/getsections`;
+  private deleRegUrl = `http://${ServerIP}:${ServerPORT}/admin/delereg`;
+  private apprRegUrl = `http://${ServerIP}:${ServerPORT}/admin/apprreg`;
+  private rejeRegUrl = `http://${ServerIP}:${ServerPORT}/admin/rejereg`;
+  private getSchoolUrl = `http://${ServerIP}:${ServerPORT}/admin/getsch`;
+  private getStudentsUrl = `http://${ServerIP}:${ServerPORT}/admin/getstu`;
   private getTeacherUrl = `http://${ServerIP}:${ServerPORT}/admin/getteach`;
+  private getSchoolYearsUrl = `http://${ServerIP}:${ServerPORT}/admin/getyears`;
+  private updatePasswordUrl = `http://${ServerIP}:${ServerPORT}/admin/password`;
+  private getGradeLevelsUrl = `http://${ServerIP}:${ServerPORT}/admin/getgrades`;
+  private forgetPasswordUrl = `http://${ServerIP}:${ServerPORT}/admin/fpassword`;
+  private getGradeSectionsUrl = `http://${ServerIP}:${ServerPORT}/admin/getsections`;
+  private getRegistrationUrl = `http://${ServerIP}:${ServerPORT}/admin/getregistration`;
 
   getUser() {
     return this.httpClient.get(this.getUserUrl, { withCredentials: true });
@@ -108,6 +112,52 @@ export class AdminService {
 
   getTeacher = (section_id: number) => {
     return this.httpClient.post(this.getTeacherUrl, { section_id: section_id });
+  };
+
+  GetRegistration = (regID: number) => {
+    return this.httpClient.post(
+      this.getRegistrationUrl,
+      {
+        regid: regID,
+      },
+      { withCredentials: true }
+    );
+  };
+
+  deleteRegistration = (regID: number) => {
+    return this.httpClient.post(
+      this.deleRegUrl,
+      { regid: regID },
+      { withCredentials: true }
+    );
+  };
+  approveRegistration = (regID: number, registration: any) => {
+    return this.httpClient.post(
+      this.apprRegUrl,
+      {
+        regid: regID,
+        student_id: registration.student_id,
+        fullname: registration.fullname,
+        school_year_id: registration.school_year_id,
+        stype: registration.stype,
+        reg_date: registration.reg_date,
+        school_year: registration.school_year,
+        is_enrollment: registration.is_enrollment,
+        grade_level: registration.grade_level,
+        application_date: registration.application_date,
+        status: registration.status,
+        remarks: registration.remarks,
+        section: registration.section,
+      },
+      { withCredentials: true }
+    );
+  };
+  rejectRegistration = (regID: number) => {
+    return this.httpClient.post(
+      this.rejeRegUrl,
+      { regid: regID },
+      { withCredentials: true }
+    );
   };
 
   constructor(private httpClient: HttpClient) {}

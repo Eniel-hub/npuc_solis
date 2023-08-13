@@ -1,36 +1,34 @@
 import { GlobalUser } from 'src/app/services/Global.user.service';
 import { MenuItems } from 'src/app/services/menu-items.service';
+import { AdminService } from 'src/app/services/admin.service';
 import { Student } from '../../interfaces/Student';
 import { Component, OnInit } from '@angular/core';
-import { cards } from '../../interfaces/cards';
 import { User } from '../../interfaces/User';
-import { Card } from '../../interfaces/Card';
-import {
-  faChevronLeft as arrLeft,
-  faChevronRight as arrRight,
-} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard-staff',
   templateUrl: './dashboard-staff.component.html',
-  styleUrls: ['./dashboard-staff.component.css'],
+  styleUrls: [
+    '../dashboard/dashboard.component.css',
+    './dashboard-staff.component.css',
+  ],
 })
 export class DashboardStaffComponent implements OnInit {
+  school: any;
   user: User = {};
-  arrLeft = arrLeft;
   index: number = 0;
-  arrRight = arrRight;
-  cards: Card[] = cards;
   student: Student = {};
   profilePicture: string = ';';
-  card: Card = this.cards[0];
-  len: number = this.cards.length;
   menuItems: { name?: string; link?: string }[] = [];
   userSubscription: any;
   menuSubscription: any;
   studentSubscription: any;
 
-  constructor(private MenuItems: MenuItems, private GlobalUser: GlobalUser) {
+  constructor(
+    private MenuItems: MenuItems,
+    private GlobalUser: GlobalUser,
+    private AdminService: AdminService
+  ) {
     this.GlobalUser.getGlobalUser.subscribe((user: any) => {
       this.user = user;
     });
@@ -38,7 +36,6 @@ export class DashboardStaffComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.getFirstCard();
 
     this.user = this.GlobalUser.getGlobalVarUser();
 
@@ -49,24 +46,14 @@ export class DashboardStaffComponent implements OnInit {
         this.user = user;
       }
     );
+    this.AdminService.getSchool(this.user).subscribe((school) => {
+      this.school = school;
+    });
   }
 
-  getFirstCard = () => {
-    this.index = Math.floor(Math.random() * this.len);
-    this.card = this.cards[this.index];
-  };
+  getImage(name: string) {
+    //todo: get iamges from database
 
-  next = () => {
-    if (this.index >= this.len) this.index = -1;
-    this.index++;
-    this.card = this.cards[this.index];
-    window.scrollTo(0, 0);
-  };
-
-  previous = () => {
-    if (this.index <= 0) this.index = this.len;
-    this.index--;
-    this.card = this.cards[this.index];
-    window.scrollTo(0, 0);
-  };
+    return '../../../assets/imgs/2.jpg';
+  }
 }

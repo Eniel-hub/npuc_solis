@@ -1,0 +1,31 @@
+.btn-success:hover {
+  background-color: var(--color-success) !important;
+}
+
+.cut-s {
+  width: 50px;
+}
+
+.cut-m {
+  width: 67px;
+}
+
+.cut-sl {
+  width: 75px;
+}
+
+.cut-l {
+  width: 84px;
+}
+
+.cut-xsl {
+  width: 90px;
+}
+
+.cut-xl {
+  width: 100px;
+}
+
+.cut-xxl {
+  width: 120px;
+}

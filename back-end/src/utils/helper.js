@@ -54,8 +54,8 @@ function FormatDate(d) {
     "Nov",
     "Dec",
   ];
-  let Date = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
-  return Date;
+  let x = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  return x;
 }
 
 function GetCurrentDate() {

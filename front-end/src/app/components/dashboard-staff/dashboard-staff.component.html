@@ -1,36 +1,27 @@
 <div class="body">
-  <!-- <div class="header">
-      <app-header [menuItems]="menuItems"></app-header>
-    </div> -->
   <div class="card">
     <div class="card-img">
-      <img class="image" [src]="card.img" alt="bible story" />
-      <div class="overlay hide-small">
-        <div class="text hide-small">{{ card.title }}</div>
-      </div>
-      <div class="navigation top">
-        <div class="btn btn-sm btn-warning" (click)="previous()">
-          <fa-icon [icon]="arrLeft"></fa-icon>
-        </div>
-        <div class="btn btn-sm btn-warning" (click)="next()">
-          <fa-icon [icon]="arrRight"></fa-icon>
-        </div>
-      </div>
+      <img
+        class="image"
+        [src]="getImage(school.school_name)"
+        alt="bible story"
+      />
+      <div class="overlay hide-small"></div>
     </div>
     <div class="empty">
-      <img class="image" [src]="card.img" width="1500" height="800" />
+      <img
+        class="image"
+        [src]="getImage(school.school_name)"
+        width="1500"
+        height="800"
+      />
     </div>
     <div class="content">
-      <h1>{{ card.title }}</h1>
-      <span>{{ card.content }}</span>
-    </div>
-    <div class="navigation bottom small">
-      <div class="btn btn-sm btn-warning" (click)="previous()">
-        <fa-icon [icon]="arrLeft"></fa-icon>
-      </div>
-      <div class="btn btn-sm btn-warning" (click)="next()">
-        <fa-icon [icon]="arrRight"></fa-icon>
-      </div>
+      <h1>{{ school.school_name }}</h1>
+      <span
+        ><p>Located in: {{ school.address }}</p>
+        <p>Established in: {{ school.year_establish }}</p></span
+      >
     </div>
   </div>
 </div>

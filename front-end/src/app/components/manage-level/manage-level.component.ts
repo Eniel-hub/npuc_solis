@@ -6,13 +6,7 @@ import { AlertComponent } from '../alert/alert.component';
 import { UserService } from 'src/app/services/user.service';
 import { LoaderComponent } from '../loader/loader.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
-import {
-  faUser,
-  faLock,
-  faEye,
-  faEyeSlash,
-  faIdBadge,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Admin } from 'src/app/interfaces/Admin';
 import { AdminService } from 'src/app/services/admin.service';
 import { School } from 'src/app/interfaces/School';
@@ -44,7 +38,7 @@ export class ManageLevelComponent implements OnInit {
   school: School = {
     ID: 0,
   };
-  students: Student[] = [];
+  students: any;
   schoolYears: any;
   gradeLevels: any;
   sections: any;
@@ -86,7 +80,6 @@ export class ManageLevelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.user);
     this.menuItemsService.updateMenuItems(true, 'admin');
     window.scrollTo(0, 0);
 
@@ -179,46 +172,8 @@ export class ManageLevelComponent implements OnInit {
       });
   }
 
-  actionApprove(student_id: any) {
-    this.appRejRef = this.modalService.open(ConfirmationAndRejectComponent, {
-      data: {
-        title: 'Approval',
-        confirmation: `Do you want to proceed or reject the enrollment of the student with ID ${student_id}?`,
-      },
-    });
-
-    this.appRejRef.onClose.subscribe(() => {
-      this.isApproved = this.confirmPublished.getGlobalVar();
-      if (this.isApproved) {
-        this.loaderRef = this.modalService.open(LoaderComponent, {
-          data: {
-            title: 'Enrollment In Progress',
-          },
-          ignoreBackdropClick: true,
-        });
-      }
-
-      setTimeout(() => {
-        this.loaderRef?.close();
-        this.openModal();
-        console.log(`student ${student_id} Enrolled`);
-      }, 2000);
-
-      if (this.isRejected) {
-        this.loaderRef = this.modalService.open(LoaderComponent, {
-          data: {
-            title: 'Reject In Progress',
-          },
-          ignoreBackdropClick: true,
-        });
-      }
-
-      setTimeout(() => {
-        this.loaderRef?.close();
-        this.openModal();
-        console.log(`student ${student_id} Enrolled`);
-      }, 2000);
-    });
+  action(student: any) {
+    this.router.navigate(['admin/manage-student-enrollment', student.regid]);
   }
 
   cancel() {

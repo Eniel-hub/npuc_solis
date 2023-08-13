@@ -1,6 +1,6 @@
 <div class="modal-content">
   <div class="modal-header">
-    <h5 class="modal-title">{{title}}</h5>
+    <h5 class="modal-title">{{ title }}</h5>
     <button
       type="button"
       class="btn-close"
@@ -9,13 +9,21 @@
     ></button>
   </div>
   <div class="modal-body">
-    {{confirmation}}
+    {{ confirmation }}
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="close()">
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-secondary"
+      (click)="close()"
+    >
       Cancel
     </button>
-    <button type="button"  class="btn btn-sm btn-outline-success" (click)="confirm()">
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-success"
+      (click)="confirm(confirmationFunction)"
+    >
       Confirm
     </button>
   </div>

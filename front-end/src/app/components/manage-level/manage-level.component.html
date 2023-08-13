@@ -245,17 +245,14 @@
                       <td style="cursor: pointer">
                         {{ section[0].section_name }}
                       </td>
-                      <td
-                        [class]="tdStatut(student.remarks || 'error')"
-                        (click)="actionApprove(student.ID)"
-                      >
-                        {{ student.remarks }}
+                      <td class="tdStatut" [class]="student.status">
+                        {{ student.status }}
                       </td>
                       <th>
                         <fa-icon
                           [icon]="eyeSlashIcon"
                           class="eye"
-                          (click)="eyeClick()"
+                          (click)="action(student)"
                         >
                         </fa-icon>
                       </th>
