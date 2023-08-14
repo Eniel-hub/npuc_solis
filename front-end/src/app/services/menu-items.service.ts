@@ -85,6 +85,10 @@ export class MenuItems {
             link: '/about-us',
           },
           {
+            name: 'Privacy Policy',
+            link: '/policy',
+          },
+          {
             name: 'logout',
           },
         ];
@@ -110,6 +114,10 @@ export class MenuItems {
           {
             name: 'about',
             link: '/about-us',
+          },
+          {
+            name: 'Privacy Policy',
+            link: '/policy',
           },
           {
             name: 'logout',

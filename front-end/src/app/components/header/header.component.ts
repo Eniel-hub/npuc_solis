@@ -118,7 +118,7 @@ export class HeaderComponent implements OnInit {
             }
             this.user = this.globalUser.getGlobalVarUser();
 
-            this.homeLink = '/admin/manage-student-enrollment/1852722';
+            this.homeLink = '/staff/dashboard';
             this.hasDropdown = true;
             this.router.navigate([this.homeLink]);
           }

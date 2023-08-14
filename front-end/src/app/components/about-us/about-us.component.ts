@@ -13,7 +13,6 @@ import { GlobalStudent } from 'src/app/services/Global.student.service';
 })
 export class AboutUsComponent implements OnInit {
   userSubscription: any;
-  homeLink: string = '/student/dashboard';
   user: User = {};
   home: string = 'dashboard';
   imgSrc: string = '../../../assets/imgs/1.jpg';
@@ -26,11 +25,10 @@ export class AboutUsComponent implements OnInit {
     private menuItems: MenuItems,
     private GlobalStudent: GlobalStudent
   ) {
-    this.userSubscription = this.globalUser.globalVarUserUpdate.subscribe(
-      (user: User) => {
-        this.user = user;
-      }
-    );
+    this.globalUser.getGlobalUser.subscribe((user) => {
+      this.user = user;
+      this.update();
+    });
     this.studentSubscription =
       this.GlobalStudent.globalVarStudentUpdate.subscribe((student) => {
         this.student = student;
@@ -39,15 +37,10 @@ export class AboutUsComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    if (!this.isAuth()) {
-      this.homeLink = '/home';
-      this.home = 'home';
-    }
-    this.menuItems.updateMenuItems(this.isAuth(), this.user.type);
+    this.menuItems.updateMenuItems(this.user ? true : false, this.user?.type);
   }
 
-  isAuth(): boolean {
-    if (this.user) return true;
-    return false;
+  update() {
+    this.menuItems.updateMenuItems(this.user ? true : false, this.user.type);
   }
 }
