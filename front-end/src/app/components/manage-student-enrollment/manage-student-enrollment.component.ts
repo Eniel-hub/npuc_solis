@@ -24,15 +24,20 @@ export class ManageStudentEnrollmentComponent implements OnInit {
   school: any;
   sections: any;
   gradeLevels: any;
+  schoolYears: any;
   registration: any;
-  sectionSelected: any;
   edit: boolean = false;
-  gradeLevelSelected: any;
   isDelete: boolean = false;
   isReject: boolean = false;
+  newRecord: boolean = false;
   isApprove: boolean = false;
+
+  sectionSelected: any;
+  gradeLevelSelected: any;
+
   sectionClicked: boolean = false;
   gradeLevelClicked: boolean = false;
+  schoolYearClicked: boolean = false;
 
   confirmRef: MdbModalRef<ConfirmationComponent> | null = null;
   loaderRef: MdbModalRef<LoaderComponent> | null = null;
@@ -63,45 +68,51 @@ export class ManageStudentEnrollmentComponent implements OnInit {
     });
 
     this.regID = this.route.snapshot.paramMap.get('regid');
-    this.adminService.GetRegistration(this.regID).subscribe((response: any) => {
-      if (response.error) {
-        return;
-      }
 
-      this.registration = response;
+    if (this.regID != 'new')
+      this.adminService
+        .GetRegistration(this.regID)
+        .subscribe((response: any) => {
+          if (response.error) {
+            return;
+          }
 
-      if (this.registration.grade_level || this.registration.grade_level_id) {
-        this.gradeLevelSelected =
-          this.registration.grade_level || this.registration.grade_level_id;
-        this.adminService
-          .getGradeLevels(this.school.ID)
-          .subscribe((response: any) => {
-            if (response.error) return;
-            this.registration.grade_level = response.filter(
-              (gradeLevel: any) => {
-                if (gradeLevel.ID == this.gradeLevelSelected) {
-                  return gradeLevel;
-                }
-              }
-            );
+          this.registration = response;
 
-            console.log(this.registration.grade_level);
-          });
-      }
+          if (
+            this.registration.grade_level ||
+            this.registration.grade_level_id
+          ) {
+            this.gradeLevelSelected =
+              this.registration.grade_level || this.registration.grade_level_id;
+            this.adminService
+              .getGradeLevels(this.school.ID)
+              .subscribe((response: any) => {
+                if (response.error) return;
+                this.registration.grade_level = response.filter(
+                  (gradeLevel: any) => {
+                    if (gradeLevel.ID == this.gradeLevelSelected) {
+                      return gradeLevel;
+                    }
+                  }
+                );
+              });
+          }
 
-      if (this.registration.section || this.registration.section_id) {
-        this.sectionSelected =
-          this.registration.section || this.registration.section_id;
-        this.adminService
-          .getGradeSections(this.gradeLevelSelected)
-          .subscribe((response: any) => {
-            if (response.error) return;
-            this.registration.section = response.filter((section: any) => {
-              if (section.ID == this.sectionSelected) return section;
-            });
-          });
-      }
-    });
+          if (this.registration.section || this.registration.section_id) {
+            this.sectionSelected =
+              this.registration.section || this.registration.section_id;
+            this.adminService
+              .getGradeSections(this.gradeLevelSelected)
+              .subscribe((response: any) => {
+                if (response.error) return;
+                this.registration.section = response.filter((section: any) => {
+                  if (section.ID == this.sectionSelected) return section;
+                });
+              });
+          }
+        });
+    else this.newRecord = true;
   }
 
   takeAction() {
@@ -280,6 +291,16 @@ export class ManageStudentEnrollmentComponent implements OnInit {
         this.sections = response;
         this.sectionClicked = true;
       });
+    return;
+  }
+
+  clickedSchoolYear() {
+    // get academic year
+    this.adminService.getSchoolYears().subscribe((response: any) => {
+      if (response.error) return;
+      this.schoolYears = response;
+      this.schoolYearClicked = true;
+    });
     return;
   }
 }

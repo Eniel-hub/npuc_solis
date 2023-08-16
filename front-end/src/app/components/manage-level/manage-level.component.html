@@ -259,14 +259,18 @@
                     </tr>
                   </tbody>
                 </table>
-
-                <button
-                  type="submit"
-                  [class]="cancel_btn_class"
-                  (click)="cancel()"
-                >
-                  cancel
-                </button>
+                <div class="bot-nav">
+                  <button
+                    type="submit"
+                    [class]="cancel_btn_class"
+                    (click)="cancel()"
+                  >
+                    cancel
+                  </button>
+                  <button type="submit" [class]="add_btn_class" (click)="Add()">
+                    Add Record
+                  </button>
+                </div>
               </div>
             </div>
           </div>

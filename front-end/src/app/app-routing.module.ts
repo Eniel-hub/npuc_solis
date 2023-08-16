@@ -104,6 +104,11 @@ const routes: Routes = [
     canActivate: [AuthGuard, IsAdmin],
   },
   {
+    path: 'admin/manage-student-enrollment/new',
+    component: ManageStudentEnrollmentComponent,
+    canActivate: [AuthGuard, IsAdmin],
+  },
+  {
     path: '**',
     component: Page404Component,
   },

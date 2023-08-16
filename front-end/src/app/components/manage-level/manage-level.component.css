@@ -198,6 +198,10 @@ select {
   border-bottom: 1px solid var(--on-primary);
 }
 
+.bot-nav {
+  margin-bottom: 10px;
+}
+
 .cut {
   background-color: var(--color-primary-darker);
   border-radius: 5px;

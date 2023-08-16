@@ -34,6 +34,7 @@ export class ManageLevelComponent implements OnInit {
   ];
 
   cancel_btn_class: string = 'btn btn-outline-danger btn-sm input-btn hide';
+  add_btn_class: string = 'btn btn-outline-success btn-sm input-btn hide';
   user: User = {};
   school: School = {
     ID: 0,
@@ -143,6 +144,7 @@ export class ManageLevelComponent implements OnInit {
 
   displayStudent() {
     this.cancel_btn_class = 'btn btn-danger btn-sm input-btn';
+    this.add_btn_class = 'btn btn-outline-success btn-sm input-btn';
     //get section object
     this.section = this.sections.filter((section: any) => {
       if (section.ID == this.sectionSelected) return section;
@@ -152,7 +154,7 @@ export class ManageLevelComponent implements OnInit {
       if (gradeLevel.ID == this.gradeLevelSelected) return gradeLevel;
     });
     //get year object
-    this.schoolYear = this.schoolYears.filter((schoolYear: any) => {
+    [this.schoolYear] = this.schoolYears.filter((schoolYear: any) => {
       if (schoolYear.ID == this.schoolYearSelected) return schoolYear;
     });
 
@@ -178,6 +180,7 @@ export class ManageLevelComponent implements OnInit {
 
   cancel() {
     this.cancel_btn_class = 'btn btn-outline-danger btn-sm input-btn hide';
+    this.add_btn_class = 'btn btn-outline-success btn-sm input-btn hide';
 
     this.schoolYearClicked = false;
     this.gradeLevelClicked = false;
@@ -188,6 +191,13 @@ export class ManageLevelComponent implements OnInit {
     this.nbrStudents = null;
     this.students = [];
     this.teacher = null;
+  }
+
+  Add() {
+    console.log(this.schoolYear);
+    if (this.schoolYear.is_enrollment == 1) {
+      this.router.navigate(['admin/manage-student-enrollment/new']);
+    }
   }
 
   startEditing() {
